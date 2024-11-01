@@ -22,6 +22,13 @@ namespace RMIPSS_System.Controllers
         {
             return View();
         }
+        
+        public IActionResult Referral()
+        {
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

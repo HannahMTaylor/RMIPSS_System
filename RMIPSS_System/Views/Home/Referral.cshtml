@@ -2,4 +2,278 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Referral";
 }
+
+
+
+<div class="container">
+    <div class="flex-container">
+        <img src="" alt="Logo" style="width: 225px; height: 210px;">
+        <div>
+            <h1 class="text-right">Republic of the Marshall Islands</h1>
+            <h2 class="text-right">Public School System</h2>
+            <h3 class="text-right">Special Education Referral (SE-1)</h3>
+            <div>
+                <button id="printButton">Print Page</button>
+                <button id="toogleButton" style="margin-right: 10px;">Toggle Language</button>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p class="justify">
+            This form is to be used to initiate the review of a student’s progress and any developmental, academic, or school problems.
+            Please submit the completed form to the principal of the student’s school or the child's school attendance area school.
+            Following a review by the school child study team, you will be informed of its disposition.
+        </p>
+        <p class="justify">
+            <b>Instructions for Parents completing this form:</b><br>
+            Parents, please complete sections 1, 2, and 3. This referral will be reviewed to determine need for evaluation.
+            Parents will be informed and asked to give their written consent before an evaluation is initiated or a change in program is made.
+        </p>
+        <p class="justify">
+            <b>Instructions for other Service Providers completing this form:</b><br>
+            School, Health Services, Head Start, and/or Other Agency Personnel, please complete sections 1, 2, and 3.
+            As appropriate complete and attach the Screening Information Form (SE-2).
+        </p>
+    </div>
+
+    <form id="se1Form">
+        <section class="section">
+            <h4>Section 1: Child/Student Being Referred</h4>
+            <div class="flex-container">
+                <b>Full Name:</b>
+                <div class="input-group">
+                    <label for="lastName">Last Name <span class="red">*</span></label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="input-group">
+                    <label for="firstName">First Name <span class="red">*</span></label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="input-group">
+                    <label for="middleInitial">Middle Initial</label>
+                    <input type="text" id="middleInitial">
+                </div>
+            </div>
+            <div class="flex-container">
+                <b style="margin-right: 12px;">Address:</b>
+                <div class="input-group">
+                    <label for="village">Village <span class="red">*</span></label>
+                    <input type="text" id="village" required>
+                </div>
+                <div class="input-group">
+                    <label for="atoll">Atoll <span class="red">*</span></label>
+                    <input type="text" id="atoll" required>
+                </div>
+                <div class="input-group">
+                    <label for="poBox">P.O. Box No. <span class="red">*</span></label>
+                    <input type="text" id="poBox" required>
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="fathersName">Father's Name <span class="red">*</span></label>
+                    <input type="text" id="fathersName" required style="width: 300px">
+                </div>
+                <div class="input-group">
+                    <label for="mothersName">Mother's Name <span class="red">*</span></label>
+                    <input type="text" id="mothersName" required style="width: 300px; margin-right: 100px;">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="guardiansName">Guardian's Name (if applicable)</label>
+                <input type="text" id="guardiansName" style="width: 300px">
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="phone">Phone <span class="red">*</span></label>
+                    <input type="text" id="phone" required style="width: 300px">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email <span class="red">*</span></label>
+                    <input type="email" id="email" required style="width: 300px; margin-right: 100px;">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="sex">Sex <span class="red">*</span></label>
+                    <select id="sex" required style="width: 170px; height: 21px;">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="age">Age <span class="red">*</span></label>
+                    <input type="text" id="age" required>
+                </div>
+                <div class="input-group">
+                    <label for="dateOfBirth">Date of Birth <span class="red">*</span></label>
+                    <input type="date" id="dateOfBirth" required style="width: 165px;">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="hospitalNo">Hospital No. <span class="red">*</span></label>
+                    <input type="text" id="hospitalNo" required>
+                </div>
+                <div class="input-group">
+                    <label for="ssn">Social Security No. <span class="red">*</span></label>
+                    <input type="text" id="ssn" required>
+                </div>
+                <div class="input-group">
+                    <label for="grade">Grade <span class="red">*</span></label>
+                    <input type="text" id="grade" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="primaryLanguage">Primary Language of Child/Student <span class="red">*</span></label>
+                <input type="text" id="primaryLanguage" required style="width: 300px">
+            </div>
+            <div class="input-group">
+                <label for="parentLanguage">Primary Language of Parent or Guardian <span class="red">*</span></label>
+                <input type="text" id="parentLanguage" required style="width: 300px">
+            </div>
+        </section>
+        <section class="section">
+            <h4>Section 2: Reason for Referral (Please Check All Areas of Concern)</h4>
+            <table>
+                <tr>
+                    <td><input type="checkbox" id="vision"> Vision</td>
+                    <td><input type="checkbox" id="hearing"> Hearing</td>
+                    <td><input type="checkbox" id="physical"> Physical</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="behavior"> Behavior</td>
+                    <td><input type="checkbox" id="speech"> Speech</td>
+                    <td><input type="checkbox" id="language"> Language</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="medical"> Medical</td>
+                    <td><input type="checkbox" id="academic"> Academic</td>
+                    <td><input type="checkbox" id="learning"> Learning in Subject Area</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" id="attendance"> School Attendance</td>
+                    <td><input type="checkbox" id="other"> Other (please specify)</td>
+                    <td><input type="text" id="otherConcern"></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="checkbox" id="pre-school">  Pre-school age child’s total score on the Micronesia Inventory of Development (MID)
+                        is in referral range (attach copy of child’s capital MID Scoring Sheet)
+                    </td>
+                    </td>
+                </tr>
+            </table>
+            <div class="input-group">
+                <label for="concernDescription">
+                    Please describe the area(s) of concern and what kind of help you
+                    think the child/student needs:
+                </label>
+                <textarea id="concernDescription"></textarea>
+            </div>
+        </section>
+        <section class="section">
+            <h4>Section 3: Name of Person Making This Referral</h4>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="referralName">Full Name <span class="red">*</span></label>
+                    <input type="text" id="referralName" required style="width: 300px;">
+                </div>
+                <div class="input-group">
+                    <label for="relationship">Relationship to child/student or agency/position <span class="red">*</span></label>
+                    <input type="text" id="relationship" required style="width: 370px;">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="referralPhone">Phone <span class="red">*</span></label>
+                    <input type="text" id="referralPhone" required style="width: 300px;">
+                </div>
+                <div class="input-group">
+                    <label for="referralEmail">Email <span class="red">*</span></label>
+                    <input type="email" id="referralEmail" required style="width: 370px;">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="referralDate">Date <span class="red">*</span></label>
+                <input type="date" id="referralDate" required style="width: 300px;">
+            </div>
+        </section>
+        <section class="section" id="last-section">
+            <h4>Section 4: For School Use Only</h4>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateReferralReceived">Date Referral Received</label>
+                    <input type="date" id="dateReferralReceived">
+                </div>
+                <div class="input-group">
+                    <label for="dateChildStudyTeam">Date referred to child study team</label>
+                    <input type="date" id="dateChildStudyTeam">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateTeamRecommendation">Date of team recommendation</label>
+                    <input type="date" id="dateTeamRecommendation">
+                </div>
+                <div class="input-group">
+                    <label for="disposition">Disposition</label>
+                    <input type="text" id="disposition">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateDispositionNoticeReferring">
+                        Date of disposition notice to person
+                        referring
+                    </label>
+                    <input type="date" id="dateDispositionNoticeReferring">
+                </div>
+                <div class="input-group">
+                    <label for="dateDispositionNoticeParent">Date of disposition notice to parent</label>
+                    <input type="date" id="dateDispositionNoticeParent">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateParentConsentEvaluation">Date of parental consent for evaluation</label>
+                    <input type="date" id="dateParentConsentEvaluation">
+                </div>
+                <div class="input-group">
+                    <label for="dateReferralEvaluationTeam">Date of referral to evaluation team</label>
+                    <input type="date" id="dateReferralEvaluationTeam">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateEvaluationTeamRecommendation">Date of evaluation team recommendation</label>
+                    <input type="date" id="dateEvaluationTeamRecommendation">
+                </div>
+                <div class="input-group">
+                    <label for="recommendation">Recommendation</label>
+                    <input type="text" id="recommendation">
+                </div>
+            </div>
+            <div class="flex-container">
+                <div class="input-group">
+                    <label for="dateParentNoticeMeeting">Date of parent notice for meeting</label>
+                    <input type="date" id="dateParentNoticeMeeting">
+                </div>
+                <div class="input-group">
+                    <label for="dateIEPMeeting">Date of IEP Meeting</label>
+                    <input type="date" id="dateIEPMeeting">
+                </div>
+            </div>
+        </section>
+        <div class="flex-container">
+            <button type="submit">Submit</button>
+            <button type="reset" style="display: none">Reset</button>
+            <button type="button" id="homepage">Cancel</button>
+        </div>
+    </form>
+</div>
+
