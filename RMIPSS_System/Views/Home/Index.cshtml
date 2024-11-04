@@ -3,6 +3,20 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <!-- Form for "Make Referral" button -->
+    @using (Html.BeginForm("HandleButtonClick", "Home", FormMethod.Post, new { id = "formRefer" }))
+    {
+        <input type="hidden" name="buttonClicked" value="Refer" />
+        <button type="submit">Make Referral</button>
+    }
+
+    <!-- Form for "Login" button -->
+    @using (Html.BeginForm("HandleButtonClick", "Home", FormMethod.Post, new { id = "formLogin" }))
+    {
+        <input type="hidden" name="buttonClicked" value="Login" />
+        <button type="submit">Login</button>
+    }
+
+    @* <button name="button" value="Refer">Make Referral</button> *@
+    @* <button name ="button" value="Login">Login</button> *@
 </div>
