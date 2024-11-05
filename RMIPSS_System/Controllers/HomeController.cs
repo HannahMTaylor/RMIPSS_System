@@ -52,8 +52,11 @@ namespace RMIPSS_System.Controllers
         {
             return View();
         }
-
         
+        public IActionResult ConsentForm()
+        {
+            return View();
+        }
 
 
 

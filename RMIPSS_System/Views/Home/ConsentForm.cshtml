@@ -1,0 +1,154 @@
+
+@{
+ViewData["Title"] = "ConsentForm";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    .header, .section {
+        border: 1px solid black;
+        padding: 10px;
+    }
+    .header img {
+        float: left;
+        width: 100px;
+        height: auto;
+        margin-right: 20px;
+    }
+    .header h2, .header h3 {
+        margin: 0;
+    }
+    .form-group {
+        margin: 10px 0;
+    }
+    .form-group label {
+        font-weight: bold;
+        display: block;
+    }
+    .section-header {
+        background-color: #ffff99; /* Light yellow background for emphasis */
+        padding: 10px;
+        font-weight: bold;
+        border: 1px solid black;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+    }
+    .checkbox-group input {
+        margin-right: 5px;
+    }
+    .checkbox-group p {
+        margin: 0;
+    }
+    .row {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+    }
+    .signature-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-group {
+        margin-right: 20px; /* Add space between inputs */
+    }
+
+    label {
+        margin-right: 5px; /* Space between label and input */
+    }
+</style>
+
+
+<div class="header">
+    <img src="logo.png" alt="Logo"> <!-- Replace with actual image source -->
+    <h2 class="text-right">Republic of the Marshall Islands</h2>
+    <h3 class="text-right">Public School System</h3>
+    <p class="text-right">Consent for Evaluation/Reevaluation</p>
+</div>
+
+<form>
+<div class="section">
+    <label for="delivered">Personal delivered</label>
+    <input type="text" id="delivered" name="delivered" placeholder="mm/dd/yyyy">
+</div>
+
+<div class="section">
+    <div class="row">
+    <label for="to">To:</label>
+    <input type="text" id="to" name="to" value="Parent">
+    </div>
+</div>
+
+<div class="section">
+    <div class="row">
+    <label for="from">From:</label>
+    <input type="text" id="from" name="from" value="Principal">
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-header">SUBJECT: Consent for Initial Evaluation or Reevaluation Form SE-4</div>
+    <p>Instructions to Parents: Please complete Part III as indicated below. Please sign your name and fill in the date on the bottom of the page and return this form to the school. Your child’s placement will not be changed without your knowledge and consent or until due process has been exhausted.</p>
+</div>
+
+<div class="section">
+    <h4 class="section-header">SECTION A</h4>
+
+    <strong>Part I:</strong>
+    <div class="checkbox-group">
+        <input type="radio" id="part1" name="sectionA">
+        <p><label for="part1">The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label></p>
+    </div>
+    
+    <strong>Part II:</strong>
+    <div class="checkbox-group">
+        <input type="radio" id="part2" name="sectionA">
+        <p><label for="part2">The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, and your written consent is required.</label></p>
+    </div>
+</div>
+
+<div class="section">
+    <h4 class="section-header">SECTION B</h4>
+    <strong>Part III:</strong>
+    <div class="checkbox-group">
+        <input type="radio" id="consent1" name="sectionB">
+        <p><label for="consent1">I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label></p>
+    </div>
+
+    <div class="checkbox-group">
+        <input type="radio" id="consent2" name="sectionB">
+        <p><label for="consent2">I do not give my consent for an initial or reevaluation to be conducted by the Ministry of Education.</label></p>
+    </div>
+
+    <div class="checkbox-group">
+        <input type="radio" id="consent3" name="sectionB">
+        <p><label for="consent3">I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label></p>
+    </div>
+
+    <p class="notice">
+        Granting parental consent is voluntary. Parents retain the right to refuse consent for initial evaluation or for reevaluation for a possible change in the placement and to revoke it at any time. However, should a parent refuse consent or revoke it, the Ministry of Education may then request a hearing to obtain approval to conduct the initial evaluation or reevaluation for a possible change in placement. Parents have the right to seek an independent evaluation. Under certain conditions, this evaluation may be at public expense. In addition, please note in the Parents’ Rights and Due Process Procedures in Chapter 25 of education rules and regulations that an impartial hearing may be requested by a parent or the Ministry of Education on any matter relating to proposed (or refused) action to initiate (or change) the identification, evaluation, program, or placement of a child.
+    </p>
+
+    <div class="signature-section">
+        <div class="input-group">
+            <label for="signature">Signature of Parent:</label>
+            <input type="text" id="signature" name="signature" aria-label="Parent Signature" required>
+        </div>
+        <div class="input-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" aria-label="Date" required>
+        </div>
+        
+    </div>
+    <button type="submit">Submit</button>
+</div>
+</form>
+
+
