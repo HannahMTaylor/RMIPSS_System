@@ -4,59 +4,39 @@ namespace RMIPSS_System.Models.Entities;
 
 public class Student
 {
-    [Key]
     public int Id { get; set; }
-    
-    [Required]
-    [Display(Name = "First Name")]
+    [MaxLength(50)]
     public string FirstName { get; set; } = String.Empty;
-    [Display(Name = "Middle Initial")]
     public char? MiddleInitial { get; set; }
-    [Required]
-    [Display(Name = "Last Name")]
+    [MaxLength(50)]
     public string LastName { get; set; } = String.Empty;
-
-    [Required]
+    [MaxLength(100)]
     public string Village { get; set; } = String.Empty;
-    [Required]
+    [MaxLength(100)]
     public string Atoll { get; set; } = String.Empty;
-    [Required]
-    [Display(Name = "P.O. Box No.")]
     public int PoBoxNo { get; set; }
-
-    [Required]
-    [Display(Name = "Father's Name")]
+    [MaxLength(100)]
     public string FatherName { get; set; } = String.Empty;
-    [Required]
-    [Display(Name = "Mother's Name")]
+    [MaxLength(100)]
     public string MotherName { get; set; } = String.Empty;
+    [MaxLength(100)]
     public string? GuardianName { get; set; }
-
-    [Required]
+    [MaxLength(15)]
     public string Phone { get; set; } = String.Empty;
-    [Required]
+    [MaxLength(255)]
     public string Email { get; set; } = String.Empty;
-    [Required]
     public char Sex { get; set; }
-    [Required]
     public int Age { get; set; }
-    [Required]
-    [Display(Name = "Date of Birth")]
     public DateOnly DOB { get; set; }
-    [Required]
-    [Display(Name = "Hospital No.")]
+    [MaxLength(20)]
     public string HospitalNo { get; set; } = String.Empty;
-    [Required]
-    [Display(Name = "Social Security No.")]
+    [MaxLength(11)]
     public string SSN { get; set; } = String.Empty;
-    [Required]
     public int Grade { get; set; }
-    [Required]
+    [MaxLength(100)]
     public string School { get; set; } = String.Empty;
-    [Required]
-    [Display(Name = "Primary Language of Child/Student")]
+    [MaxLength(50)]
     public string PrimaryLanguage { get; set; } = String.Empty;
-    [Required]
-    [Display(Name = "Primary Language of Parent or Guardian")]
+    [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
 }
