@@ -1,22 +1,66 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome Page";
 }
 
-<div class="text-center">
-    <!-- Form for "Make Referral" button -->
-    @using (Html.BeginForm("HandleButtonClick", "Home", FormMethod.Post, new { id = "formRefer" }))
-    {
-        <input type="hidden" name="buttonClicked" value="Refer" />
-        <button type="submit">Make Referral</button>
+<style>
+    .container {
+        max-width: 950px;
+        text-align: center;
     }
-
-    <!-- Form for "Login" button -->
-    @using (Html.BeginForm("HandleButtonClick", "Home", FormMethod.Post, new { id = "formLogin" }))
-    {
-        <input type="hidden" name="buttonClicked" value="Login" />
-        <button type="submit">Login</button>
+    .logo {
+        max-width: 250px;
+        margin-bottom: 20px;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
     }
+    .btn-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .card {
+        background-color: #004080;
+        border: none;
+        width: 48%;
+        padding: 30px;
+        color: #fff;
+        text-decoration: none;
+    }
+    .card:hover {
+        background-color: #003366;
+    }
+    .card-title {
+        font-size: 1.25rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-text {
+        font-size: 0.75rem;
+        margin-top: 10px;
+        color: rgb(255 255 255 / 80%);
+    }
+</style>
 
-    @* <button name="button" value="Refer">Make Referral</button> *@
-    @* <button name ="button" value="Login">Login</button> *@
+<div class="container">
+    <img src="~/images/MI_logo.jfif" alt="Republic of the Marshall Islands Public School System Logo" class="logo">
+    <h1>Welcome to the Republic of the Marshall Islands Public School System</h1>
+    <div class="btn-container">
+        <a class="card" asp-area="" asp-controller="Home" asp-action="Referral">
+            <h2 class="card-title">
+                <img src="~/images/icons/Form_Icon.png" alt="Referral Form Icon" style="max-width: 20px; margin-right: 5px;">
+                SE-1 Referral Form
+            </h2>
+            <p class="card-text">Click Here To Complete the SE-1 Referral Form</p>
+        </a>
+        <a class="card" asp-area="Identity" asp-page="/Account/Login">
+            <h2 class="card-title">
+                <i class="bi bi-person-fill-lock" style="margin-right: 5px;"></i>
+                Login
+            </h2>
+            <p class="card-text">Are you a registered user? Login here</p>
+        </a>
+    </div>
 </div>
