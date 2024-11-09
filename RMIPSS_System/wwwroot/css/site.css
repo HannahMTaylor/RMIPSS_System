@@ -20,3 +20,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-primary {
+    background-color: #004080;
+    border-color: #004080;
+}
+.btn-primary:not(.disabled):hover {
+    background-color: #003366;
+    border-color: #003366;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
