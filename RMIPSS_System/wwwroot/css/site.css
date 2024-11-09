@@ -35,3 +35,20 @@ body {
     margin-right: auto;
     width: 50%;
 }
+.btn-logout {
+    background: none;
+    border: 2px solid transparent;
+    color: #fff;
+    padding: 5px 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.btn-logout:hover {
+    background-color: #003594;
+    color: var(--bs-nav-link-hover-color);
+    border-color: #003594;
+    cursor: pointer;
+}
+.btn-logout:active {
+    transform: scale(0.98);
+}

@@ -46,9 +46,6 @@
     .link-color:hover {
         color: #117095;
     }
-    #login-submit{
-        margin-top: 1px;
-    }
     .btn:not(.disabled):hover {
         border-bottom-width: 4px
     }
@@ -83,7 +80,7 @@
                     @Html.DisplayNameFor(m => m.Input.RememberMe)
                 </label>
             </div>
-            <button id="login-submit" type="submit" class="btn btn-primary w-100 btn-small">Login</button>
+            <button type="submit" class="btn btn-primary w-100 btn-small mt-1">Login</button>
         </form>
         <p class="text-small mt-2">
             <a id="forgot-password" asp-page="./ForgotPassword" class="link-color">Forgot Password?</a>
