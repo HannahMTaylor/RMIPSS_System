@@ -4,7 +4,7 @@ using RMIPSS_System.Models.Entities;
 
 namespace RMIPSS_System.Data;
 
-public class ApplicationDbContext : IdentityDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
