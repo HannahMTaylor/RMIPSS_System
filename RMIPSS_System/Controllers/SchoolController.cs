@@ -56,19 +56,19 @@ public class SchoolController : Controller
         await _schoolRepo.AddAsync(school);
         await _schoolRepo.SaveAsync();
 
-        return RedirectToAction("Index", "Home");
+        return Content($"School Created !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
     }
 
     public async Task<IActionResult> ReadAll()
     {
         var objCategoryList = await _schoolRepo.GetAllAsync();
-        return RedirectToAction("Index", "Home");
+        return Content($"All Schools Extracted!!!");
     }
 
     public async Task<IActionResult> Read()
     {
         School? schoolFromDb = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
-        return RedirectToAction("Index", "Home");
+        return Content($"School Extracted !!! [school.Name = {schoolFromDb.Name}, school.Address = {schoolFromDb.Address}, school.Phone = {schoolFromDb.Phone}]");
     }
 
     public async Task<IActionResult> Update()
@@ -78,7 +78,7 @@ public class SchoolController : Controller
         _schoolRepo.Update(school);
         await _schoolRepo.SaveAsync();
 
-        return RedirectToAction("Index", "Home");
+        return Content($"School Updated !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
     }
 
     public async Task<IActionResult> Delete()
@@ -87,6 +87,6 @@ public class SchoolController : Controller
         _schoolRepo.Remove(school);
         await _schoolRepo.SaveAsync();
 
-        return RedirectToAction("Index", "Home");
+        return Content($"School Deleted !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
     }
 }

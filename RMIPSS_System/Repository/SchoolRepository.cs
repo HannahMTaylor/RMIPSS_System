@@ -6,7 +6,7 @@ namespace RMIPSS_System.Repository;
 
 public class SchoolRepository : Repository<School>, ISchoolRepository
 {
-    private ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db;
 
     public SchoolRepository(ApplicationDbContext db) : base(db)
     {
