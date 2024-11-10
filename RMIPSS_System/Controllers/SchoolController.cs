@@ -45,4 +45,48 @@ public class SchoolController : Controller
 
         return RedirectToAction("Index", "Home");
     }
+
+    public async Task<IActionResult> Create()
+    {
+        School school = new School();
+        school.Name = "ETSU";
+        school.Address = "Johnson City";
+        school.Phone = "123456789";
+
+        await _schoolRepo.AddAsync(school);
+        await _schoolRepo.SaveAsync();
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    public async Task<IActionResult> ReadAll()
+    {
+        var objCategoryList = await _schoolRepo.GetAllAsync();
+        return RedirectToAction("Index", "Home");
+    }
+
+    public async Task<IActionResult> Read()
+    {
+        School? schoolFromDb = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
+        return RedirectToAction("Index", "Home");
+    }
+
+    public async Task<IActionResult> Update()
+    {
+        School? school = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
+        school.Phone = "987654321";
+        _schoolRepo.Update(school);
+        await _schoolRepo.SaveAsync();
+
+        return RedirectToAction("Index", "Home");
+    }
+
+    public async Task<IActionResult> Delete()
+    {
+        School? school = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
+        _schoolRepo.Remove(school);
+        await _schoolRepo.SaveAsync();
+
+        return RedirectToAction("Index", "Home");
+    }
 }

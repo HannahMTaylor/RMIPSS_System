@@ -22,4 +22,10 @@ public class SchoolRepository : Repository<School>, ISchoolRepository
     {
         _db.Schools.Update(school);
     }
+
+    // Asynchronous Functions
+    public async Task SaveAsync()
+    {
+        await _db.SaveChangesAsync();
+    }
 }

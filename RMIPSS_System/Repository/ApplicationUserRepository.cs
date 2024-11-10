@@ -13,9 +13,9 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         _db = db;
     }
 
-    public void Save()
+    public async Task SaveAsync()
     {
-        _db.SaveChanges();
+        await _db.SaveChangesAsync();
     }
 
     public void Update(ApplicationUser applicationUser)
