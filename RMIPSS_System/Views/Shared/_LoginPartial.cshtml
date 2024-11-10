@@ -1,13 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IApplicationUserRepository ApplicationUserRepository
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    var loginUser = ApplicationUserRepository.Get(user => 
+        user.UserName.ToLower() == User.Identity.Name.ToLower()
+    );
+
     <li class="nav-item">
-            <a class="nav-link btn-logout" asp-area="Identity" asp-page="/Account/Manage/Index">
-            @User.Identity?.Name
+        <a class="nav-link btn-logout" asp-area="Identity" asp-page="/Account/Manage/Index">
+            @loginUser.FirstName @loginUser.LastName
         </a>
     </li>
     <li class="nav-item d-flex align-items-center">

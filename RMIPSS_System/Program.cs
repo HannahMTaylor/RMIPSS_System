@@ -27,6 +27,7 @@ public class Program
             .AddDefaultTokenProviders();
 
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
+        builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
