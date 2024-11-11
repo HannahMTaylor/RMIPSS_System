@@ -52,4 +52,9 @@ public class UserController : Controller
     {
         return Content("Edit Feature Comming Soon");
     }
+
+    public IActionResult Add()
+    {
+        return View();
+    }
 }
