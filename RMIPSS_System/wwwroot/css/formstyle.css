@@ -11,6 +11,10 @@
 .section {
     margin-top: 20px;
 }
+.section-header {
+    background-color: #ffff99; /* Light yellow background for emphasis */
+   
+}
 
 h4 {
     background-color: #F0F290;
@@ -30,7 +34,7 @@ h4 {
 label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    text-align: justify;
 }
 
 table {
