@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Areas.Identity.Pages.Account
 {
@@ -104,7 +105,8 @@ namespace RMIPSS_System.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            string defaultLandingURL = Constants.LANDING_URL_AFTER_LOGIN ?? "~/";
+            returnUrl ??= Url.Content(defaultLandingURL);
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

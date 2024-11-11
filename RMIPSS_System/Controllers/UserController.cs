@@ -47,4 +47,9 @@ public class UserController : Controller
     {
         return Content("Feature Comming Soon");
     }
+
+    public IActionResult Edit()
+    {
+        return Content("Edit Feature Comming Soon");
+    }
 }

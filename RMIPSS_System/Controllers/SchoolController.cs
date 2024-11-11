@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository.IRepository;
+using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
 
+[Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
 public class SchoolController : Controller
 {
     /*
