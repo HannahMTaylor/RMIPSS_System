@@ -11,7 +11,7 @@ namespace RMIPSS_System;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +27,7 @@ public class Program
             .AddDefaultUI()
             .AddDefaultTokenProviders();
 
+        builder.Services.AddScoped<Initializer>();
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
@@ -34,6 +35,23 @@ public class Program
         builder.Services.AddRazorPages();
 
         var app = builder.Build();
+        await SeedDataAsync(app);
+
+        static async Task SeedDataAsync(WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var initializer = services.GetRequiredService<Initializer>();
+                await initializer.SeedUserAsync();
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError("An error occurred while seeding the database: {Message}", ex.Message);
+            }
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
