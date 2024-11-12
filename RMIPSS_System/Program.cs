@@ -22,7 +22,7 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
-
+        builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddControllersWithViews();
 
         var app = builder.Build();

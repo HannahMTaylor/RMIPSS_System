@@ -13,4 +13,6 @@ public class ApplicationDbContext : IdentityDbContext
 
     public DbSet<Student> Students { get; set; }
     public DbSet<School> Schools { get; set; }
+    
+    public DbSet<ConsentForm> ConsentForms { get; set; }
 }
