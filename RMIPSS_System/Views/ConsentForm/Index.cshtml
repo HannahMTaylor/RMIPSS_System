@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Consent Form";
 }
+@model RMIPSS_System.Models.Entities.ConsentForm
 
 <div class="container">
     <div class="flex-container">
@@ -13,15 +14,15 @@
     </div>
 
 
-    <form>
+    <form method="post" asp-action="Create">
         <div class="section">
             <strong>Personally Delivered</strong><br>
-            <p>Date: <input type="date"></p>
+            <p>Date: <input asp-for="Date"  type="date"></p>
         </div>
 
         <div class="section">
-            <p>To: <input type="text" placeholder="Enter Parent(s) Name"></p>
-            <p>From: <input type="text" placeholder="Enter Principal's Name"></p>
+            <p>To: <input asp-for="To" type="text" placeholder="Enter Parent(s) Name"></p>
+            <p>From: <input asp-for="From"   type="text" placeholder="Enter Principal's Name"></p>
         </div>
         <div class="section">
             <div class ="border text-center p-2 section-header"><strong>SUBJECT:</strong> Consent for Initial Evaluation or Reevaluation Form SE-4</div>
@@ -30,19 +31,19 @@
 
         <div class="section">
             <strong>Part I</strong>
-            <label class="text-justify"><input type="checkbox" class="checkbox"> The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label>
+            <label class="text-justify"><input type="radio" asp-for="Evaluation" value="true"  class="checkbox"> The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label>
         </div>
 
         <div class="section">
             <strong>Part II</strong>
-            <label><input type="checkbox" class="checkbox"> The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.</label>
+            <label><input type="radio" asp-for="Evaluation" value="false" class="checkbox"> The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.</label>
         </div>
 
         <div class="section">
             <strong>Part III</strong>
-            <label><input type="checkbox" class="checkbox"> I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label>
-            <label><input type="checkbox" class="checkbox"> I do not give my consent for an initial or reevaluation to be conducted by Ministry of Education.</label>
-            <label><input type="checkbox" class="checkbox"> I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label>
+            <label><input type="radio" asp-for="ConsentOption"  value="0"  class="checkbox"> I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label>
+            <label><input type="radio" asp-for="ConsentOption"  value="1"  class="checkbox"> I do not give my consent for an initial or reevaluation to be conducted by Ministry of Education.</label>
+            <label><input type="radio" asp-for="ConsentOption"  value="2"  class="checkbox"> I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label>
         </div>
 
         <div class="section">
@@ -55,7 +56,7 @@
         </div>
 
         <div class="submit-button">
-            <button type="submit">Submit</button>
+            <button type="submit" >Submit</button>
         </div>
     </form>
 </div>

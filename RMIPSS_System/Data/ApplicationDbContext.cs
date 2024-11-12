@@ -15,4 +15,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<Student> Students { get; set; }
     public DbSet<School> Schools { get; set; }
     public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+    public DbSet<ConsentForm> ConsentForms { get; set; }
 }

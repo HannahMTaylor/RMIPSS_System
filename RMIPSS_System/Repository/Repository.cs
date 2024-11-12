@@ -38,6 +38,16 @@ public class Repository<T> : IRepository<T> where T : class
     {
         dbSet.Remove(entity);
     }
+    
+    public T GetById(int id)
+    {
+        return dbSet.Find(id);
+    }
+
+    public void RemoveById(int id)
+    {
+        dbSet.Remove(dbSet.Find(id));
+    }
 
     // Asynchronous Functions
     public async Task AddAsync(T entity)
