@@ -6,4 +6,7 @@ public interface ISchoolRepository : IRepository<School>
 {
     void Update(School school);
     void Save();
+
+    // Asynchronous Functions
+    Task SaveAsync();
 }
