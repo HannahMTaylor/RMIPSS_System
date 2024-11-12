@@ -8,4 +8,9 @@ public interface IRepository<T> where T : class
     T Get(Expression<Func<T, bool>> filter);
     void Add(T entity);
     void Remove(T entity);
+
+    // Asynchronous Functions
+    Task<IEnumerable<T>> GetAllAsync();
+    Task<T> GetAsync(Expression<Func<T, bool>> filter);
+    Task AddAsync(T entity);
 }

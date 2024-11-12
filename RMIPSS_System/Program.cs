@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RMIPSS_System.Data;
+using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
+using RMIPSS_System.Services;
 
 namespace RMIPSS_System;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -18,14 +21,37 @@ public class Program
             options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-        builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+            .AddUserManager<UserManager<ApplicationUser>>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultUI()
+            .AddDefaultTokenProviders();
 
+        builder.Services.AddScoped<Initializer>();
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
+        builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
         builder.Services.AddControllersWithViews();
+        builder.Services.AddRazorPages();
 
         var app = builder.Build();
+        await SeedDataAsync(app);
+
+        static async Task SeedDataAsync(WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
+            {
+                var initializer = services.GetRequiredService<Initializer>();
+                await initializer.SeedUserAsync();
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError("An error occurred while seeding the database: {Message}", ex.Message);
+            }
+        }
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
@@ -43,7 +69,7 @@ public class Program
         app.UseStaticFiles();
 
         app.UseRouting();
-
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllerRoute(

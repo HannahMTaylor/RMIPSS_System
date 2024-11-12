@@ -38,4 +38,23 @@ public class Repository<T> : IRepository<T> where T : class
     {
         dbSet.Remove(entity);
     }
+
+    // Asynchronous Functions
+    public async Task AddAsync(T entity)
+    {
+        await dbSet.AddAsync(entity);
+    }
+
+    public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
+    {
+        IQueryable<T> query = dbSet;
+        query = query.Where(filter);
+        return await query.FirstOrDefaultAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        IQueryable<T> query = dbSet;
+        return await query.ToListAsync();
+    }
 }
