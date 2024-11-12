@@ -3,6 +3,9 @@
 }
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <style>
+    body{
+        background-color: #f7f9fc;
+    }
     .container {
         max-width: none !important;
     }
@@ -27,7 +30,7 @@
     .form-control {
         border-radius: 8px;
         box-shadow: none;
-        width: 100%; /* Ensure all inputs are full-width */
+        width: 100%;
     }
     .form-control:focus {
         border-color: #004080;
@@ -36,57 +39,10 @@
     .input-group {
         position: relative;
     }
-    .input-group-text {
-        background-color: white;
-        border-radius: 8px 0 0 8px; /* Matching rounded corners */
-        padding: 0.4rem;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        color: #004080;
-    }
-    .select-role {
-        position: relative;
-    }
-    /* Styling for Role Dropdown */
-    .select-role select {
-        padding-right: 2.5rem; /* Space for the arrow */
-        appearance: none; /* Remove default arrow */
-        background-color: white;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        color: #555;
-        padding: 12px 15px;
-        width: 100%; /* Make it full-width to match other inputs */
-        box-shadow: none;
-        height: 40px;
-    }
-    .select-role select:focus {
-        border-color: #004080;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-    /* Consistent input height */
     .form-control, .select-role select {
-        height: 40px; /* Ensure height is the same across inputs */
+        height: 40px;
         line-height: 1.5;
-        padding: 8px 15px; /* Add padding inside to match the desired size */
-    }
-    /* Icon styling and positioning */
-    .select-role .dropdown-icon {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        transform: translateY(-50%);
-        font-size: 16px; /* Adjust icon size */
-        color: #555; /* Icon color */
-        pointer-events: none; /* Allows clicks to pass through */
-    }
-    .btn:not(.disabled):hover {
-        border-bottom-width: 4px
+        padding: 8px 15px;
     }
 </style>
 
