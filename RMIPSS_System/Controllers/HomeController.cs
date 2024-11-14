@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models;
+using RMIPSS_System.Services;
 using System.Diagnostics;
 
 namespace RMIPSS_System.Controllers
@@ -18,7 +20,8 @@ namespace RMIPSS_System.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
+        public IActionResult Dashboard()
         {
             return View();
         }

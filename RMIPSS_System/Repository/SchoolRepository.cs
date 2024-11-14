@@ -6,7 +6,7 @@ namespace RMIPSS_System.Repository;
 
 public class SchoolRepository : Repository<School>, ISchoolRepository
 {
-    private ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db;
 
     public SchoolRepository(ApplicationDbContext db) : base(db)
     {
@@ -21,5 +21,11 @@ public class SchoolRepository : Repository<School>, ISchoolRepository
     public void Update(School school)
     {
         _db.Schools.Update(school);
+    }
+
+    // Asynchronous Functions
+    public async Task SaveAsync()
+    {
+        await _db.SaveChangesAsync();
     }
 }
