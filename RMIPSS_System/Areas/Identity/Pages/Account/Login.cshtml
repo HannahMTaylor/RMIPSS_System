@@ -1,0 +1,43 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="login-container">
+        <div class="text-center mb-3">
+            <img src="~/images/MI_logo.jfif" alt="Logo" style="max-width: 150px;">
+        </div>
+        <h3 class="login-title">Welcome Back!</h3>
+        <p class="text-center" style="font-size: 0.9rem; color: #555;">Sign in to your account to continue</p>
+        <form id="account" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger form-label-small" role="alert"></div>
+            <div class="mb-2">
+                <label asp-for="Input.Email" class="form-label form-label-small">Email address</label>
+                <input asp-for="Input.Email" class="form-control form-control-small" type="email" autocomplete="username" aria-required="true" placeholder="Enter your email" />
+                <span asp-validation-for="Input.Email" class="text-danger form-label-small"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Input.Password" class="form-label form-label-small">Password</label>
+                <input asp-for="Input.Password" class="form-control form-control-small" type="password" autocomplete="current-password" aria-required="true" placeholder="Enter your password" />
+                <span asp-validation-for="Input.Password" class="text-danger form-label-small"></span>
+            </div>
+            <div class="mb-2 form-check">
+                <label asp-for="Input.RememberMe" class="form-check-label form-check-label-small">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 btn-small mt-1">Login</button>
+        </form>
+        <p class="text-small mt-2">
+            <a id="forgot-password" asp-page="./ForgotPassword" class="link-color">Forgot Password?</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
