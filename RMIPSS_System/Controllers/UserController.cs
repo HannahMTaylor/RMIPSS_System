@@ -10,40 +10,11 @@ namespace RMIPSS_System.Controllers;
 [Authorize(Roles = Constants.ROLE_STATE_USER)]
 public class UserController : Controller
 {
-    private readonly IApplicationUserRepository _appUserRepo;
     private readonly UserService _userService;
 
-    public UserController(IApplicationUserRepository db, UserService userService)
+    public UserController(UserService userService)
     {
-        _appUserRepo = db;
         _userService = userService;
-    }
-
-    public async Task<IActionResult> Create()
-    {
-        var username = "admin@etsu.edu";
-        var existingUser = await _appUserRepo.GetAsync(user =>
-            user.UserName.ToLower() == username.ToLower()
-        );
-        if (existingUser == null) {
-            var user = new ApplicationUser
-            {
-                UserName = username,
-                Email = username,
-                FirstName = "Admin",
-                LastName = "ETSU"
-            };
-            await _appUserRepo.CreateApplicationUserAsync(user, "Pass123!");
-            return Content("User created.");
-        }
-
-        return Content("The user was already created.");
-    }
-
-    public async Task<IActionResult> AssignUserToRole()
-    {
-        await _appUserRepo.AssignUserToRoleAsync("admin@etsu.edu", "SchoolLevelUser");
-        return Content("Assigned 'admin@etsu.edu' to role 'SchoolLevelUser'");
     }
 
     public IActionResult List()
@@ -62,7 +33,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(User user)
+    public async Task<IActionResult> Add(User user)
     {
         if (!ModelState.IsValid) return View();
 
@@ -72,8 +43,19 @@ public class UserController : Controller
             return View();
         }
 
-        // TODO Write Logic
-        TempData["success"] = "User Created Successfully!";
+        if (await _userService.IsUserExist(user.Email))
+        {
+            ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
+            return View();
+        }
+
+        if (await _userService.CreateUser(user))
+        {
+            TempData["success"] = "User Created Successfully!";
+        } else
+        {
+            TempData["error"] = "Error: User Not Created. Please try again.";
+        }
         return RedirectToAction("List", "User");
     }
 }
