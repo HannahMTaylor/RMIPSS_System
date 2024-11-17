@@ -13,11 +13,6 @@ public class UserService
         _appUserRepo = db;
     }
 
-    public bool IsPasswordSame(string password1, string password2)
-    {
-        return password1.Equals(password2);
-    }
-
     public async Task<bool> IsUserExist(String username)
     {
         var existingUser = await _appUserRepo.GetAsync(user =>
@@ -34,7 +29,8 @@ public class UserService
             UserName = user.Email,
             Email = user.Email,
             FirstName = user.FirstName,
-            LastName = user.LastName
+            LastName = user.LastName,
+            PhoneNumber = user.PhoneNumber
         };
 
         if (await _appUserRepo.CreateApplicationUserAsync(newUser, user.Password) != null)

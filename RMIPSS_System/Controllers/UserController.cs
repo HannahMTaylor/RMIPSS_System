@@ -37,12 +37,6 @@ public class UserController : Controller
     {
         if (!ModelState.IsValid) return View();
 
-        if (!_userService.IsPasswordSame(user.Password, user.ConfirmPassword))
-        {
-            ModelState.AddModelError("", "Password and Confirm Password do not match. Please try again.");
-            return View();
-        }
-
         if (await _userService.IsUserExist(user.Email))
         {
             ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
