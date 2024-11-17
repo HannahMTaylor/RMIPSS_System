@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
-using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
@@ -11,10 +9,12 @@ namespace RMIPSS_System.Controllers;
 public class UserController : Controller
 {
     private readonly UserService _userService;
+    private readonly ILogger<UserController> _logger;
 
-    public UserController(UserService userService)
+    public UserController(UserService userService, ILogger<UserController> logger)
     {
         _userService = userService;
+        _logger = logger;
     }
 
     public IActionResult List()
@@ -35,21 +35,39 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Add(User user)
     {
-        if (!ModelState.IsValid) return View();
-
-        if (await _userService.IsUserExist(user.Email))
+        if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
+            _logger.LogWarning("Invalid model state during add new user.");
             return View();
         }
 
-        if (await _userService.CreateUser(user))
+        try
         {
-            TempData["success"] = "User Created Successfully!";
-        } else
-        {
-            TempData["error"] = "Error: User Not Created. Please try again.";
+            if (await _userService.IsUserExist(user.Email))
+            {
+                _logger.LogInformation("User with email {Email} already exists.", user.Email);
+                ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
+                return View();
+            }
+
+            if (await _userService.CreateUser(user))
+            {
+                _logger.LogInformation("User {Email} created successfully.", user.Email);
+                TempData["success"] = "User Created Successfully!";
+            } else
+            {
+                _logger.LogError("Error creating user: {Email}", user.Email);
+                TempData["error"] = "Error: User Not Created. Please try again.";
+            }
         }
+        catch (Exception ex) 
+        {
+            _logger.LogError(ex, "An exception occurred while adding a user.");
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            TempData["error"] = "An unexpected error occurred. Please try again.";
+        }
+        
         return RedirectToAction("List", "User");
     }
 }

@@ -35,6 +35,10 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 
+        // Configure logging
+        builder.Logging.ClearProviders();
+        builder.Logging.AddConsole();
+
         var app = builder.Build();
         await SeedDataAsync(app);
 
