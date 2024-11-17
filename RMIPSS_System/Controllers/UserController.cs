@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
 
@@ -10,10 +11,12 @@ namespace RMIPSS_System.Controllers;
 public class UserController : Controller
 {
     private readonly IApplicationUserRepository _appUserRepo;
+    private readonly UserService _userService;
 
-    public UserController(IApplicationUserRepository db)
+    public UserController(IApplicationUserRepository db, UserService userService)
     {
         _appUserRepo = db;
+        _userService = userService;
     }
 
     public async Task<IActionResult> Create()
@@ -45,7 +48,7 @@ public class UserController : Controller
 
     public IActionResult List()
     {
-        return Content("Feature Comming Soon");
+        return View();
     }
 
     public IActionResult Edit()
@@ -56,5 +59,21 @@ public class UserController : Controller
     public IActionResult Add()
     {
         return View();
+    }
+
+    [HttpPost]
+    public IActionResult Add(User user)
+    {
+        if (!ModelState.IsValid) return View();
+
+        if (!_userService.IsPasswordSame(user.Password, user.ConfirmPassword))
+        {
+            ModelState.AddModelError("", "Password and Confirm Password do not match. Please try again.");
+            return View();
+        }
+
+        // TODO Write Logic
+        TempData["success"] = "User Created Successfully!";
+        return RedirectToAction("List", "User");
     }
 }

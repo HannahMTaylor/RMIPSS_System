@@ -31,6 +31,7 @@ public class Program
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
+        builder.Services.AddScoped<UserService>();
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 
