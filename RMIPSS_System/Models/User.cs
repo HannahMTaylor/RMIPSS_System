@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace RMIPSS_System.Models.ProcessSteps;
+namespace RMIPSS_System.Models;
 
 public class User
 {

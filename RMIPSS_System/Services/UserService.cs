@@ -1,18 +1,24 @@
-﻿using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Models.ProcessSteps;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using RMIPSS_System.Models;
+using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository.IRepository;
+using System.Globalization;
 
 namespace RMIPSS_System.Services;
 
 public class UserService
 {
-    private readonly IApplicationUserRepository _appUserRepo;
     private readonly ILogger<UserService> _logger;
+    private readonly IApplicationUserRepository _appUserRepo;
+    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public UserService(IApplicationUserRepository db, ILogger<UserService> logger)
+    public UserService(ILogger<UserService> logger, IApplicationUserRepository db, RoleManager<IdentityRole> roleManager)
     {
-        _appUserRepo = db;
         _logger = logger;
+        _appUserRepo = db;
+        _roleManager = roleManager;
     }
 
     public async Task<bool> IsUserExist(String username)
@@ -57,5 +63,44 @@ public class UserService
         }
 
         return false;
+    }
+
+    public async Task<List<SelectListItem>> GetRoleList()
+    {
+        try
+        {
+            var roles = await _roleManager.Roles.ToListAsync();
+            List<SelectListItem> roleList = roles.Select(r => new SelectListItem
+            {
+                Value = r.Name,
+                Text = TransformRoleName(r.Name)
+            }).ToList();
+
+            return roleList;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error fetching role list.");
+            throw;
+        }
+    }
+
+    public string TransformRoleName(string roleName)
+    {
+        // Check if the input starts with "ROLE_"
+        if (roleName.StartsWith("ROLE_", StringComparison.OrdinalIgnoreCase))
+        {
+            // Remove the "ROLE_" prefix
+            roleName = roleName.Substring(5);
+        }
+
+        // Replace underscores with spaces
+        roleName = roleName.Replace("_", " ");
+
+        // Capitalize the first letter of each word
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        roleName = textInfo.ToTitleCase(roleName.ToLower());
+
+        return roleName;
     }
 }

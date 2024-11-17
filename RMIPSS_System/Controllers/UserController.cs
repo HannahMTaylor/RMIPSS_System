@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RMIPSS_System.Models;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Services;
 
@@ -27,27 +29,46 @@ public class UserController : Controller
         return Content("Edit Feature Comming Soon");
     }
 
-    public IActionResult Add()
+    public async Task<IActionResult> Add()
     {
-        return View();
+        try
+        {
+            List<SelectListItem> roleList = await _userService.GetRoleList();
+
+            AddEditUserViewModel addEditUserViewModel = new AddEditUserViewModel
+            {
+                User = new User(),
+                Roles = roleList
+            };
+
+            return View(addEditUserViewModel);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error occurred while trying to retrieve role list or create Add/Edit user view.");
+            TempData["error"] = "An error occurred while loading the user creation page. Please try again later.";
+            return RedirectToAction("Error", "Home");
+        }
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(User user)
+    public async Task<IActionResult> Add(AddEditUserViewModel addUserViewModel)
     {
         if (!ModelState.IsValid)
         {
+            addUserViewModel.Roles = await _userService.GetRoleList();
             _logger.LogWarning("Invalid model state during add new user.");
-            return View();
+            return View(addUserViewModel);
         }
 
         try
         {
+            User user = addUserViewModel.User;
             if (await _userService.IsUserExist(user.Email))
             {
+                addUserViewModel.Roles = await _userService.GetRoleList();
                 _logger.LogInformation("User with email {Email} already exists.", user.Email);
                 ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
-                return View();
+                return View(addUserViewModel);
             }
 
             if (await _userService.CreateUser(user))
