@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Repository.IRepository;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using RMIPSS_System.Models;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
@@ -9,43 +10,18 @@ namespace RMIPSS_System.Controllers;
 [Authorize(Roles = Constants.ROLE_STATE_USER)]
 public class UserController : Controller
 {
-    private readonly IApplicationUserRepository _appUserRepo;
+    private readonly UserService _userService;
+    private readonly ILogger<UserController> _logger;
 
-    public UserController(IApplicationUserRepository db)
+    public UserController(UserService userService, ILogger<UserController> logger)
     {
-        _appUserRepo = db;
-    }
-
-    public async Task<IActionResult> Create()
-    {
-        var username = "admin@etsu.edu";
-        var existingUser = await _appUserRepo.GetAsync(user =>
-            user.UserName.ToLower() == username.ToLower()
-        );
-        if (existingUser == null) {
-            var user = new ApplicationUser
-            {
-                UserName = username,
-                Email = username,
-                FirstName = "Admin",
-                LastName = "ETSU"
-            };
-            await _appUserRepo.CreateApplicationUserAsync(user, "Pass123!");
-            return Content("User created.");
-        }
-
-        return Content("The user was already created.");
-    }
-
-    public async Task<IActionResult> AssignUserToRole()
-    {
-        await _appUserRepo.AssignUserToRoleAsync("admin@etsu.edu", "SchoolLevelUser");
-        return Content("Assigned 'admin@etsu.edu' to role 'SchoolLevelUser'");
+        _userService = userService;
+        _logger = logger;
     }
 
     public IActionResult List()
     {
-        return Content("Feature Comming Soon");
+        return View();
     }
 
     public IActionResult Edit()
@@ -53,8 +29,66 @@ public class UserController : Controller
         return Content("Edit Feature Comming Soon");
     }
 
-    public IActionResult Add()
+    public async Task<IActionResult> Add()
     {
-        return View();
+        try
+        {
+            List<SelectListItem> roleList = await _userService.GetRoleList();
+
+            AddEditUserViewModel addEditUserViewModel = new AddEditUserViewModel
+            {
+                User = new User(),
+                Roles = roleList
+            };
+
+            return View(addEditUserViewModel);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error occurred while trying to retrieve role list or create Add/Edit user view.");
+            TempData["error"] = "An error occurred while loading the user creation page. Please try again later.";
+            return RedirectToAction("Error", "Home");
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AddEditUserViewModel addUserViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            addUserViewModel.Roles = await _userService.GetRoleList();
+            _logger.LogWarning("Invalid model state during add new user.");
+            return View(addUserViewModel);
+        }
+
+        try
+        {
+            User user = addUserViewModel.User;
+            if (await _userService.IsUserExist(user.Email))
+            {
+                addUserViewModel.Roles = await _userService.GetRoleList();
+                _logger.LogInformation("User with email {Email} already exists.", user.Email);
+                ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
+                return View(addUserViewModel);
+            }
+
+            if (await _userService.CreateUser(user))
+            {
+                _logger.LogInformation("User {Email} created successfully.", user.Email);
+                TempData["success"] = "User Created Successfully!";
+            } else
+            {
+                _logger.LogError("Error creating user: {Email}", user.Email);
+                TempData["error"] = "Error: User Not Created. Please try again.";
+            }
+        }
+        catch (Exception ex) 
+        {
+            _logger.LogError(ex, "An exception occurred while adding a user.");
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+            TempData["error"] = "An unexpected error occurred. Please try again.";
+        }
+        
+        return RedirectToAction("List", "User");
     }
 }

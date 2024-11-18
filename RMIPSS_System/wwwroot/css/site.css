@@ -32,6 +32,10 @@ body {
     background-color: #003366;
     border-color: #003366;
 }
+.btn-secondary:not(.disabled):hover {
+    background-color: #c0c0c0;
+    border-color: #c0c0c0;
+}
 .center {
     display: block;
     margin-left: auto;
