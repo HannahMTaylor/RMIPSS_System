@@ -9,13 +9,11 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 {
     private readonly ApplicationDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
 
-    public ApplicationUserRepository(ApplicationDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) : base(db)
+    public ApplicationUserRepository(ApplicationDbContext db, UserManager<ApplicationUser> userManager) : base(db)
     {
         _db = db;
         _userManager = userManager;
-        _roleManager = roleManager;
     }
 
     public async Task SaveAsync()
@@ -36,11 +34,6 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
     public async Task AssignUserToRoleAsync(string userName, string rolename)
     {
-        var roleExists = await _roleManager.RoleExistsAsync(rolename);
-        if (!roleExists) {
-            await _roleManager.CreateAsync(new IdentityRole(rolename));
-        }
-
         var user = await GetAsync(u =>
             u.UserName.ToLower() == userName.ToLower()
         );

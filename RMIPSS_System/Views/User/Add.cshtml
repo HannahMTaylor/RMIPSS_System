@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Add New User";
 }
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+@model AddEditUserViewModel
+
 <style>
     body{
         background-color: #f7f9fc;
@@ -44,6 +46,9 @@
         line-height: 1.5;
         padding: 8px 15px;
     }
+    .btn:not(.disabled):hover {
+        margin-top: 20px;
+    }
 </style>
 
 <div class="container mt-5">
@@ -52,94 +57,109 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h2 class="text-center mb-4">Add New User</h2>
-                    <form action="#" method="POST" id="userForm">
+                    <form asp-controller="User" asp-action="Add" method="POST">
                         <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger form-label-small"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="firstName" class="form-label">First Name:</label>
+                                    <label asp-for="User.FirstName" class="form-label">First Name <span class="red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </div>
-                                        <input type="text" id="firstName" name="firstName" class="form-control" required>
+                                        <input asp-for="User.FirstName" type="text" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.FirstName" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="lastName" class="form-label">Last Name:</label>
+                                    <label asp-for="User.LastName" class="form-label">Last Name <span class="red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-user"></i>
                                         </div>
-                                        <input type="text" id="lastName" name="lastName" class="form-control" required>
+                                        <input asp-for="User.LastName" type="text" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.LastName" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="email" class="form-label">Email:</label>
+                                    <label asp-for="User.Email" class="form-label">Email <span class="red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-envelope"></i>
                                         </div>
-                                        <input type="email" id="email" name="email" class="form-control" required>
+                                        <input asp-for="User.Email" type="email" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.Email" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="phone" class="form-label">Phone Number:</label>
+                                    <label asp-for="User.PhoneNumber" class="form-label">Phone Number</label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-phone"></i>
                                         </div>
-                                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                                        <input asp-for="User.PhoneNumber" type="tel" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.PhoneNumber" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="password" class="form-label">Password:</label>
+                                    <label asp-for="User.Password" class="form-label">Password <span class="red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-lock"></i>
                                         </div>
-                                        <input type="password" id="password" name="password" class="form-control" required>
+                                        <input asp-for="User.Password" type="password" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.Password" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                                    <label asp-for="User.ConfirmPassword" class="form-label">Confirm Password <span class="red">*</span></label>
                                     <div class="input-group">
                                         <div class="input-group-text">
                                             <i class="fas fa-lock"></i>
                                         </div>
-                                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                                        <input asp-for="User.ConfirmPassword" type="password" class="form-control">
                                     </div>
+                                    <span asp-validation-for="User.ConfirmPassword" class="text-danger form-label-small"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group select-role">
-                            <label for="role" class="form-label">Role:</label>
+                            <label asp-for="User.Role" class="form-label">Role <span class="red">*</span></label>
                             <div class="position-relative">
-                                <select id="role" name="role" class="form-control" required>
+                                <select asp-for="User.Role" class="form-control" asp-items="Model.Roles">
                                     <option value="" disabled selected>Select a Role</option>
-                                    <option value="stateLevel">State Level User</option>
-                                    <option value="schoolLevel">School Level User</option>
                                 </select>
                                 <i class="fa fa-caret-down dropdown-icon"></i>
                             </div>
+                            <span asp-validation-for="User.Role" class="text-danger form-label-small"></span>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 mt-4">Add User</button>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary w-50 me-3" onclick="history.back()">
+                                <i class="fas fa-arrow-left me-2"></i> Back
+                            </button>
+                            <button type="submit" class="btn btn-primary w-50">Add User</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
