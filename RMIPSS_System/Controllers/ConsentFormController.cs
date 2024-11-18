@@ -26,6 +26,7 @@ namespace RMIPSS_System.Controllers
         public IActionResult Create(ConsentForm obj)
         {
             _consentFormRepository.SaveConsentForm(obj);
+            TempData["success"] = "Consent Form Created Successfully!";
             return RedirectToAction("Index","Home");
 
         }
