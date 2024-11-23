@@ -30,7 +30,6 @@ public class ConsentFormService
                 objFromDb.Date = consentForm.Date;
                 objFromDb.To = consentForm.To;
                 objFromDb.From = consentForm.From;
-                objFromDb.ConsentOption = (ConsentOption)consentForm.ConsentOption;
                 objFromDb.Evaluation = consentForm.Evaluation;
                 objFromDb.StudentId = consentForm.StudentId;
                 ConsentForm consentFormResult =  await _consentFormRepository.SaveConsentFormAsync(objFromDb);

@@ -19,7 +19,7 @@ public class ConsentForm
 
     public Boolean? Evaluation { get; set; }
 
-    public ConsentOption ConsentOption { get; set; }
+    public ConsentOption ConsentOption { get; set; } = ConsentOption.NotSpecified;
 
     public int StudentId { get; set; }
     [ForeignKey("StudentId")]

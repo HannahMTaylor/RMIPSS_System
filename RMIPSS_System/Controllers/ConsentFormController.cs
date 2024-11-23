@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
@@ -74,7 +75,7 @@ namespace RMIPSS_System.Controllers
                         Date = DateOnly.FromDateTime(DateTime.Now),
                         Evaluation = null,
                         StudentId = studentId,
-                        ConsentOption = 3
+                        ConsentOption = (int)ConsentOption.NotSpecified
                     };
                     return View(consentFormView);
                 }

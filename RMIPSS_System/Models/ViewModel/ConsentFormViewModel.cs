@@ -14,5 +14,5 @@ public class ConsentFormViewModel
     public DateOnly SubmittedDate { get; set; }
     public DateOnly Date { get; set; }
     public bool? Evaluation { get; set; }
-    public int ConsentOption { get; set; }
+    public int ConsentOption { get; set; } 
 }
