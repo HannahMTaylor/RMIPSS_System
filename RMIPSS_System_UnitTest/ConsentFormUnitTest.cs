@@ -4,10 +4,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NuGet.Protocol.Core.Types;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Repository;
+using RMIPSS_System.Repository.IRepository;
+using RMIPSS_System.Services;
+using RMIPSS_System.ViewModel;
 
 namespace RMIPSS_System_UnitTest;
 
@@ -15,7 +20,6 @@ public class ConsentFormUnitTest
 {
     
     [Test]
-
     public void ShouldCreateConsentForm()
     {
 
@@ -23,19 +27,32 @@ public class ConsentFormUnitTest
         ApplicationDbContextUnit unitConnection = new();
         DbContextOptions<ApplicationDbContext> options = unitConnection.getOptions();
         ApplicationDbContext _db = new ApplicationDbContext(options);
-        ConsentFormRepository sut = new ConsentFormRepository(_db);
-        ConsentForm c = new()
+        IConsentFormRepository _consentFormRepository=new ConsentFormRepository(_db);
+        IRepository<Student> _repositoryStudent = new Repository<Student>(_db);
+        ILogger<ConsentFormService> _logger = new Logger<ConsentFormService>(new LoggerFactory());
+        ConsentFormService sut = new ConsentFormService( _logger, _consentFormRepository, _repositoryStudent);
+        Student student = new()
+        {
+            FirstName = "John",
+            School = "School",
+            LastName = "Doe",
+            ParentGuardianPrimaryLanguage = "ParentGuardianPrimaryLanguage",
+            Phone = "123456789",
+            GuardianName = "Johnny Doe",
+        };
+        Student studentSaved = _repositoryStudent.Save(student);
+        ConsentFormViewModel c = new ConsentFormViewModel();
+        c = new ConsentFormViewModel()
         {
             Date = new DateOnly(),
             To = "Parent",
             From = "Principal",
-            ConsentOption = ConsentOption.NotGiven,
-            Evaluation = true
+            ConsentOption = (int)ConsentOption.NotGiven,
+            Evaluation = true,
+            StudentId = studentSaved.Id
         };
-        
-        
         //Act
-        ConsentForm SavedConsentForm= sut.SaveConsentForm(c);
+        ConsentForm SavedConsentForm = sut.CreateConsentForm(c).Result;
       
         //Assert
         Assert.That(SavedConsentForm.To, Is.EqualTo("Parent"));
@@ -46,8 +63,15 @@ public class ConsentFormUnitTest
         sut.Save();
         ConsentForm removedConsentForm = sut.GetById(SavedConsentForm.Id);
         
+        _repositoryStudent.RemoveById(studentSaved.Id);
+        _repositoryStudent.Save();
+        
+        Student removedStudent = _repositoryStudent.GetById(studentSaved.Id);
+        
+        
         //Assert
         Assert.That(removedConsentForm, Is.EqualTo(null));
+        Assert.That(removedStudent, Is.EqualTo(null));
         
     }
     

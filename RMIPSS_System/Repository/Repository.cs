@@ -49,6 +49,18 @@ public class Repository<T> : IRepository<T> where T : class
         dbSet.Remove(dbSet.Find(id));
     }
 
+    public T Save(T entity)
+    {
+        _db.Add(entity);
+        _db.SaveChanges();
+        return entity;
+    }
+
+    public void Save()
+    {
+        _db.SaveChanges();
+    }
+
     // Asynchronous Functions
     public async Task AddAsync(T entity)
     {

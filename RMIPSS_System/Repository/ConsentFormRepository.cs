@@ -12,7 +12,7 @@ public class ConsentFormRepository : Repository<ConsentForm>, IConsentFormReposi
     {
         _db = db;
     }
-    
+
     public void Update(ConsentForm consentForm)
     {
         _db.ConsentForms.Update(consentForm);
@@ -23,9 +23,25 @@ public class ConsentFormRepository : Repository<ConsentForm>, IConsentFormReposi
         _db.SaveChanges();
     }
 
-    public ConsentForm SaveConsentForm(ConsentForm consentForm)
+    public async Task<ConsentForm> SaveConsentFormAsync(ConsentForm consentForm)
     {
         _db.ConsentForms.Add(consentForm);
+        _db.SaveChanges();
+        return consentForm;
+    }
+
+    public async Task<ConsentForm> GetConsentFormByStudentId(int id)
+    {
+        ConsentForm consentForm = await GetAsync(c =>
+            c.Student.Id == id
+        );
+        return consentForm;
+
+    }
+
+    public async Task<ConsentForm> UpdateConsentFormAsync(ConsentForm consentForm)
+    {
+        _db.ConsentForms.Update(consentForm);
         _db.SaveChanges();
         return consentForm;
     }
