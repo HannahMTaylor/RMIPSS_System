@@ -144,3 +144,9 @@ body {
     font-size: 18px;
     color: #004080;
 }
+.btn {
+    text-transform: none;
+}
+.width-15{
+    width: 15%
+}
