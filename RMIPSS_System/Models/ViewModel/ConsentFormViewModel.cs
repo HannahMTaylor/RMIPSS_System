@@ -1,6 +1,6 @@
 using RMIPSS_System.Models.Enums;
 
-namespace RMIPSS_System.ViewModel;
+namespace RMIPSS_System.Models.ViewModel;
 
 public class ConsentFormViewModel
 {

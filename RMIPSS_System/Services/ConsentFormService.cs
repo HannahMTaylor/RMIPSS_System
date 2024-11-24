@@ -1,7 +1,7 @@
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Repository.IRepository;
-using RMIPSS_System.ViewModel;
+using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System.Services;
 

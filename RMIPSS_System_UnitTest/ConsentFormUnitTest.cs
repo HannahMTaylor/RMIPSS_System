@@ -12,7 +12,7 @@ using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
-using RMIPSS_System.ViewModel;
+using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System_UnitTest;
 

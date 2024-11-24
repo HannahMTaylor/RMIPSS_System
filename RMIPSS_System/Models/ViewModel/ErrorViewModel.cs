@@ -1,4 +1,4 @@
-namespace RMIPSS_System.Models
+namespace RMIPSS_System.Models.ViewModel
 {
     public class ErrorViewModel
     {

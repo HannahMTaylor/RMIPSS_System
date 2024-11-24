@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using RMIPSS_System.Models;
+using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 using System.Diagnostics;
 
