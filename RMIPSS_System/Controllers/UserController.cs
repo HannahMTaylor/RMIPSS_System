@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RMIPSS_System.Models;
-using RMIPSS_System.Models.ProcessSteps;
+using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;

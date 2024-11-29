@@ -18,5 +18,9 @@ public interface IRepository<T> where T : class
     
     void RemoveById(int id);
     
+    T Save(T entity);
+
+
+    void Save();
     
 }
