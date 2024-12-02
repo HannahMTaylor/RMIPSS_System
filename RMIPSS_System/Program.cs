@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using RMIPSS_System.Configuration;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository;
@@ -26,6 +27,9 @@ public class Program
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+
+        // Bind the "EmailSettings" section to the EmailConfiguration class
+        builder.Services.Configure<EmailConfiguration>(builder.Configuration.GetSection("EmailSettings"));
 
         builder.Services.AddScoped<Initializer>();
         builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
