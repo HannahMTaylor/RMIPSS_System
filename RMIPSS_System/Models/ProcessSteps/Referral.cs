@@ -8,6 +8,7 @@ public class Referral
     public int ID {  get; set; }
     public Student Student { get; set; }
     public List<string> ReasonsForReferral { get; set; }
+    
     //public IFormFile? MIDScoringSheet { get; set; }
 
     [MaxLength(560)]
@@ -20,6 +21,7 @@ public class Referral
     public DateOnly EvaluationTeamRecommendation {  get; set; }
     public DateOnly ParentNoticeForMeeting {  get; set; }
     public DateOnly ReferredToChildStudyTeam {  get; set; }
+    
     public string Disposition {  get; set; }
     public DateOnly DispositionNoticeToParent {  get; set; }
     public DateOnly ReferralToEvaluationTeam {  get; set; }
