@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RMIPSS_System.Models;
@@ -13,12 +14,14 @@ public class UserService
     private readonly ILogger<UserService> _logger;
     private readonly IApplicationUserRepository _appUserRepo;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly IEmailSender _emailSender;
 
-    public UserService(ILogger<UserService> logger, IApplicationUserRepository db, RoleManager<IdentityRole> roleManager)
+    public UserService(ILogger<UserService> logger, IApplicationUserRepository db, RoleManager<IdentityRole> roleManager, IEmailSender emailSender)
     {
         _logger = logger;
         _appUserRepo = db;
         _roleManager = roleManager;
+        _emailSender = emailSender;
     }
 
     public async Task<bool> IsUserExist(String username)
@@ -102,5 +105,36 @@ public class UserService
         roleName = textInfo.ToTitleCase(roleName.ToLower());
 
         return roleName;
+    }
+
+    public async Task SendUserCreationEmail(User user)
+    {
+        try
+        {
+            // Send email for username
+            string subject = "User Created - Username";
+            string body = $"Dear {user.LastName},<br><br>" +
+                          "Your account has been created successfully. Below are the details for your username:<br>" +
+                          $"<b>Username</b>: {user.Email}<br><br>" +
+                          "Please keep this information secure.<br><br>" +
+                          "Best regards,<br>" +
+                          "RMIPSS Team";
+            await _emailSender.SendEmailAsync(user.Email, subject, body);
+
+            // Send email for password
+            subject = "User Created - Password";
+            body = $"Dear {user.LastName},<br><br>" +
+                    "Your account password has been set. Below are the details:<br>" +
+                    $"<b>Password</b>: {user.Password}<br><br>" +
+                    "For security purposes, please log in to system and change your password immediately.<br><br>" +
+                    "Best regards,<br>" +
+                    "RMIPSS Team";
+            await _emailSender.SendEmailAsync(user.Email, subject, body);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error sending user creation email to {email}", user.Email);
+            throw;
+        }
     }
 }
