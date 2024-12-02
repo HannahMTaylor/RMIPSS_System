@@ -73,6 +73,7 @@ public class UserController : Controller
 
             if (await _userService.CreateUser(user))
             {
+                _userService.SendUserCreationEmail(user);
                 _logger.LogInformation("User {Email} created successfully.", user.Email);
                 TempData["success"] = "User Created Successfully!";
             } else
