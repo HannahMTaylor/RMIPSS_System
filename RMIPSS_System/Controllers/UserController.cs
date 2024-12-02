@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RMIPSS_System.Models;
-using RMIPSS_System.Models.ProcessSteps;
+using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
@@ -73,6 +73,7 @@ public class UserController : Controller
 
             if (await _userService.CreateUser(user))
             {
+                _userService.SendUserCreationEmail(user);
                 _logger.LogInformation("User {Email} created successfully.", user.Email);
                 TempData["success"] = "User Created Successfully!";
             } else

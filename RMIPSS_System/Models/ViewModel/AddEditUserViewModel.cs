@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace RMIPSS_System.Models.ProcessSteps;
+namespace RMIPSS_System.Models.ViewModel;
 
 public class AddEditUserViewModel
 {
