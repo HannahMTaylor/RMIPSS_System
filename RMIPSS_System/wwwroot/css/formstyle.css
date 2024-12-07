@@ -1,18 +1,4 @@
-﻿.section {
-    margin-top: 20px;
-}
-.section-header {
-    background-color: #ffff99; /* Light yellow background for emphasis */
-   
-}
-
-h4 {
-    background-color: #F0F290;
-    padding: 5px;
-    text-align: center;
-}
-
-.flex-container {
+﻿.flex-container {
     display: flex;
     justify-content: space-between;
 }

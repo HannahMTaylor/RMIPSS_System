@@ -249,3 +249,11 @@ body {
     font-weight: 500;
     color: #333;
 }
+
+.section-header {
+    background-color: #ffff99; /* Light yellow background for emphasis */
+}
+
+.section {
+    margin-top: 20px;
+}
