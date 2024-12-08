@@ -1,5 +1,4 @@
 ﻿using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Models.OtherModels;
 using System.ComponentModel.DataAnnotations;
 
 namespace RMIPSS_System.Models.ProcessSteps;
@@ -9,8 +8,7 @@ public class Referral
     public int ID {  get; set; }
     public Student Student { get; set; }
     public List<string> ReasonsForReferral { get; set; }
-    
-    public PdfUpload? MIDScoringSheet { get; set; }
+    //public IFormFile? MIDScoringSheet { get; set; }
 
     [MaxLength(560)]
     public string AreasOfConcernAndHelpNeededDescription { get; set; }
@@ -22,7 +20,6 @@ public class Referral
     public DateOnly EvaluationTeamRecommendation {  get; set; }
     public DateOnly ParentNoticeForMeeting {  get; set; }
     public DateOnly ReferredToChildStudyTeam {  get; set; }
-    
     public string Disposition {  get; set; }
     public DateOnly DispositionNoticeToParent {  get; set; }
     public DateOnly ReferralToEvaluationTeam {  get; set; }

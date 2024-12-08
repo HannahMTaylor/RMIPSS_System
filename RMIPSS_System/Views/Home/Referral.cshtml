@@ -271,10 +271,13 @@
                 </div>
             </div>
         </section>
-        <div class="flex-container">
-            <button type="submit">Submit</button>
-            <button type="reset" style="display: none">Reset</button>
-            <button type="button" id="homepage">Cancel</button>
+
+        <div class="d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary w-50 me-3" onclick="history.back()">
+                <i class="fas fa-arrow-left me-2"></i> Back
+            </button>
+            <button type="submit" class="btn btn-primary w-50">Submit</button>
+
         </div>
     </form>
 </div>
