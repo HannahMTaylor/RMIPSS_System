@@ -2,61 +2,7 @@
     ViewData["Title"] = "SE-2 Screening Information Form";
 }
 
-<style>
-    input.form-control {
-        all: unset; /* Reset all Bootstrap styles */
-        display: block; /* Default browser behavior */
-        width: 100%; /* Full width */
-        height: auto; /* Adapt height naturally */
-        border: 1px solid rgb(118, 118, 118); /* Default border color */
-        padding: 0.25rem; /* Adjust padding to browser default */
-        font-size: 1rem; /* Match default font size */
-        color: initial; /* Browser default text color */
-        border-radius: 0; /* No border rounding */
-        box-sizing: border-box; /* Include padding and border in width */
-    }
-
-    input.form-control:focus {
-        outline: 1px solid #5b9dd9; /* Default focus color (blue) */
-        outline-offset: 0; /* Align outline with border */
-    }
-
-    select.form-select {
-        all: unset; /* Reset all Bootstrap styles */
-        display: block; /* Default browser behavior */
-        width: 100%; /* Full width */
-        height: auto; /* Allow natural height */
-        border: 1px solid rgb(118, 118, 118); /* Default border color */
-        padding: 0.4rem; /* Default padding */
-        font-size: 1rem; /* Match default font size */
-        background-color: #fff; /* Default background */
-        color: initial; /* Default text color */
-        box-sizing: border-box; /* Ensure padding and border are included */
-        border-radius: 0; /* Remove rounded corners */
-        appearance: auto; /* Retain default browser dropdown arrow */
-    }
-
-    select.form-select:focus {
-        outline: 1px solid #5b9dd9; /* Default browser focus style */
-        outline-offset: 0; /* Align outline with the border */
-    }
-
-    table, th, td, .form-check-input {
-        border-color: rgb(118, 118, 118) !important;
-    }
-
-    button {
-        margin-top: 1px;
-    }
-
-    .container {
-        padding: 0px;
-    }
-
-    .input-group{
-        margin-bottom: 0px;
-    }
-</style>
+<link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
 
 <div class="container p-0">
     <div class="row align-items-center mb-2">
@@ -65,9 +11,9 @@
         </div>
 
         <div class="col-md-8">
-            <h3 class="text-end"><strong>Republic of the Marshall Islands</strong></h3>
-            <h3 class="text-end"><strong>Public School System</strong></h3>
-            <h5 class="text-end"><strong>Special Education Referral (SE-2)</strong></h5>
+            <h2 class="text-end"><strong>Republic of the Marshall Islands</strong></h2>
+            <h2 class="text-end"><strong>Public School System</strong></h2>
+            <h4 class="text-end"><strong>Special Education Referral (SE-2)</strong></h4>
             <div class="text-end mt-3">
                 <button class="btn btn-primary mt-1 me-2">Print Page</button>
                 <button class="btn btn-primary mt-1">Toggle Language</button>

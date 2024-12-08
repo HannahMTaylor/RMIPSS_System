@@ -10,23 +10,11 @@
     }
     .container {
         max-width: none !important;
-    }
-    .card {
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .card-body {
-        padding: 40px;
+        padding: 20px;
     }
     h2 {
         font-size: 28px;
         font-weight: bold;
-        color: #333;
-    }
-    .form-label {
-        font-size: 14px;
-        font-weight: 500;
         color: #333;
     }
     .form-control {
@@ -46,19 +34,16 @@
         line-height: 1.5;
         padding: 8px 15px;
     }
-    .btn:not(.disabled):hover {
-        margin-top: 20px;
-    }
 </style>
 
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
+            <div class="add-user-card shadow-sm">
+                <div class="add-user-card-body">
                     <h2 class="text-center mb-4">Add New User</h2>
                     <form asp-controller="User" asp-action="Add" method="POST">
-                        <div class="row">
+                        <div class="row mb-2">
                             <div asp-validation-summary="ModelOnly" class="text-danger form-label-small"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -85,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label asp-for="User.Email" class="form-label">Email <span class="red">*</span></label>
@@ -111,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label asp-for="User.Password" class="form-label">Password <span class="red">*</span></label>
@@ -137,7 +122,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group select-role">
+                        <div class="form-group select-role mb-4">
                             <label asp-for="User.Role" class="form-label">Role <span class="red">*</span></label>
                             <div class="position-relative">
                                 <select asp-for="User.Role" class="form-control" asp-items="Model.Roles">
