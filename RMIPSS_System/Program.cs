@@ -39,6 +39,7 @@ public class Program
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<ConsentFormService>();
+        builder.Services.AddScoped<IPdfUploadRepository, PdfUploadRepository>();
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 
