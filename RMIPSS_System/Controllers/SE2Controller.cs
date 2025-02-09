@@ -2,7 +2,7 @@
 
 namespace RMIPSS_System.Controllers;
 
-public class SE2ScreeningInformationFormController : Controller
+public class SE2Controller : Controller
 {
     public IActionResult ScreeningInformationForm()
     {
