@@ -2,6 +2,8 @@
     ViewData["Title"] = "SE-2 Screening Information Form";
 }
 
+@model SE2
+
 <link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
 
 <div class="container p-0">
@@ -44,112 +46,112 @@
             <div class="row mb-2 align-items-center">
                 <b class="col-auto width-15">Full Name:</b>
                 <div class="col">
-                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" id="lastName" class="form-control" required>
+                    <label asp-for="Student.LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                    <input asp-for="Student.LastName" type="text" id="lastName" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                    <input type="text" id="firstName" class="form-control" required>
+                    <label asp-for="Student.FirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input asp-for="Student.FirstName" type="text" id="firstName" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="middleInitial" class="form-label">Middle Initial</label>
-                    <input type="text" id="middleInitial" class="form-control">
+                    <label asp-for="Student.MiddleInitial" class="form-label">Middle Initial</label>
+                    <input asp-for="Student.MiddleInitial" type="text" id="middleInitial" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="row mb-2 align-items-center">
                 <b class="col-auto width-15">Address:</b>
                 <div class="col">
-                    <label for="village" class="form-label">Village <span class="text-danger">*</span></label>
-                    <input type="text" id="village" class="form-control" required>
+                    <label asp-for="Student.Village" class="form-label">Village <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Village" type="text" id="village" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="atoll" class="form-label">Atoll <span class="text-danger">*</span></label>
-                    <input type="text" id="atoll" class="form-control" required>
+                    <label asp-for="Student.Atoll" class="form-label">Atoll <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Atoll" type="text" id="atoll" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="poBox" class="form-label">P.O. Box No. <span class="text-danger">*</span></label>
-                    <input type="text" id="poBox" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col">
-                    <label for="fathersName" class="form-label">Father's Name <span class="text-danger">*</span></label>
-                    <input type="text" id="fathersName" class="form-control" required>
-                </div>
-                <div class="col">
-                    <label for="mothersName" class="form-label">Mother's Name <span class="text-danger">*</span></label>
-                    <input type="text" id="mothersName" class="form-control" required>
+                    <label asp-for="Student.PoBoxNo" class="form-label">P.O. Box No. <span class="text-danger">*</span></label>
+                    <input asp-for="Student.PoBoxNo" type="text" id="poBox" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="guardiansName" class="form-label">Guardian's Name (if applicable)</label>
-                    <input type="text" id="guardiansName" class="form-control">
+                    <label asp-for="Student.FatherName" class="form-label">Father's Name <span class="text-danger">*</span></label>
+                    <input asp-for="Student.FatherName" type="text" id="fathersName" class="form-control" disabled>
+                </div>
+                <div class="col">
+                    <label asp-for="Student.MotherName" class="form-label">Mother's Name <span class="text-danger">*</span></label>
+                    <input asp-for="Student.MotherName" type="text" id="mothersName" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                    <input type="text" id="phone" class="form-control" required>
-                </div>
-                <div class="col">
-                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" id="email" class="form-control" required>
+                    <label asp-for="Student.GuardianName" class="form-label">Guardian's Name (if applicable)</label>
+                    <input asp-for="Student.GuardianName" type="text" id="guardiansName" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="sex" class="form-label">Sex <span class="text-danger">*</span></label>
-                    <select id="sex" class="form-select" required>
+                    <label asp-for="Student.Phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Phone" type="text" id="phone" class="form-control" disabled>
+                </div>
+                <div class="col">
+                    <label asp-for="Student.Email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Email" type="email" id="email" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col">
+                    <label asp-for="Student.Sex" class="form-label">Sex <span class="text-danger">*</span></label>
+                    <select asp-for="Student.Sex" id="sex" class="form-select" disabled>
                         <option value="">Select</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Others">Others</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                        <option value="O">Others</option>
                     </select>
                 </div>
                 <div class="col">
-                    <label for="age" class="form-label">Age <span class="text-danger">*</span></label>
-                    <input type="text" id="age" class="form-control" required>
+                    <label asp-for="Student.Age" class="form-label">Age <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Age" type="text" id="age" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="dateOfBirth" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                    <label asp-for="Student.DOB" class="form-label">Date of Birth <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input type="date" id="dateOfBirth" class="form-control px-3" required>
+                        <input asp-for="Student.DOB" type="date" id="dateOfBirth" class="form-control px-3" disabled>
                     </div>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="hospitalNo" class="form-label">Hospital No. <span class="text-danger">*</span></label>
-                    <input type="text" id="hospitalNo" class="form-control" required>
+                    <label asp-for="Student.HospitalNo" class="form-label">Hospital No. <span class="text-danger">*</span></label>
+                    <input asp-for="Student.HospitalNo" type="text" id="hospitalNo" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="ssn" class="form-label">Social Security No. <span class="text-danger">*</span></label>
-                    <input type="text" id="ssn" class="form-control" required>
+                    <label asp-for="Student.SSN" class="form-label">Social Security No. <span class="text-danger">*</span></label>
+                    <input asp-for="Student.SSN" type="text" id="ssn" class="form-control" disabled>
                 </div>
                 <div class="col">
-                    <label for="grade" class="form-label">Grade <span class="text-danger">*</span></label>
-                    <input type="text" id="grade" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col">
-                    <label for="primaryLanguage" class="form-label">Primary Language of Child/Student <span class="text-danger">*</span></label>
-                    <input type="text" id="primaryLanguage" class="form-control" required>
+                    <label asp-for="Student.Grade" class="form-label">Grade <span class="text-danger">*</span></label>
+                    <input asp-for="Student.Grade" type="text" id="grade" class="form-control" disabled>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="parentLanguage" class="form-label">Primary Language of Parent or Guardian <span class="text-danger">*</span></label>
-                    <input type="text" id="parentLanguage" class="form-control" required>
+                    <label asp-for="Student.PrimaryLanguage" class="form-label">Primary Language of Child/Student <span class="text-danger">*</span></label>
+                    <input asp-for="Student.PrimaryLanguage" type="text" id="primaryLanguage" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col">
+                    <label asp-for="Student.ParentGuardianPrimaryLanguage" class="form-label">Primary Language of Parent or Guardian <span class="text-danger">*</span></label>
+                    <input asp-for="Student.ParentGuardianPrimaryLanguage" type="text" id="parentLanguage" class="form-control" disabled>
                 </div>
             </div>
         </section>

@@ -35,9 +35,12 @@ public class Program
         builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+        builder.Services.AddScoped<ISE2Repository, SE2Repository>();
         builder.Services.AddScoped<IEmailSender, EmailSender>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddScoped<UserService>();
+        builder.Services.AddScoped<SE2Service>();
         builder.Services.AddScoped<ConsentFormService>();
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
