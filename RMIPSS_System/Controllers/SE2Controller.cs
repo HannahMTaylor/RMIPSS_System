@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
 
+[Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
 public class SE2Controller : Controller
 {
     private readonly SE2Service _se2Service;
@@ -24,9 +26,14 @@ public class SE2Controller : Controller
             return NotFound();
         }
 
-        var model = new SE2
+        ApplicationUser user = await _se2Service.GetLoggedInUser(User.Identity.Name);
+
+        SE2 model = new SE2
         {
             Student = student,
+            CompletedByName = user.FirstName + " " + user.LastName,
+            CompletedByPhone = user.PhoneNumber,
+            CompletedByEmail = user.Email,
             CompletedDate = DateOnly.FromDateTime(DateTime.UtcNow)
         };
 

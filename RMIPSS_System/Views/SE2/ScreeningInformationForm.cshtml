@@ -161,31 +161,31 @@
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="referralName" class="form-label">Full Name <span class="text-danger">*</span></label>
-                    <input type="text" id="referralName" class="form-control" required>
+                    <label asp-for="CompletedByName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                    <input asp-for="CompletedByName" type="text" id="completedByName" class="form-control" required>
                 </div>
                 <div class="col">
-                    <label for="relationship" class="form-label">Relationship to child/student or agency/position <span class="text-danger">*</span></label>
-                    <input type="text" id="relationship" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="row mb-2">
-                <div class="col">
-                    <label for="phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                    <input type="text" id="phone" class="form-control" required>
-                </div>
-                <div class="col">
-                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" id="email" class="form-control" required>
+                    <label asp-for="CompletedByRelationship" class="form-label">Relationship to child/student or agency/position</label>
+                    <input asp-for="CompletedByRelationship" type="text" id="completedByRelationship" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label for="referralDate" class="form-label">Date <span class="text-danger">*</span></label>
+                    <label asp-for="CompletedByPhone" class="form-label">Phone <span class="text-danger">*</span></label>
+                    <input asp-for="CompletedByPhone" type="text" id="completedByPhone" class="form-control" required>
+                </div>
+                <div class="col">
+                    <label asp-for="CompletedByEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input asp-for="CompletedByEmail" type="email" id="completedByEmail" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col">
+                    <label asp-for="CompletedDate" class="form-label">Date <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input type="date" id="referralDate" class="form-control px-3" required>
+                        <input asp-for="CompletedDate" type="date" id="completedDate" class="form-control px-3" required>
                     </div>
                 </div>
                 <div class="col">
