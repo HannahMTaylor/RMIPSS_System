@@ -1,39 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
-    function updateSelectedValues(sectionClass, hiddenFieldId) {
-        let selectedValues = [];
-        document.querySelectorAll("." + sectionClass + ":checked").forEach(function (checkbox) {
-            selectedValues.push(checkbox.value);
-        });
+﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
 
-        document.getElementById(hiddenFieldId).value = selectedValues.join(",");
-    }
-
-    function initializeSection(sectionClass, hiddenFieldId) {
-        // Load saved values from hidden input (from the database)
-        let savedValues = document.getElementById(hiddenFieldId).value;
-        if (savedValues) {
-            let checkedValues = savedValues.split(",");
-            document.querySelectorAll("." + sectionClass).forEach(function (checkbox) {
-                if (checkedValues.includes(checkbox.value)) {
-                    checkbox.checked = true;
-                }
-            });
-        }
-
-        // Update hidden input on change
-        document.querySelectorAll("." + sectionClass).forEach(function (checkbox) {
-            checkbox.addEventListener("change", function () {
-                updateSelectedValues(sectionClass, hiddenFieldId);
-            });
-        });
-    }
-
-    // Initialize each section separately
-    initializeSection("physical-checkbox", "physicalValues");
-    initializeSection("vision-checkbox", "visionValues");
-    initializeSection("hearing-checkbox", "hearingValues");
-    initializeSection("languageSpeech-checkbox", "languageSpeechValues");
-    initializeSection("behavior-checkbox", "behaviorValues");
-    initializeSection("academic-checkbox", "academicValues");
-    initializeSection("other-checkbox", "otherValues");
-});
+// Write your JavaScript code.

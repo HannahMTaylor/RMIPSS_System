@@ -39,7 +39,7 @@
         </p>
     </div>
 
-    <form asp-controller="SE2" asp-action="SaveScreeningInformationForm" method="POST">
+    <form id="SE2Form" asp-controller="SE2" asp-action="SaveScreeningInformationForm" method="POST">
         <section class="mb-3">
             <div class="mb-3 text-center p-2 section-header"><strong>Section 1: Child/Student Being Referred</strong></div>
 
@@ -165,7 +165,8 @@
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="SE2.CompletedByName" class="form-label">Full Name <span class="text-danger">*</span></label>
-                    <input asp-for="SE2.CompletedByName" type="text" id="completedByName" class="form-control" required>
+                    <input asp-for="SE2.CompletedByName" type="text" id="completedByName" class="form-control">
+                    <span id="completedByNameError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="SE2.CompletedByRelationship" class="form-label">Relationship to child/student or agency/position</label>
@@ -176,11 +177,13 @@
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="SE2.CompletedByPhone" class="form-label">Phone <span class="text-danger">*</span></label>
-                    <input asp-for="SE2.CompletedByPhone" type="text" id="completedByPhone" class="form-control" required>
+                    <input asp-for="SE2.CompletedByPhone" type="text" id="completedByPhone" class="form-control">
+                    <span id="completedByPhoneError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="SE2.CompletedByEmail" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input asp-for="SE2.CompletedByEmail" type="email" id="completedByEmail" class="form-control" required>
+                    <input asp-for="SE2.CompletedByEmail" type="email" id="completedByEmail" class="form-control">
+                    <span id="completedByEmailError" class="text-danger"></span>
                 </div>
             </div>
 
@@ -188,8 +191,9 @@
                 <div class="col">
                     <label asp-for="SE2.CompletedDate" class="form-label">Date <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input asp-for="SE2.CompletedDate" type="date" id="completedDate" class="form-control px-3" required>
+                        <input asp-for="SE2.CompletedDate" type="date" id="completedDate" class="form-control px-3">
                     </div>
+                    <span id="completedDateError" class="text-danger"></span>
                 </div>
                 <div class="col">
                 </div>
@@ -678,3 +682,5 @@
         </div>
     </form>
 </div>
+
+<script src="~/js/se2Form.js" asp-append-version="true"></script>
