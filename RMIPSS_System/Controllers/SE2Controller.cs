@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
+using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
@@ -28,15 +29,26 @@ public class SE2Controller : Controller
 
         ApplicationUser user = await _se2Service.GetLoggedInUser(User.Identity.Name);
 
-        SE2 model = new SE2
+        SE2ViewModel model = new SE2ViewModel
         {
             Student = student,
-            CompletedByName = user.FirstName + " " + user.LastName,
-            CompletedByPhone = user.PhoneNumber,
-            CompletedByEmail = user.Email,
-            CompletedDate = DateOnly.FromDateTime(DateTime.UtcNow)
+            SE2 = new SE2
+            {
+                CompletedByName = user.FirstName + " " + user.LastName,
+                CompletedByPhone = user.PhoneNumber,
+                CompletedByEmail = user.Email,
+                CompletedDate = DateOnly.FromDateTime(DateTime.UtcNow)
+            }
         };
 
         return View("ScreeningInformationForm", model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> SaveScreeningInformationForm(SE2ViewModel se2Model)
+    {
+        se2Model.SE2.StudentId = se2Model.Student.Id;
+        await _se2Service.saveFormData(se2Model.SE2);
+        return RedirectToAction("List", "User");
     }
 }

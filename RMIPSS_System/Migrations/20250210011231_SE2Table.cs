@@ -17,7 +17,7 @@ namespace RMIPSS_System.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentId = table.Column<int>(type: "int", nullable: true),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
                     CompletedByName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CompletedByRelationship = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     CompletedByPhone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
@@ -46,7 +46,8 @@ namespace RMIPSS_System.Migrations
                         name: "FK_SE2_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

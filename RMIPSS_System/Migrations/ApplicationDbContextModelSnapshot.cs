@@ -612,7 +612,7 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("VisionConcerns")
@@ -711,7 +711,9 @@ namespace RMIPSS_System.Migrations
                 {
                     b.HasOne("RMIPSS_System.Models.Entities.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Student");
                 });

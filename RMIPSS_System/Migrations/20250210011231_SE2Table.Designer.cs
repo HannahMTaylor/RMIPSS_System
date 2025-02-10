@@ -12,7 +12,7 @@ using RMIPSS_System.Data;
 namespace RMIPSS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250209202323_SE2Table")]
+    [Migration("20250210011231_SE2Table")]
     partial class SE2Table
     {
         /// <inheritdoc />
@@ -615,7 +615,7 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("StudentId")
+                    b.Property<int>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<string>("VisionConcerns")
@@ -714,7 +714,9 @@ namespace RMIPSS_System.Migrations
                 {
                     b.HasOne("RMIPSS_System.Models.Entities.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Student");
                 });

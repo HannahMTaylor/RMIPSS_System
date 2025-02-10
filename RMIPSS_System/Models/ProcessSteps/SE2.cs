@@ -1,11 +1,16 @@
-﻿using RMIPSS_System.Models.Entities;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using RMIPSS_System.Models.Entities;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RMIPSS_System.Models.ProcessSteps;
 
 public class SE2
 {
     public int Id { get; set; }
+    public int StudentId { get; set; }
+    [ForeignKey("StudentId")]
+    [ValidateNever]
     public Student Student { get; set; }
     [MaxLength(100)]
     public string CompletedByName { get; set; } = String.Empty;

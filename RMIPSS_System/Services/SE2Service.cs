@@ -1,4 +1,5 @@
 ﻿using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository.IRepository;
 
 namespace RMIPSS_System.Services;
@@ -26,5 +27,10 @@ public class SE2Service
     public async Task<ApplicationUser> GetLoggedInUser(String username)
     {
         return await _appUserRepo.GetAsync(user => user.UserName.ToLower() == username.ToLower());
+    }
+
+    public async Task saveFormData(SE2 se2)
+    {
+        _se2Repo.Save(se2);
     }
 }
