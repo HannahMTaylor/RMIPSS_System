@@ -9,8 +9,8 @@ public class Referral
     public int ID {  get; set; }
     public Student Student { get; set; }
     public List<string> ReasonsForReferral { get; set; }
-
-    public PdfUpload? MIDScoringSheet { get; set; }
+    //this has not been added to Db table Referrals yet
+    // public PdfUpload? MIDScoringSheet { get; set; }
 
     [MaxLength(560)]
     public string AreasOfConcernAndHelpNeededDescription { get; set; }
