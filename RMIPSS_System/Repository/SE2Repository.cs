@@ -1,4 +1,5 @@
 ﻿using RMIPSS_System.Data;
+using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository.IRepository;
 
@@ -13,13 +14,13 @@ public class SE2Repository : Repository<SE2>, ISE2Repository
         _db = db;
     }
 
-    public Task SaveAsync()
+    public async Task SaveAsync()
     {
-        throw new NotImplementedException();
+        await _db.SaveChangesAsync();
     }
 
     public void Update(SE2 se2)
     {
-        throw new NotImplementedException();
+        _db.SE2.Update(se2);
     }
 }

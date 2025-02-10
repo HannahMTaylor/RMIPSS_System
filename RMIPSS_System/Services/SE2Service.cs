@@ -31,6 +31,18 @@ public class SE2Service
 
     public async Task saveFormData(SE2 se2)
     {
-        _se2Repo.Save(se2);
+        await _se2Repo.AddAsync(se2);
+        await _se2Repo.SaveAsync();
+    }
+
+    public async Task<SE2> GetSE2Data(int studentId)
+    {
+        return await _se2Repo.GetAsync(se2 => se2.StudentId == studentId);
+    }
+
+    public async Task updateFromData(SE2 sE2)
+    {
+        _se2Repo.Update(sE2);
+        await _se2Repo.SaveAsync();
     }
 }

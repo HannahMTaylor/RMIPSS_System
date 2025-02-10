@@ -27,9 +27,18 @@ public class SE2Controller : Controller
             return NotFound();
         }
 
-        ApplicationUser user = await _se2Service.GetLoggedInUser(User.Identity.Name);
+        SE2 se2 = await _se2Service.GetSE2Data(studentId);
+        if (se2 != null) {
+            SE2ViewModel viewModel = new SE2ViewModel
+            {
+                Student = student,
+                SE2 = se2
+            };
+            return View(viewModel);
+        }
 
-        SE2ViewModel model = new SE2ViewModel
+        ApplicationUser user = await _se2Service.GetLoggedInUser(User.Identity.Name);
+        SE2ViewModel newModel = new SE2ViewModel
         {
             Student = student,
             SE2 = new SE2
@@ -40,15 +49,20 @@ public class SE2Controller : Controller
                 CompletedDate = DateOnly.FromDateTime(DateTime.UtcNow)
             }
         };
-
-        return View("ScreeningInformationForm", model);
+        return View(newModel);
     }
 
     [HttpPost]
     public async Task<IActionResult> SaveScreeningInformationForm(SE2ViewModel se2Model)
     {
         se2Model.SE2.StudentId = se2Model.Student.Id;
-        await _se2Service.saveFormData(se2Model.SE2);
+        if (se2Model.SE2.Id == 0)
+        {
+            await _se2Service.saveFormData(se2Model.SE2);
+        } else
+        {
+            await _se2Service.updateFromData(se2Model.SE2);
+        }
         return RedirectToAction("List", "User");
     }
 }
