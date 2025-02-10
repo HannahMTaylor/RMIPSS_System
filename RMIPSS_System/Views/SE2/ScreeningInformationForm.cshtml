@@ -347,55 +347,56 @@
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="1">
                             </td>
                             <td>1.	Child/student often asks to have instructions repeated</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="2">
                             </td>
                             <td>2.	Child/student often does not answer when spoken to</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="3">
                             </td>
                             <td>3.	Child/student does not respond to loud noises</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="4">
                             </td>
                             <td>4.	Child/student often has a discharge from his/her ear</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="5">
                             </td>
                             <td>5.	Child/student holds ear with hand to hear better</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="6">
                             </td>
                             <td>6.	Child/student often complains of ear aches</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="7">
                             </td>
                             <td>7.	Child/student does not appear to hear</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input hearing-checkbox" type="checkbox" value="8">
                             </td>
                             <td>
                                 8. Other (please specify):
-                                <input type="text" class="form-control mt-2" placeholder="Enter text">
+                                <input asp-for="SE2.OtherHearingConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
+                        <input type="hidden" id="hearingValues" asp-for="SE2.HearingConcerns">
                     </tbody>
                 </table>
             </div>
@@ -409,67 +410,68 @@
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="1">
                             </td>
                             <td>1.	Child/student often does not appear to understand the names of familiar objects</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="2">
                             </td>
                             <td>2.	Child/student often does not follow simple directions given in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="3">
                             </td>
                             <td>3.	Child/student seems unable to answer simple questions given his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="4">
                             </td>
                             <td>4.	Child/student talks much like a younger child</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="5">
                             </td>
                             <td>5.	Child/student is hard to understand when he/she talks in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="6">
                             </td>
                             <td>6.	Child/student has difficulty saying and imitating or repeating words in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="7">
                             </td>
                             <td>7.	Child/student often uses gestures instead of words to let you know what he/she wants</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="8">
                             </td>
                             <td>8.	Child/student does not speak</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="9">
                             </td>
                             <td>9.	Child/student’s score is below cut off score for “Understanding Language” or “Spoken Language” sections of the MID [pre-school age children only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="10">
                             </td>
                             <td>
                                 10. Other (please specify):
-                                <input type="text" class="form-control mt-2" placeholder="Enter text">
+                                <input asp-for="SE2.OtherLanguageSpeechConcerns" type="text" class="form-control mt-2 languageSpeech-checkbox" placeholder="Enter text">
                             </td>
                         </tr>
+                        <input type="hidden" id="languageSpeechValues" asp-for="SE2.LanguageSpeechConcerns">
                     </tbody>
                 </table>
             </div>
@@ -483,61 +485,62 @@
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="1">
                             </td>
                             <td>1.	Child/student is much more active than his/her peers</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="2">
                             </td>
                             <td>2.	Child/student is inattentive for his/her age (e.g., short attention span, easily distracted, cannot stay on task)</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="3">
                             </td>
                             <td>3.	Child/student often does not complete task</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="4">
                             </td>
                             <td>4.	Child/student does not talk or play with others</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="5">
                             </td>
                             <td>5.	Child/student usually plays with much younger children</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="6">
                             </td>
                             <td>6.	Child/student does not appear to have friends (e.g., teased, rejected, ignored, or abused by peers)</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="7">
                             </td>
                             <td>7.	Child/student often hits others and/or destroys things</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="8">
                             </td>
                             <td>8.	Child/student’s score is below cut off score for “Self-Help and Social” section of MID [pre-school age only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input behavior-checkbox" type="checkbox" value="9">
                             </td>
                             <td>
                                 9. Other (please specify):
-                                <input type="text" class="form-control mt-2" placeholder="Enter text">
+                                <input asp-for="SE2.OtherBehaviorConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
+                        <input type="hidden" id="behaviorValues" asp-for="SE2.BehaviorConcerns">
                     </tbody>
                 </table>
             </div>
@@ -556,49 +559,50 @@
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="1">
                             </td>
                             <td>1.	Child/student has difficulty reading</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="2">
                             </td>
                             <td>2.	Child/student cannot read</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="3">
                             </td>
                             <td>3.	Child/student has difficulty understanding new math concepts</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="4">
                             </td>
                             <td>4.	Child/student appears way behind other students his/her age in understanding math concepts</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="5">
                             </td>
                             <td>5.	Child/student appears way behind other students his/her age in spelling</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="6">
                             </td>
                             <td>6.	Child/student’s score is below cut off score for “Cognitive and Perception” section of MID [for pre-school age children only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input academic-checkbox" type="checkbox" value="7">
                             </td>
                             <td>
                                 7. Other (please specify):
-                                <input type="text" class="form-control mt-2" placeholder="Enter text">
+                                <input asp-for="SE2.OtherAcademicConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
+                        <input type="hidden" id="academicValues" asp-for="SE2.AcademicConcerns">
                     </tbody>
                 </table>
             </div>
@@ -612,37 +616,38 @@
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input other-checkbox" type="checkbox" value="1">
                             </td>
                             <td>1.	Child/student attendance</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input other-checkbox" type="checkbox" value="2">
                             </td>
                             <td>2.	Child/student appears to have drug-or alcohol related problems</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input other-checkbox" type="checkbox" value="3">
                             </td>
                             <td>3.	Child/student’s family situation is not conducive to or unable to support Child/student’s educational needs</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input other-checkbox" type="checkbox" value="4">
                             </td>
                             <td>4.	Child/student comes to school with bruises, cuts, or other injuries that appear to be inflicted by others</td>
                         </tr>
                         <tr>
                             <td class="text-center">
-                                <input class="form-check-input" type="checkbox">
+                                <input class="form-check-input other-checkbox" type="checkbox" value="5">
                             </td>
                             <td>
                                 5. Other (please specify):
-                                <input type="text" class="form-control mt-2" placeholder="Enter text">
+                                <input asp-for="SE2.OtherOtherConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
+                        <input type="hidden" id="otherValues" asp-for="SE2.OtherConcerns">
                     </tbody>
                 </table>
             </div>
@@ -656,7 +661,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea class="mt-2" placeholder="Enter text"></textarea>
+                                <textarea asp-for="SE2.Comments" class="mt-2" placeholder="Enter text"></textarea>
                             </td>
                         </tr>
                     </tbody>

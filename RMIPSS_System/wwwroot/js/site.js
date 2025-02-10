@@ -31,4 +31,9 @@
     // Initialize each section separately
     initializeSection("physical-checkbox", "physicalValues");
     initializeSection("vision-checkbox", "visionValues");
+    initializeSection("hearing-checkbox", "hearingValues");
+    initializeSection("languageSpeech-checkbox", "languageSpeechValues");
+    initializeSection("behavior-checkbox", "behaviorValues");
+    initializeSection("academic-checkbox", "academicValues");
+    initializeSection("other-checkbox", "otherValues");
 });
