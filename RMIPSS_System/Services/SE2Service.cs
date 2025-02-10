@@ -21,28 +21,65 @@ public class SE2Service
 
     public async Task<Student> GetStudent(int studentId)
     {
-        return await _studentRepo.GetAsync(student => student.Id == studentId);
+        try
+        {
+            return await _studentRepo.GetAsync(student => student.Id == studentId);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error fetching student for SE2 Form.");
+            throw;
+        }
     }
 
     public async Task<ApplicationUser> GetLoggedInUser(String username)
     {
-        return await _appUserRepo.GetAsync(user => user.UserName.ToLower() == username.ToLower());
+        try
+        {
+            return await _appUserRepo.GetAsync(user => user.UserName.ToLower() == username.ToLower());
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting logged-in user for SE2 Form.");
+            throw;
+        }
     }
 
     public async Task saveFormData(SE2 se2)
     {
-        await _se2Repo.AddAsync(se2);
-        await _se2Repo.SaveAsync();
+        try
+        {
+            await _se2Repo.AddAsync(se2);
+            await _se2Repo.SaveAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error saving form data for SE2 Form.");
+            throw;
+        }
     }
 
     public async Task<SE2> GetSE2Data(int studentId)
     {
-        return await _se2Repo.GetAsync(se2 => se2.StudentId == studentId);
+        try
+        {
+            return await _se2Repo.GetAsync(se2 => se2.StudentId == studentId);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error getting form data for SE2 Form.");
+            throw;
+        }
     }
 
     public async Task updateFromData(SE2 sE2)
     {
-        _se2Repo.Update(sE2);
-        await _se2Repo.SaveAsync();
+        try
+        {
+            _se2Repo.Update(sE2);
+            await _se2Repo.SaveAsync();
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error updating form data for SE2 Form.");
+            throw;
+        }
     }
 }
