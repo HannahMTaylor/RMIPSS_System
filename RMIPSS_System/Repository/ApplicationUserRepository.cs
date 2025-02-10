@@ -34,11 +34,44 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
     public async Task AssignUserToRoleAsync(string userName, string rolename)
     {
-        var user = await GetAsync(u =>
-            u.UserName.ToLower() == userName.ToLower()
-        );
-        if (user != null) {
-            await _userManager.AddToRoleAsync(user, rolename);
+
+        // Fetch user using `UserManager` instead of tracking `DbContext`
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (user != null)
+        {
+            // Check if user is already in the role
+            var roles = await _userManager.GetRolesAsync(user);
+            if (!roles.Contains(rolename))
+            {
+                // Assign role
+                await _userManager.AddToRoleAsync(user, rolename);
+            }
+
+
         }
+    }
+
+    public async Task<bool> DeleteUserAsync(String username)
+    {
+        // Retrieve the user from UserManager
+        var user = await _userManager.FindByNameAsync(username);
+
+        if (user == null)
+        {
+            return false; // User does not exist
+        }
+
+        // Check if the user has roles before removing them
+        var roles = await _userManager.GetRolesAsync(user);
+        if (roles.Any())
+        {
+            // Remove the roles from the user    
+            await _userManager.RemoveFromRolesAsync(user, roles);
+        }
+
+        // Delete the user from UserManager
+        var result = await _userManager.DeleteAsync(user);
+        return result.Succeeded;
     }
 }
