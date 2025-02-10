@@ -294,3 +294,12 @@ label {
 .three-equal-width th, .equal-width td {
     width: 33.33%;
 }
+
+.readonly-field {
+    background-color: #e9ecef !important;
+    cursor: not-allowed !important;
+}
+
+.error-border {
+    border: 2px solid red;
+}
