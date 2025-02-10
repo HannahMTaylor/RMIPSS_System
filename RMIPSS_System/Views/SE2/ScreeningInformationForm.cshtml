@@ -39,7 +39,7 @@
         </p>
     </div>
 
-    <form id="SE2Form" asp-controller="SE2" asp-action="SaveScreeningInformationForm" method="POST">
+    <form id="SE2Form" asp-controller="SE2" asp-action="SaveScreeningInformationForm" method="POST" novalidate>
         <section class="mb-3">
             <div class="mb-3 text-center p-2 section-header"><strong>Section 1: Child/Student Being Referred</strong></div>
 
@@ -205,6 +205,8 @@
                 <strong>Check the areas of concern. Briefly describe the concerns under section H (comments) below)</strong>
             </div>
 
+            <div id="checkBoxError" class="text-danger mb-3"></div>
+
             <!-- Physical Section -->
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -275,7 +277,7 @@
                                 <input asp-for="SE2.OtherPhysicalConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="physicalValues" asp-for="SE2.PhysicalConcerns">
+                        <input type="hidden" id="physicalValues" class="SE2CheckBoxValues" asp-for="SE2.PhysicalConcerns">
                     </tbody>
                 </table>
             </div>
@@ -338,7 +340,7 @@
                                 <input asp-for="SE2.OtherVisionConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="visionValues" asp-for="SE2.VisionConcerns">
+                        <input type="hidden" id="visionValues" class="SE2CheckBoxValues" asp-for="SE2.VisionConcerns">
                     </tbody>
                 </table>
             </div>
@@ -401,7 +403,7 @@
                                 <input asp-for="SE2.OtherHearingConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="hearingValues" asp-for="SE2.HearingConcerns">
+                        <input type="hidden" id="hearingValues" class="SE2CheckBoxValues" asp-for="SE2.HearingConcerns">
                     </tbody>
                 </table>
             </div>
@@ -476,7 +478,7 @@
                                 <input asp-for="SE2.OtherLanguageSpeechConcerns" type="text" class="form-control mt-2 languageSpeech-checkbox" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="languageSpeechValues" asp-for="SE2.LanguageSpeechConcerns">
+                        <input type="hidden" id="languageSpeechValues" class="SE2CheckBoxValues" asp-for="SE2.LanguageSpeechConcerns">
                     </tbody>
                 </table>
             </div>
@@ -545,7 +547,7 @@
                                 <input asp-for="SE2.OtherBehaviorConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="behaviorValues" asp-for="SE2.BehaviorConcerns">
+                        <input type="hidden" id="behaviorValues" class="SE2CheckBoxValues" asp-for="SE2.BehaviorConcerns">
                     </tbody>
                 </table>
             </div>
@@ -607,7 +609,7 @@
                                 <input asp-for="SE2.OtherAcademicConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="academicValues" asp-for="SE2.AcademicConcerns">
+                        <input type="hidden" id="academicValues" class="SE2CheckBoxValues" asp-for="SE2.AcademicConcerns">
                     </tbody>
                 </table>
             </div>
@@ -652,7 +654,7 @@
                                 <input asp-for="SE2.OtherOtherConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
-                        <input type="hidden" id="otherValues" asp-for="SE2.OtherConcerns">
+                        <input type="hidden" id="otherValues" class="SE2CheckBoxValues" asp-for="SE2.OtherConcerns">
                     </tbody>
                 </table>
             </div>

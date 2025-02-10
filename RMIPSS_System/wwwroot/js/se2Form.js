@@ -74,10 +74,29 @@ $(document).ready(function () {
             $("#completedByEmail").addClass("error-border");
 
             if (!firstInvalidField) {
-                firstInvalidField = $("#email")[0];
+                firstInvalidField = $("#completedByEmail")[0];
             }
 
             isValid = false;
+        }
+
+        let checkBoxValid = false;
+        $(".SE2CheckBoxValues").each(function () {
+            if ($(this).val().trim() !== "") {
+                checkBoxValid = true;
+                return false;
+            }
+        });
+
+        if (!checkBoxValid) {
+            $("#checkBoxError").text("At least one concern must be selected.").show();
+            isValid = false;
+
+            if (!firstInvalidField) {
+                firstInvalidField = $("#checkBoxError")[0];
+            }
+        } else {
+            $("#checkBoxError").hide();
         }
 
         if (!isValid && firstInvalidField) {
