@@ -77,7 +77,7 @@ public class SE2Controller : Controller
             }
             else
             {
-                await _se2Service.updateFromData(se2Model.SE2);
+                await _se2Service.updateFormData(se2Model.SE2);
                 _logger.LogInformation("SE2 Form updated successfully for {FirstName} {lastName}.", se2Model.Student.FirstName, se2Model.Student.LastName);
                 TempData["success"] = "SE2 Form updated successfully!";
             }

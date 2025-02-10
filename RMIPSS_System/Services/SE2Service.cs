@@ -70,7 +70,7 @@ public class SE2Service
         }
     }
 
-    public async Task updateFromData(SE2 sE2)
+    public async Task updateFormData(SE2 sE2)
     {
         try
         {
