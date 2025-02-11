@@ -137,4 +137,21 @@ public class UserService
             throw;
         }
     }
+
+      public async Task<bool> DeleteUserAsync(String username)
+    {
+        try
+        {
+
+            var result = await _appUserRepo.DeleteUserAsync(username);
+            return result;
+            
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting user: {Username}", username);
+            throw;
+        }
+    }
+
 }

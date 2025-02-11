@@ -25,7 +25,7 @@ public class ConsentFormUnitTest
 
         //Arrange
         ApplicationDbContextUnit unitConnection = new();
-        DbContextOptions<ApplicationDbContext> options = unitConnection.getOptions();
+        DbContextOptions<ApplicationDbContext> options = unitConnection.GetOptions();
         ApplicationDbContext _db = new ApplicationDbContext(options);
         IConsentFormRepository _consentFormRepository=new ConsentFormRepository(_db);
         IRepository<Student> _repositoryStudent = new Repository<Student>(_db);
