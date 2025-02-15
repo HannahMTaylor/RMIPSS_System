@@ -8,4 +8,5 @@ public interface IApplicationUserRepository : IRepository<ApplicationUser>
     Task SaveAsync();
     Task<ApplicationUser> CreateApplicationUserAsync(ApplicationUser applicationUser, string password);
     Task AssignUserToRoleAsync(string userName, string rolename);
+     Task<bool> DeleteUserAsync(String username);
 }
