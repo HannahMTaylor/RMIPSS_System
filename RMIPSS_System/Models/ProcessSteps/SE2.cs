@@ -9,9 +9,8 @@ public class SE2
 {
     public int Id { get; set; }
     public int StudentId { get; set; }
-    [ForeignKey("StudentId")]
     [ValidateNever]
-    public Student Student { get; set; }
+    public Student? Student { get; set; }
     [MaxLength(100)]
     public string CompletedByName { get; set; } = String.Empty;
     [MaxLength(50)]
