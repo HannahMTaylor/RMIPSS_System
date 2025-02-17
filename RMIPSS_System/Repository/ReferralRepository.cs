@@ -3,7 +3,9 @@ using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Data;
 
 namespace RMIPSS_System.Repository;
-
+/// <summary>
+/// The repository class implements an interface for database related functions to minimize coupling between controller and db
+/// </summary>
 public class ReferralRepository : Repository<Referral>, IReferralRepository
 {
     private ApplicationDbContext _db;
