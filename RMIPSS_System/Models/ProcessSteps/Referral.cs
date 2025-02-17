@@ -7,14 +7,23 @@ namespace RMIPSS_System.Models.ProcessSteps;
 public class Referral
 {
     public int ID {  get; set; }
+
+    //section 1 of form
     public Student Student { get; set; }
+
+    //section two of form
     public List<string> ReasonsForReferral { get; set; }
-    //this has not been added to Db table Referrals yet
+    public string? OtherReasonsForReferral { get; set; }
+    //this has not been added to Db table Referrals yet bc not working
     // public PdfUpload? MIDScoringSheet { get; set; }
 
     [MaxLength(560)]
     public string AreasOfConcernAndHelpNeededDescription { get; set; }
+
+    //section 3
     public ReferrerPerson Referrer { get; set; }
+
+    //section 4: school use only
     public DateOnly ReferralReceived {  get; set; }
     public DateOnly TeamRecommendation {  get; set; }
     public DateOnly DispositionNoticeToReferrer {  get; set; }

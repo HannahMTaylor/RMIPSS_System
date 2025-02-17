@@ -33,7 +33,10 @@ public class Student
     [MaxLength(11)]
     public string SSN { get; set; } = String.Empty;
     public int Grade { get; set; }
+
+
     [MaxLength(100)]
+    //this needs to be changed to type school and nullable bc not used in all forms
     public string School { get; set; } = String.Empty;
     [MaxLength(50)]
     public string PrimaryLanguage { get; set; } = String.Empty;
