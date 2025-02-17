@@ -19,7 +19,7 @@ public class SE2Controller : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> ScreeningInformationForm(int studentId)
+    public async Task<IActionResult> ScreeningInformationForm([Bind(Prefix = "id")] int studentId)
     {
         try
         {

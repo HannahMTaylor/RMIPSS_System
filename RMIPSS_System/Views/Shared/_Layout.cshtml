@@ -12,39 +12,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RMIPSS System</a>
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">
-                                Home
-                                <span class="visually-hidden">(current)</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Referral">Referral</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-studentId="1">SE-2 Form</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-studentId="1" >Consent Form</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="User" asp-action="List">User List</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="StudentViewDetails">Student Details</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
+    <partial name="_SideBar" />
+
     <div class="container">
         <main role="main">
             <partial name="_Notification" />
@@ -52,9 +21,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer bg-primary text-muted" style="line-height: 40px;">
+    <footer class="border-top footer bg-color text-muted" style="line-height: 40px;">
         <div class="text-center" style="color: #FFF">
-            Copyright © 2024
+            Copyright © 2025
         </div>
     </footer>
 

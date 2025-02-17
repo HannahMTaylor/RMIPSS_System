@@ -39,3 +39,8 @@ select.form-select:focus {
 table, th, td, .form-check-input {
     border-color: rgb(118, 118, 118) !important;
 }
+
+.content {
+    margin-left: 150px;
+    padding: 55px 0px 0px 0px !important;
+}
