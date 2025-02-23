@@ -41,5 +41,8 @@ public class Student
     [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
     
-    public SPEDForms SPEDForms { get; set; } = new SPEDForms();
+    /// <summary>
+    /// current completed special education form of the student
+    /// </summary>
+    public SEProcessSteps SEProcessSteps { get; set; } = new SEProcessSteps();
 }

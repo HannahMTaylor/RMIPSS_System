@@ -440,7 +440,7 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("SPEDForms")
+                    b.Property<int>("SEProcessSteps")
                         .HasColumnType("int");
 
                     b.Property<string>("SSN")
