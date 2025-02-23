@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RMIPSS_System.Models.Enums;
 
 namespace RMIPSS_System.Models.Entities;
 
@@ -39,4 +40,6 @@ public class Student
     public string PrimaryLanguage { get; set; } = String.Empty;
     [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
+    
+    public SPEDForms SPEDForms { get; set; } = new SPEDForms();
 }
