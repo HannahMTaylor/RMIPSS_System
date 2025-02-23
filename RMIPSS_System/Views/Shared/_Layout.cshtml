@@ -12,7 +12,23 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 </head>
 <body>
-    <partial name="_SideBar" />
+    @using Microsoft.AspNetCore.Identity
+    @inject SignInManager<ApplicationUser> SignInManager
+
+    @{
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        var action = ViewContext.RouteData.Values["action"]?.ToString();
+        var area = ViewContext.RouteData.Values["area"]?.ToString();
+        var page = ViewContext.RouteData.Values["page"]?.ToString();
+
+        bool hideSideBar = (controller == "Home" && action == "Index") // Home/Index
+                           || (area == "Identity" && page == "/Account/Login"); // Identity Login Page
+    }
+
+    @if (!hideSideBar && SignInManager.IsSignedIn(User))
+    {
+        <partial name="_SideBar" />
+    }
 
     <div class="container">
         <main role="main">
@@ -21,8 +37,8 @@
         </main>
     </div>
 
-    <footer class="border-top footer bg-color text-muted" style="line-height: 40px;">
-        <div class="text-center" style="color: #FFF">
+    <footer class="footer text-muted" style="line-height: 30px;">
+        <div id="footer" class="text-center" style="font-size: 12px; @((!hideSideBar && SignInManager.IsSignedIn(User)) ? "margin-left: 17%;" : "")">
             Copyright © 2025
         </div>
     </footer>

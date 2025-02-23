@@ -374,8 +374,8 @@ label {
     padding: 0;
 }
 
-.collapsed .content {
-    margin-left: 0;
+.collapsed .content, .collapsed #footer {
+    margin-left: 0 !important;
 }
 
 .collapsed .toggle-btn {
