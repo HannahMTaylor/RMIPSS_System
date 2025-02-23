@@ -31,6 +31,7 @@
         <div class="search-container">
             <form method="get">
                 <input type="text" name="search" value="@Model.SearchTerm" placeholder="Search by Full Name...">
+                <input type="hidden" name="pageSize" value="@Model.PageSize"/>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -71,10 +72,55 @@
             </table>
         </div>
 
-        <div class="pagination-controls">
-            <button class="btn btn-secondary" id="prevPage" disabled>Previous</button>
-            <span id="pageNumber">Page 1</span>
-            <button class="btn btn-secondary" id="nextPage">Next</button>
+        <div class="pagination">
+            @if (Model.TotalStudents > Model.PageSize)
+            {
+                int totalPages = (int)Math.Ceiling((double)Model.TotalStudents / Model.PageSize);
+                int maxPagesToShow = 5; // Number of pages visible before using ellipsis
+
+                int startPage = Math.Max(1, Model.CurrentPage - 2);
+                int endPage = Math.Min(totalPages, Model.CurrentPage + 2);
+
+                // Previous Button
+                if (Model.CurrentPage > 1)
+                {
+                    <a href="@Url.Action("ListStudent", new { pageNo = Model.CurrentPage - 1, search = Model.SearchTerm, pageSize = Model.PageSize })">« Prev</a>
+                }
+
+                // First Page Always Visible
+                if (startPage > 1)
+                {
+                    <a href="@Url.Action("ListStudent", new { pageNo = 1, search = Model.SearchTerm, pageSize = Model.PageSize })">1</a>
+                    if (startPage > 2)
+                    {
+                        <span>...</span> <!-- Ellipsis -->
+                    }
+                }
+
+                // Display a range of pages dynamically
+                for (int i = startPage; i <= endPage; i++)
+                {
+                    <a href="@Url.Action("ListStudent", new { pageNo = i, search = Model.SearchTerm, pageSize = Model.PageSize })" class="@(i == Model.CurrentPage ? "active" : "")">
+                        @i
+                    </a>
+                }
+
+                // Last Page Always Visible
+                if (endPage < totalPages)
+                {
+                    if (endPage < totalPages - 1)
+                    {
+                        <span>...</span> <!-- Ellipsis -->
+                    }
+                    <a href="@Url.Action("ListStudent", new { pageNo = totalPages, search = Model.SearchTerm, pageSize = Model.PageSize })">@totalPages</a>
+                }
+
+                // Next Button
+                if (Model.CurrentPage < totalPages)
+                {
+                    <a href="@Url.Action("ListStudent", new { pageNo = Model.CurrentPage + 1, search = Model.SearchTerm, pageSize = Model.PageSize })">Next »</a>
+                }
+            }
         </div>
     </div>
 </div>
