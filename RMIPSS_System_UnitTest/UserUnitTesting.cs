@@ -70,7 +70,7 @@ namespace RMIPSS_System_UnitTest
 
             // Verify Email Was Sent
            // Act & Assert - Ensure No Exception is Thrown
-            Assert.DoesNotThrowAsync(async () => await _sut.SendUserCreationEmail(user));
+            Assert.DoesNotThrowAsync(async () => await _sut.SendUserCreationEmailAsync(user));
 
             var deleteResult= await _sut.DeleteUserAsync(user.Email);
             Assert.IsTrue(deleteResult);

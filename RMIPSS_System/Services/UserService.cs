@@ -107,7 +107,7 @@ public class UserService
         return roleName;
     }
 
-    public async Task SendUserCreationEmail(User user)
+    public async Task SendUserCreationEmailAsync(User user)
     {
         try
         {

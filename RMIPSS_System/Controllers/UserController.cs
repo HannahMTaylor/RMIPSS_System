@@ -62,8 +62,8 @@ public class UserController : Controller
 
         try
         {
-            User user = addUserViewModel.User;
-            if (await _userService.IsUserExist(user.Email))
+            User? user = addUserViewModel.User;
+            if (await _userService.IsUserExist(user!.Email))
             {
                 addUserViewModel.Roles = await _userService.GetRoleList();
                 _logger.LogInformation("User with email {Email} already exists.", user.Email);
@@ -73,7 +73,7 @@ public class UserController : Controller
 
             if (await _userService.CreateUser(user))
             {
-                _userService.SendUserCreationEmail(user);
+                await _userService.SendUserCreationEmailAsync(user);
                 _logger.LogInformation("User {Email} created successfully.", user.Email);
                 TempData["success"] = "User Created Successfully!";
             } else
