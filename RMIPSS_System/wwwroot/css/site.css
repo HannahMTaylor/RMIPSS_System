@@ -435,3 +435,8 @@ label {
 .search-container button:hover {
     background: #ccc;
 }
+
+.icon-center, .table-head-center th {
+    text-align: center; /* Centers content horizontally */
+    vertical-align: middle; /* Ensures vertical centering */
+}
