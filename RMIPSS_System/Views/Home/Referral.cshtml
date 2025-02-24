@@ -6,7 +6,7 @@
 
 <link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
 
-<div class="container p-0">
+<div class="container @((User.Identity.IsAuthenticated) ? "content" : "")" style="font-size: 15px;">
     <div class="row align-items-center mb-2">
         <div class="col-md-4 text-center">
             <img src="~/images/MI_logo.jfif" alt="Logo" class="img-fluid">

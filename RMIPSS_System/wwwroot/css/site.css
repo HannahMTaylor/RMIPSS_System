@@ -19,7 +19,7 @@ html {
 
 body {
     font-family: 'Arial', sans-serif;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 .btn {
@@ -302,4 +302,152 @@ label {
 
 .error-border {
     border: 2px solid red;
+}
+
+.sidebar {
+    width: 250px;
+    background: #004080;
+    color: white;
+    position: fixed;
+    height: 100vh;
+    padding: 20px;
+    transition: width 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    max-height: 100vh;
+    font-size: 15px;
+}
+
+.sidebar a, .sidebar form {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar a:hover, .sidebar form:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.content {
+    font-size: 15px;
+    margin-left: 250px;
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.table-container {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 10px 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 900;
+}
+
+.toggle-btn {
+    cursor: pointer;
+    font-size: 20px;
+    color: black;
+    background: transparent;
+    border: none;
+    margin-left: 260px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+.collapsed .sidebar {
+    width: 0;
+    padding: 0;
+}
+
+.collapsed .content, .collapsed #footer {
+    margin-left: 0 !important;
+}
+
+.collapsed .toggle-btn {
+    margin-left: 10px;
+}
+
+.user-info {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.search-input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.bg-color {
+    background-color: #004080;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.side-logo {
+    height: 80px;
+}
+
+.search-container {
+    float: right;
+}
+
+.search-container button {
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background: #ccc;
+}
+
+.icon-center, .table-head-center th {
+    text-align: center; /* Centers content horizontally */
+    vertical-align: middle; /* Ensures vertical centering */
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin: 2px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    display: inline-block;
+    color: black;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination span {
+    padding: 8px 12px;
+    margin: 2px;
+    display: inline-block;
 }

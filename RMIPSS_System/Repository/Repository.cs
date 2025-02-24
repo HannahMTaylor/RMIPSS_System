@@ -2,6 +2,7 @@
 using RMIPSS_System.Data;
 using RMIPSS_System.Repository.IRepository;
 using System.Linq.Expressions;
+using RMIPSS_System.Models;
 
 namespace RMIPSS_System.Repository;
 
@@ -60,6 +61,17 @@ public class Repository<T> : IRepository<T> where T : class
     {
         _db.SaveChanges();
     }
+
+    public  async Task<int> GetEntityIdByStudentId<T>(int id) where T : class, IStudentEntity
+    {
+            // Query the appropriate DbSet for the type U.
+            var entityId = await _db.Set<T>()
+                .Where(e => e.Student.Id == id)
+                .Select(e => e.Id)
+                .FirstOrDefaultAsync();
+            return entityId;
+    }
+
 
     // Asynchronous Functions
     public async Task AddAsync(T entity)
