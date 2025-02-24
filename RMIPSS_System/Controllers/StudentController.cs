@@ -26,7 +26,7 @@ public class StudentController : Controller
     {
         if (studentId == null || studentId == 0)
         {
-            TempData["error"] = "Select Student";
+            TempData["error"] = "Please select a student";
             return RedirectToAction("Index","Home");
         }
 
@@ -46,7 +46,7 @@ public class StudentController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An exception occurred while adding a user.");
+            _logger.LogError(ex, "An exception occurred while viewing the student details");
             Console.WriteLine($"Exception occurred: {ex.Message}");
             Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             TempData["error"] = "An unexpected error occurred. Please try again.";
