@@ -67,7 +67,6 @@ public class StudentUnitTest
        Assert.AreEqual(student.SEProcessSteps, studentViewModel.SEProcessSteps);
        Assert.IsNotNull(studentViewModel.upcomingSEForms);
        Assert.IsNotNull(studentViewModel.documentsList);
-       Assert.IsNotNull(studentViewModel.documentsList.ContainsKey("Consent Form"));
      
        
        //Remove from database

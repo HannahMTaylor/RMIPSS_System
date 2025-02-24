@@ -22,7 +22,7 @@ public class StudentController : Controller
         return View();
     }
     
-    public async Task<IActionResult>  GetStudentDetailsById(int studentId)
+    public async Task<IActionResult>  StudentViewDetails([Bind(Prefix = "id")] int studentId)
     {
         if (studentId == null || studentId == 0)
         {

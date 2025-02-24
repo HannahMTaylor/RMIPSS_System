@@ -9,8 +9,10 @@ public class StudentViewModel
     
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string DOB { get; set; }
+    public DateOnly DOB { get; set; }
+    public int Grade { get; set; }
+    public char Sex { get; set; }
     public SEProcessSteps SEProcessSteps { get; set; }
-    public Dictionary<string, int> documentsList = new Dictionary<string, int>();
+    public List<DocumentViewModel> documentsList = new List<DocumentViewModel>();
     public List<SEProcessSteps> upcomingSEForms = new List<SEProcessSteps>();
 }

@@ -25,7 +25,6 @@ public class StudentService
     public async Task<StudentViewModel> GetStudentByIdAsync(int id)
     {
         StudentViewModel studentViewModel = new StudentViewModel();
-        Dictionary<string, int> studentForms = new Dictionary<string, int>();
         
         Student student = await _studentRepository.GetByStudentIdAsync(id);
         if (student == null)
@@ -35,12 +34,11 @@ public class StudentService
         studentViewModel.Id = student.Id;
         studentViewModel.FirstName = student.FirstName;
         studentViewModel.LastName = student.LastName;
+        studentViewModel.Grade = student.Grade;
+        studentViewModel.Sex = student.Sex;
         studentViewModel.SEProcessSteps = student.SEProcessSteps;
         studentViewModel.upcomingSEForms = getNewFormsList(student);
-       
-       
-        
-        
+        studentViewModel.documentsList =  GetFormsList(student);
         return studentViewModel;
     }
 
@@ -71,10 +69,10 @@ public class StudentService
             newForms.Add(SEProcessSteps.SE4);
             newForms.Add(SEProcessSteps.SE10);
         }
-        else if (student.SEProcessSteps == SEProcessSteps.SE4)
-        {
-            newForms.Add(SEProcessSteps.SE10);
-        }
+       // else if (student.SEProcessSteps == SEProcessSteps.SE4)
+        //{
+        //    newForms.Add(SEProcessSteps.SE10);
+       // }
         else if (student.SEProcessSteps == SEProcessSteps.SE10)
         {
             newForms.Add(SEProcessSteps.SE6);
@@ -116,20 +114,30 @@ public class StudentService
     /// </summary>
     /// <param name="student"></param>
     /// <returns> list of forms id and their name</returns>
-    public async Task<Dictionary<string, int>> getFormsList(Student student)
+    public  List<DocumentViewModel> GetFormsList(Student student)
     {
-        Dictionary<string, int> studentForms = new Dictionary<string, int>();
-        if (student.SEProcessSteps == SEProcessSteps.SE3)
+        List<DocumentViewModel> studentForms = new List<DocumentViewModel>();
+        if (student.SEProcessSteps == SEProcessSteps.SE4)
         {
-            int consentId = await _studentRepository.GetEntityIdByStudentId<ConsentForm>(student.Id);
+            int consentId =  _studentRepository.GetEntityIdByStudentId<ConsentForm>(student.Id).Result;
             if (consentId > 0)
             {
-                studentForms.Add("Consent Form", consentId);
+                DocumentViewModel document = new DocumentViewModel();
+                document.id = consentId;
+                document.name = "SE-4 Process Step";
+                document.method = "ConsentFormEvaluationReevaluation";
+                document.controller = "ConsentForm";
+                studentForms.Add(document);
             }
-            int SE2Id = await _studentRepository.GetEntityIdByStudentId<SE2>(student.Id);
+            int SE2Id =  _studentRepository.GetEntityIdByStudentId<SE2>(student.Id).Result;
             if (SE2Id > 0)
             {
-                studentForms.Add("SE-2 Form", SE2Id);
+                DocumentViewModel documentViewModel = new DocumentViewModel();
+                documentViewModel.id = consentId;
+                documentViewModel.name = "SE-2 Process Step";
+                documentViewModel.method = "ScreeningInformationForm";
+                documentViewModel.controller = "SE2";
+                studentForms.Add(documentViewModel);
             }
         }
        
