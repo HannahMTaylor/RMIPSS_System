@@ -12,4 +12,12 @@ public class StudentRepository : Repository<Student>, IStudentRepository
     {
         _db = db;
     }
+
+    public async Task<Student> GetByStudentIdAsync(int id)
+    {
+        Student student = await GetAsync(s =>
+            s.Id == id
+        );
+        return student;
+    }
 }

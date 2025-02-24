@@ -42,6 +42,7 @@ public class Program
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<SE2Service>();
         builder.Services.AddScoped<ConsentFormService>();
+        builder.Services.AddScoped<StudentService>();
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
 

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using RMIPSS_System.Models;
 
 namespace RMIPSS_System.Repository.IRepository;
 
@@ -22,5 +23,7 @@ public interface IRepository<T> where T : class
 
 
     void Save();
+    
+    Task<int> GetEntityIdByStudentId<T>(int id) where T : class, IStudentEntity;
     
 }

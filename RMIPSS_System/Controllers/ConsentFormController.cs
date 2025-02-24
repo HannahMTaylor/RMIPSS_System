@@ -41,7 +41,7 @@ namespace RMIPSS_System.Controllers
  
         }
         
-        public async Task<IActionResult>  ConsentFormEvaluationReevaluation(int studentId)
+        public async Task<IActionResult>  ConsentFormEvaluationReevaluation([Bind(Prefix = "id")] int studentId)
         {
             if (studentId == null || studentId == 0)
             {
