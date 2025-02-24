@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RMIPSS_System.Models.ProcessSteps;
 
-public class SE2
+public class SE2 :IStudentEntity
 {
     public int Id { get; set; }
     public int StudentId { get; set; }

@@ -44,5 +44,5 @@ public class Student
     /// <summary>
     /// current completed special education form of the student
     /// </summary>
-    public SEProcessSteps SEProcessSteps { get; set; } = new SEProcessSteps();
+    public SEProcessSteps SEProcessSteps { get; set; } 
 }
