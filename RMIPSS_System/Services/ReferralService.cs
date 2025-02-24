@@ -20,6 +20,10 @@ public class ReferralService
 
 
     //get logged in user
+    public async Task<ApplicationUser> GetLoggedInUser(string? name)
+    {
+        throw new NotImplementedException();
+    }
 
     //get student id - if applicable
     public async Task<Student> GetStudentById(int studentId)
@@ -49,8 +53,6 @@ public class ReferralService
         }
 
     }
-
-    
 
     
 }

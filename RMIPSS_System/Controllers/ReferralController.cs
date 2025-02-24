@@ -28,11 +28,53 @@ public class ReferralController : Controller
     }
 
 
-    //create new referralVM (on submit button press)
+    //create new referralVM when click on referral button on home screen or dashboard
+    //pull logged in user info as referrer if possible - but leave editable
+    public async Task<IActionResult> CreateReferralForm()
+    {
+        //is this method needed? how to decrease coupling between dashboard nav links and home controller that just return the view?
+        //how does amit control loading of SE2 with prepop data
+        try
+        {
+            ApplicationUser appUser = await _referralService.GetLoggedInUser(User.Identity.Name);
+
+            ReferralViewModel viewModelWithuser = new ReferralViewModel
+            {
+                student = new(),
+                person = new ReferrerPerson
+                {
+                    FullName = appUser.FirstName + " " + appUser.LastName,
+                    Phone = appUser.PhoneNumber,
+                    Email = appUser.Email,
+                    DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
+                },
+                referral = new()
+            };
+            return View(viewModelWithuser);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting logged in user");
+            
+        }
+       
+        ReferralViewModel viewModel = new ReferralViewModel
+        {
+            student = new(),
+            person = new(),
+            referral = new()
+        };
+        return View(viewModel);
+
+    }
+
+
+
+    //(on submit button press)
     //need to add some sort of functionality to save incrementally?? might add in next sprint
     //
     //*** need to go back through and make sure Student and Referrer are getting created and mapped properly to Referral on submission
-    public async Task<IActionResult> SubmitReferralForm(ReferralViewModel referralVM)
+    public async Task<IActionResult> SaveReferralForm(ReferralViewModel referralVM)
     {
         try
         {
@@ -44,11 +86,12 @@ public class ReferralController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating referral form. Please try again later");
-            
-        }
+            _logger.LogError(ex, "Error saving referral form. Please try again later");
+            return RedirectToAction("Error", "Home");
 
-        return RedirectToAction("Error", "Home");
+        }
+        return RedirectToAction("Index", "Home"); //how to redirect back to previous page -- they could need to go to dashboard not be logged out
+        
     }
 
     //load/read existing referralVM -- needs logged in user permissions

@@ -4,6 +4,8 @@ using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 using System.Diagnostics;
 
+using RMIPSS_System.Controllers;
+
 namespace RMIPSS_System.Controllers;
 
 public class HomeController : Controller
@@ -28,6 +30,7 @@ public class HomeController : Controller
     
     public IActionResult Referral()
     {
+        //return ReferralController.CreateReferralForm();
         return View();
     }
     
