@@ -1,0 +1,211 @@
+<link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
+@{
+    ViewData["Title"] = "Student";
+}
+<style>
+    .content {
+        padding-top: 70px !important;
+    }
+    
+    .table-container {
+        display: none; /* Initially hidden */
+        margin-top: 20px;
+    }
+    .dropdown-menu  a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-container h2 {
+        flex-grow: 1;
+        text-align: justify;
+        margin: 0;
+    }
+    .dropdown {
+        flex-shrink: 0;
+    }
+    .info-container {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+    }
+    .info-label {
+        font-weight: bold;
+        color: #333;
+        min-width: 150px;
+        display: inline-block;
+    }
+    .info-header{
+        background-color: #004080;
+    }
+
+    th {
+        text-align: center;
+    }
+    td {
+        text-align: center;
+    }
+
+    .dropdown:hover .dropdown-menu {display: block;}
+</style>
+
+
+<div class="container content">
+    <!-- Student Name Centered & Form Selection on Right -->
+    <div class="header-container mb-3">
+        <h2>Student View</h2>
+
+        <!-- Bootstrap Dropdown Button -->
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="formDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                New Form
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="formDropdown">
+                <li><a class="dropdown-item" href="#" onclick="selectForm('SE-1')">SE-1</a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectForm('SE-2')">SE-2</a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectForm('SE-3')">SE-3</a></li>
+                <li><a class="dropdown-item" href="#" onclick="selectForm('SE-4')">SE-4</a></li>
+            </ul>
+        </div>
+    </div>
+
+    
+
+    <div class="info-header mb-3 text-center p-2 text-white rounded"><strong>Student Information</strong></div>
+
+    <!-- Student Information Display (Each Field on One Line) -->
+    <div class="info-container">
+        <span class="info-label">Full Name:</span> John Doe
+    </div>
+    <div class="info-container">
+        <span class="info-label">Date of Birth:</span> Jan 1, 2005
+    </div>
+    <div class="info-container">
+        <span class="info-label">Age:</span> 18
+    </div>
+    <div class="info-container">
+        <span class="info-label">Gender:</span> Male
+    </div>
+    <div class="info-container">
+        <span class="info-label">Grade:</span> 12th Grade
+    </div>
+    <div class="info-container">
+        <span class="info-label">Major:</span> Science
+    </div>
+    <div class="info-container">
+        <span class="info-label">Address:</span> 123 Main Street, New York, USA
+    </div>
+    <div class="info-container">
+        <span class="info-label">Phone:</span> +1 234 567 890
+    </div>
+    <div class="info-container">
+        <span class="info-label">Email:</span> johndoe@example.com
+    </div>
+
+    <div class="info-header mb-3 text-center p-2 text-white rounded"><strong>School Information</strong></div>
+
+    <div class="info-container">
+        <span class="info-label">School Name:</span> RMIPSS
+    </div>
+    <div class="info-container">
+        <span class="info-label">Enrollment Date:</span> August 2020
+    </div>
+
+    <div class="info-header mb-3 text-center p-2 text-white rounded"><strong>Additional Information</strong></div>
+
+    <div class="info-container">
+        <span class="info-label">Primary Language:</span> English
+    </div>
+    <div class="info-container">
+        <span class="info-label">Special Needs:</span> None
+    </div>
+    <div class="info-container">
+        <span class="info-label">Status:</span> SE-3
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-secondary w-50 me-2" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="btn btn-primary w-50" onclick="showDocuments()">
+            View Documents
+        </button>
+    </div>
+
+    <!-- Table Container (Initially Hidden) -->
+    <div class="table-container" id="documentTable" style="display: none;">
+        <div class="info-header mb-3 text-center p-2 text-white rounded"><strong>List of Submitted Forms</strong></div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="table-primary">
+                <tr>
+                    <th>Document Name</th>
+                    <th>Completed Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>SE-1</td>
+                    <td>March 5, 2024</td>
+                    <td>
+                        <button class="btn btn-primary">View</button>
+                        <button class="btn btn-secondary ">Edit</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SE-2</td>
+                    <td>March 10, 2024</td>
+                    <td>
+                        <button class="btn btn-primary">View</button>
+                        <button class="btn btn-secondary ">Edit</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>SE-3</td>
+                    <td>March 15, 2024</td>
+                    <td>
+                        <button class="btn btn-primary">View</button>
+                        <button class="btn btn-secondary">Edit</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function showDocuments() {
+        let tableContainer = document.getElementById("documentTable");
+
+        if (tableContainer.style.display === "none" || tableContainer.style.display === "") {
+            tableContainer.style.display = "block";
+           // button.innerText = "Hide Documents";
+        } else {
+            tableContainer.style.display = "none";
+            // button.innerText = "View Documents";
+        }
+    }
+
+    function selectForm(formName) {
+        document.getElementById("selectedForm").innerText = "Selected Form: " + formName;
+        console.log("User selected form: " + formName);
+        // You can redirect to different pages here if needed:
+        // window.location.href = `/forms/${formName}`;
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
