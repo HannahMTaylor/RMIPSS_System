@@ -39,7 +39,6 @@ public class Program
         builder.Services.AddScoped<ISE2Repository, SE2Repository>();
         builder.Services.AddScoped<IEmailSender, EmailSender>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
-        builder.Services.AddScoped<StudentService>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<SE2Service>();
         builder.Services.AddScoped<ConsentFormService>();
