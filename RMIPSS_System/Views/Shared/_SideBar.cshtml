@@ -1,54 +1,38 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject IApplicationUserRepository ApplicationUserRepository
+﻿@inject IApplicationUserRepository ApplicationUserRepository
 
 @{
-    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
-    var action = ViewContext.RouteData.Values["action"]?.ToString();
-    var area = ViewContext.RouteData.Values["area"]?.ToString();
-    var page = ViewContext.RouteData.Values["page"]?.ToString();
-
-    bool hideSideBar = (controller == "Home" && action == "Index") // Home/Index
-                    || (area == "Identity" && page == "/Account/Login"); // Identity Login Page
+    var loginUser = await ApplicationUserRepository.GetAsync(user =>
+        user.UserName.ToLower() == User.Identity.Name.ToLower()
+    );
 }
 
-@if (!hideSideBar)
-{
-    @if (SignInManager.IsSignedIn(User))
-    { 
-        var loginUser = await ApplicationUserRepository.GetAsync(user =>
-            user.UserName.ToLower() == User.Identity.Name.ToLower()
-        );
+<div class="top-bar">
+    <button class="toggle-btn" onclick="toggleSidebar()" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+    <span class="user-info">Hello, @loginUser.FirstName @loginUser.LastName!</span>
+</div>
 
-        <div class="top-bar">
-            <button class="toggle-btn" onclick="toggleSidebar()" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-            <span class="user-info">Hello, @loginUser.FirstName @loginUser.LastName!</span>
-        </div>
+<div class="sidebar" id="sidebar">
+    <h4 class="text-align-center">RMIPSS System</h4>
+    <div class="text-align-center mb-1">
+        <img src="~/images/logo.png" alt="Logo" class="side-logo">
+    </div>
 
-        <div class="sidebar" id="sidebar">
-            <h4 class="text-align-center">RMIPSS System</h4>
-            <div class="text-align-center mb-1">
-                <img src="~/images/logo.png" alt="Logo" class="side-logo">
-            </div>
-            
-            <a asp-area="" asp-controller="Home" asp-action="Dashboard">Student List</a>
-            <a asp-area="" asp-controller="User" asp-action="List">User List</a>
-            <a asp-area="" asp-controller="Home" asp-action="Referral">Referral</a>
-            <a asp-area="" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-id="1">SE-2 Form</a>
-            <a asp-area="" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="1">Consent Form</a>
-            <a asp-area="" asp-controller="Student" asp-action="StudentViewDetails" asp-route-id="105">StudentView</a>
-            <hr>
-            
-            <a asp-area="Identity" asp-page="/Account/Manage/Index">
-                <i class="fas fa-cog"></i> 
-                Settings
-            </a>
-        
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" style="all: unset;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
-            </form>
-        </div>
-    }
-}
+    <a asp-area="" asp-controller="Student" asp-action="ListStudent">Student List</a>
+    <a asp-area="" asp-controller="User" asp-action="List">User List</a>
+    <a asp-area="" asp-controller="Home" asp-action="Referral">Referral</a>
+    <a asp-area="" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-id="1">SE-2 Form</a>
+    <a asp-area="" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="1">Consent Form</a>
+    <hr>
+
+    <a asp-area="Identity" asp-page="/Account/Manage/Index">
+        <i class="fas fa-cog"></i>
+        Settings
+    </a>
+
+    <form asp-area="Identity" asp-page="/Account/Logout"
+          asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" style="all: unset;">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</div>

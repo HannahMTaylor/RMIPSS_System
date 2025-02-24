@@ -17,9 +17,20 @@ public class StudentController : Controller
         _studentService = studentService;
     }
     
-    public IActionResult ListStudent()
+    public async Task<IActionResult> ListStudent(string search = "", int pageNo = 1, int pageSize = 10)
     {
-        return View();
+        var (students, totalStudents) = await _studentService.GetPaginatedStudentsAsync(search, pageNo, pageSize);
+
+        var viewModel = new StudentListViewModel
+        {
+            Students = students,
+            SearchTerm = search,
+            TotalStudents = totalStudents,
+            PageSize = pageSize,
+            CurrentPage = pageNo
+        };
+
+        return View(viewModel);
     }
     
     public async Task<IActionResult>  StudentViewDetails([Bind(Prefix = "id")] int studentId)
@@ -56,6 +67,4 @@ public class StudentController : Controller
 
 
     }
-            
-    
 }

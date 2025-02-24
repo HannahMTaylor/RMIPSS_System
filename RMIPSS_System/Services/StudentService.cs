@@ -17,6 +17,12 @@ public class StudentService
         _logger = logger; 
         _studentRepository = studentRepository;
     }
+    
+    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int pageNo, int pageSize)
+    {
+        return await _studentRepository.GetPaginatedStudentsAsync(search, pageNo, pageSize);
+    }
+    
 /// <summary>
 /// method to get the details of student through student id
 /// </summary>
@@ -143,8 +149,4 @@ public class StudentService
        
         return studentForms;
     }
-    
-    
-    
-    
 }
