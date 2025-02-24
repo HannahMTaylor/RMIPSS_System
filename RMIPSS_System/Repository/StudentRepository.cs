@@ -53,4 +53,12 @@ public class StudentRepository : Repository<Student>, IStudentRepository
 
         return (students, totalStudents);
     }
+    
+    public async Task<Student> GetByStudentIdAsync(int id)
+    {
+        Student student = await GetAsync(s =>
+            s.Id == id
+        );
+        return student;
+    }
 }

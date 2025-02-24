@@ -6,7 +6,7 @@ using RMIPSS_System.Models.Enums;
 
 namespace RMIPSS_System.Models.Entities;
 
-public class ConsentForm
+public class ConsentForm:IStudentEntity
 {
     
     public int Id { get; set; }
