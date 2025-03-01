@@ -18,26 +18,29 @@
             <span>Total Students: @Model.TotalStudents</span>
         </div>
 
-        <form method="get" style="display: inline;">
-            <label for="pageSize" style="display: inline;">Show:</label>
-            <select name="pageSize" class="form-select w-auto d-inline-block mb-3" onchange="this.form.submit()">
-                <option value="10" selected="@(Model.PageSize == 10)">10</option>
-                <option value="20" selected="@(Model.PageSize == 20)">20</option>
-                <option value="50" selected="@(Model.PageSize == 50)">50</option>
-            </select>
-            <input type="hidden" name="search" value="@Model.SearchTerm"/>
-        </form>
-
-        <div class="search-container">
-            <form method="get">
-                <input type="text" name="search" value="@Model.SearchTerm" placeholder="Search by Full Name...">
-                <input type="hidden" name="pageSize" value="@Model.PageSize"/>
-                <button type="submit"><i class="fa fa-search"></i></button>
+        <div class="flex-between-center">
+            <form method="get" style="display: inline;">
+                <label for="pageSize" style="display: inline;">Show:</label>
+                <select name="pageSize" class="form-select w-auto d-inline-block mb-3" onchange="this.form.submit()">
+                    <option value="10" selected="@(Model.PageSize == 10)">10</option>
+                    <option value="20" selected="@(Model.PageSize == 20)">20</option>
+                    <option value="50" selected="@(Model.PageSize == 50)">50</option>
+                </select>
+                <input type="hidden" name="search" value="@Model.SearchTerm"/>
             </form>
+
+            <div class="search-container">
+                <form method="get">
+                    <input type="text" name="search" value="@Model.SearchTerm" placeholder="Search by Name...">
+                    <input type="hidden" name="pageSize" value="@Model.PageSize"/>
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+                <small>Press Enter to search</small>
+            </div>
         </div>
 
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="list-student-table table table-bordered table-striped">
                 <thead class="table-primary">
                     <tr class="table-head-center">
                         <th>Name</th>
@@ -46,7 +49,8 @@
                         <th>Address</th>
                         <th>Phone Number</th>
                         <th>Date of Birth</th>
-                        <th>Status</th>
+                        <th>Last Completed Step</th>
+                        <th>Step Completed Date</th>
                         <th>View</th>
                     </tr>
                 </thead>
@@ -65,6 +69,7 @@
                             <td>@student.Phone</td>
                             <td>@student.DOB</td>
                             <td>SE-2 Form</td>
+                            <td>1/1/2020</td>
                             <td class="icon-center">
                                 <a asp-area="" asp-controller="Student" asp-action="StudentViewDetails" asp-route-id="@student.Id"><i class="fas fa-eye"></i></a>
                             </td>
