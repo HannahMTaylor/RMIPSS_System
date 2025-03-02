@@ -111,11 +111,12 @@ public class StudentService
                 break;
 
             case SEProcessSteps.SE4:
-                DocumentViewModel document8 = new DocumentViewModel();
-                document8.name = "SE-10 (Notice of Parent Rights)";
+                DocumentViewModel document10 = new DocumentViewModel();
+                document10.name = "SE-5 (Eligibility Determination)";
                 //document7.method = "ConsentFormEvaluationReevaluation";
                 // document7.controller = "ConsentForm";
-                newForms.Add(document8);
+                newForms.Add(document10);
+              
                 break;
 
             case SEProcessSteps.SE10:
@@ -128,11 +129,6 @@ public class StudentService
 
             case SEProcessSteps.SE6:
                 // further logic is yet to be implemented
-                DocumentViewModel document10 = new DocumentViewModel();
-                document10.name = "SE-5 (Eligibility Determination)";
-                //document7.method = "ConsentFormEvaluationReevaluation";
-                // document7.controller = "ConsentForm";
-                newForms.Add(document10);
                 
                 DocumentViewModel document11 = new DocumentViewModel();
                 document11.name = "SE-7A (IEP Form)";
@@ -155,17 +151,21 @@ public class StudentService
                 // document1.method = "ScreeningInformationForm";
                 // document1.controller = "SE2";
                 newForms.Add(document13);
+                
+                DocumentViewModel document8 = new DocumentViewModel();
+                document8.name = "SE-10 (Notice of Parent Rights)";
+                //document7.method = "ConsentFormEvaluationReevaluation";
+                // document7.controller = "ConsentForm";
+                newForms.Add(document8);
                 break;
-
-            case SEProcessSteps.SE8:
+            
+            default:
                 DocumentViewModel document14 = new DocumentViewModel();
                 document14.name = "SE-6 (Parent Notice of Meeting)";
                 //document7.method = "ConsentFormEvaluationReevaluation";
                 // document7.controller = "ConsentForm";
                 newForms.Add(document14);
-                break;
-
-            default:
+                
                 DocumentViewModel document15 = new DocumentViewModel();
                 document15.name = "SE-5 (3-Year Reevaluation)";
                 // document1.method = "ScreeningInformationForm";
