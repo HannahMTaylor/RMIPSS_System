@@ -54,7 +54,7 @@ public class ConsentFormUnitTest
         ConsentFormViewModel c = new ConsentFormViewModel();
         c = new ConsentFormViewModel()
         {
-            Date = new DateOnly(),
+            EnteredDate = new DateOnly(),
             To = "Parent",
             From = "Principal",
             ConsentOption = (int)ConsentOption.NotGiven,

@@ -58,7 +58,7 @@ namespace RMIPSS_System.Controllers
                    ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
                         Id = consentForm.Id,
-                        Date = consentForm.Date,
+                        EnteredDate = consentForm.EnteredDate,
                         To = consentForm.To,
                         From = consentForm.From,
                         ConsentOption = (int)consentForm.ConsentOption,
@@ -74,7 +74,7 @@ namespace RMIPSS_System.Controllers
                     
                     ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
-                        Date = DateOnly.FromDateTime(DateTime.Now),
+                        EnteredDate = DateOnly.FromDateTime(DateTime.Now),
                         Evaluation = null,
                         StudentId = studentId,
                         ConsentOption = (int)ConsentOption.NotSpecified

@@ -51,7 +51,7 @@ public class StudentUnitTest
        ConsentForm c = new ConsentForm();
        c = new ConsentForm
        {
-           Date = new DateOnly(),
+           EnteredDate = new DateOnly(),
            To = "Parent",
            From = "Principal",
            ConsentOption = ConsentOption.NotGiven,

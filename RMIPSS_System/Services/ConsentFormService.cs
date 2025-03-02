@@ -30,7 +30,7 @@ public class ConsentFormService
             if (objFromDb == null)
             {
                 objFromDb = new ConsentForm();
-                objFromDb.Date = consentForm.Date;
+                objFromDb.EnteredDate = consentForm.EnteredDate;
                 objFromDb.To = consentForm.To;
                 objFromDb.From = consentForm.From;
                 objFromDb.Evaluation = consentForm.Evaluation;
@@ -42,7 +42,7 @@ public class ConsentFormService
             {
              
                 objFromDb.Id = consentForm.Id;
-                objFromDb.Date = consentForm.Date;
+                objFromDb.EnteredDate = consentForm.EnteredDate;
                 objFromDb.To = consentForm.To;
                 objFromDb.From = consentForm.From;
                 objFromDb.ConsentOption = (ConsentOption)consentForm.ConsentOption;
