@@ -39,6 +39,21 @@ public class UserService
             throw;
         }
     }
+    
+    public async Task<ApplicationUser> getUserByUsername(String username)
+    {
+        try
+        {
+            return await _appUserRepo.GetAsync(user =>
+                user.UserName.ToLower() == username.ToLower()
+            );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting user for {Username}.", username);
+            throw;
+        }
+    }
 
     public async Task<bool> CreateUser(User user)
     {

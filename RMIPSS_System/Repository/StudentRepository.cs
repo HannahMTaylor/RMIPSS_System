@@ -14,7 +14,7 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         _db = db;
     }
     
-    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int pageNo, int pageSize)
+    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
         var query = _db.Students.AsQueryable();
 
@@ -25,6 +25,12 @@ public class StudentRepository : Repository<Student>, IStudentRepository
                 (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
                 .Contains(search.ToLower())
             );
+        }
+        
+        // Filter by School
+        if (schoolId.HasValue)
+        {
+            query = query.Where(s => s.SchoolId == schoolId);
         }
 
         // Get total number of students
@@ -47,7 +53,8 @@ public class StudentRepository : Repository<Student>, IStudentRepository
                 Atoll = s.Atoll,
                 PoBoxNo = s.PoBoxNo,
                 Phone = s.Phone,
-                DOB = s.DOB
+                DOB = s.DOB,
+                School = s.School
             })
             .ToListAsync();
 

@@ -18,9 +18,9 @@ public class StudentService
         _studentRepository = studentRepository;
     }
     
-    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int pageNo, int pageSize)
+    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
-        return await _studentRepository.GetPaginatedStudentsAsync(search, pageNo, pageSize);
+        return await _studentRepository.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
     }
     
 /// <summary>
