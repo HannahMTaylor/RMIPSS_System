@@ -9,4 +9,5 @@ public class StudentListViewModel
     public int TotalStudents { get; set; }
     public int PageSize { get; set; }
     public int CurrentPage { get; set; }
+    public bool isStateUser { get; set; }
 }

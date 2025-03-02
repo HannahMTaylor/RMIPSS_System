@@ -40,7 +40,8 @@ public class StudentController : Controller
             SearchTerm = search,
             TotalStudents = totalStudents,
             PageSize = pageSize,
-            CurrentPage = pageNo
+            CurrentPage = pageNo,
+            isStateUser = isStateUser
         };
 
         return View(viewModel);

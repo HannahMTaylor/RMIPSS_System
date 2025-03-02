@@ -49,6 +49,10 @@
                         <th>Address</th>
                         <th>Phone Number</th>
                         <th>Date of Birth</th>
+                        @if (Model.isStateUser)
+                        {
+                            <th>School</th> <!-- Display School column only for State users -->
+                        }
                         <th>Last Completed Step</th>
                         <th>Step Completed Date</th>
                         <th>View</th>
@@ -68,6 +72,10 @@
                             <td>@student.Village, @student.Atoll, @student.PoBoxNo</td>
                             <td>@student.Phone</td>
                             <td>@student.DOB</td>
+                            @if (Model.isStateUser)
+                            {
+                                <td>@(student.School != null ? student.School.Name : "N/A")</td>
+                            }
                             <td>SE-2 Form</td>
                             <td>1/1/2020</td>
                             <td class="icon-center">
