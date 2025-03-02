@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis.Elfie.Serialization;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
@@ -24,7 +25,8 @@ public class StudentService
         {
             return await _studentRepository.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             _logger.LogError(ex, "Error fetching student list.");
             throw;
         }
@@ -35,7 +37,7 @@ public class StudentService
     /// </summary>
     /// <param name="id">student id</param>
     /// <returns>student details</returns>
-    public async Task<StudentViewModel> GetStudentByIdAsync(int id)
+    public async Task<StudentViewModel> GetStudentByIdAsync(int id, int? schoolId)
     {
         StudentViewModel studentViewModel = new StudentViewModel();
 
@@ -43,6 +45,15 @@ public class StudentService
         if (student == null)
         {
             _logger.LogError("Student with id: {id} not found", id);
+        }
+        
+        if (schoolId != null)
+        {
+            if (student.SchoolId != schoolId)
+            {
+                studentViewModel.hasAccess = false;
+                return studentViewModel;
+            }
         }
 
         studentViewModel.Id = student.Id;
@@ -54,6 +65,7 @@ public class StudentService
         studentViewModel.SEProcessSteps = student.SEProcessSteps;
         studentViewModel.upcomingSEForms = getNewFormsList(student);
         studentViewModel.documentsList = GetFormsList(student);
+        studentViewModel.hasAccess = true;
         return studentViewModel;
     }
 

@@ -15,4 +15,6 @@ public class StudentViewModel
     public SEProcessSteps SEProcessSteps { get; set; }
     public List<DocumentViewModel> documentsList = new List<DocumentViewModel>();
     public List<DocumentViewModel> upcomingSEForms = new List<DocumentViewModel>();
+    
+    public Boolean hasAccess { get; set; } = false;
 }
