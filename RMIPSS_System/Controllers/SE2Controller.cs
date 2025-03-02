@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
@@ -11,11 +12,13 @@ namespace RMIPSS_System.Controllers;
 public class SE2Controller : Controller
 {
     private readonly SE2Service _se2Service;
+    private readonly StudentService _studentService;
     private readonly ILogger<SE2Controller> _logger;
 
-    public SE2Controller(SE2Service se2Service, ILogger<SE2Controller> logger)
+    public SE2Controller(SE2Service se2Service, StudentService studentService, ILogger<SE2Controller> logger)
     {
         _se2Service = se2Service;
+        _studentService = studentService;
         _logger = logger;
     }
 
@@ -81,6 +84,8 @@ public class SE2Controller : Controller
                 _logger.LogInformation("SE2 Form updated successfully for {FirstName} {lastName}.", se2Model.Student.FirstName, se2Model.Student.LastName);
                 TempData["success"] = "SE2 Form updated successfully!";
             }
+
+            await _studentService.updateSEProcessSteps(se2Model.Student.Id, SEProcessSteps.SE1, SEProcessSteps.SE2);
         }
         catch (Exception ex)
         {
@@ -89,6 +94,6 @@ public class SE2Controller : Controller
             Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             TempData["error"] = "An unexpected error occurred. Please try again.";
         }
-        return RedirectToAction("List", "User");
+        return RedirectToAction("StudentViewDetails", "Student", new { id = se2Model.Student.Id });
     }
 }

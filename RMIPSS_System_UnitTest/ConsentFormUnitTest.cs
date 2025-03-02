@@ -29,12 +29,20 @@ public class ConsentFormUnitTest
         ApplicationDbContext _db = new ApplicationDbContext(options);
         IConsentFormRepository _consentFormRepository=new ConsentFormRepository(_db);
         IRepository<Student> _repositoryStudent = new Repository<Student>(_db);
+        IRepository<School> _repositorySchool = new Repository<School>(_db);
         ILogger<ConsentFormService> _logger = new Logger<ConsentFormService>(new LoggerFactory());
         ConsentFormService sut = new ConsentFormService( _logger, _consentFormRepository, _repositoryStudent);
+        School school = new ()
+        {
+            Name = "ETSU",
+            Address = "Johnson City",
+            Phone = "123456789"
+        };
+        School schoolSaved = _repositorySchool.Save(school);
         Student student = new()
         {
             FirstName = "John",
-            School = "School",
+            SchoolId = schoolSaved.Id,
             LastName = "Doe",
             ParentGuardianPrimaryLanguage = "ParentGuardianPrimaryLanguage",
             Phone = "123456789",

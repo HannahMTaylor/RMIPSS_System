@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 
@@ -10,27 +11,49 @@ public class StudentController : Controller
 {
     private readonly ILogger<StudentController> _logger;
     private readonly StudentService _studentService;
+    private readonly UserService _userService;
 
-    public StudentController(ILogger<StudentController> logger, StudentService studentService)
+    public StudentController(ILogger<StudentController> logger, StudentService studentService, UserService userService)
     {
         _logger = logger;
         _studentService = studentService;
+        _userService = userService;
     }
     
     public async Task<IActionResult> ListStudent(string search = "", int pageNo = 1, int pageSize = 10)
     {
-        var (students, totalStudents) = await _studentService.GetPaginatedStudentsAsync(search, pageNo, pageSize);
-
-        var viewModel = new StudentListViewModel
+        try
         {
-            Students = students,
-            SearchTerm = search,
-            TotalStudents = totalStudents,
-            PageSize = pageSize,
-            CurrentPage = pageNo
-        };
+            bool isStateUser = User.IsInRole(Constants.ROLE_STATE_USER);
+            int? schoolId = null;
 
-        return View(viewModel);
+            // If user is not State user, get their school from the User table
+            if (!isStateUser)
+            {
+                ApplicationUser user = await _userService.getUserByUsername(User.Identity.Name);
+                schoolId = user.SchoolId;
+            }
+
+            var (students, totalStudents) =
+                await _studentService.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+
+            var viewModel = new StudentListViewModel
+            {
+                Students = students,
+                SearchTerm = search,
+                TotalStudents = totalStudents,
+                PageSize = pageSize,
+                CurrentPage = pageNo,
+                isStateUser = isStateUser
+            };
+
+            return View(viewModel);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error occurred while trying to retrieve student list.");
+            TempData["error"] = "An error occurred while loading the dashboard page. Please try again later.";
+            return RedirectToAction("Error", "Home");
+        }
     }
     
     public async Task<IActionResult>  StudentViewDetails([Bind(Prefix = "id")] int studentId)
