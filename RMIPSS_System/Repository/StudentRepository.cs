@@ -54,7 +54,9 @@ public class StudentRepository : Repository<Student>, IStudentRepository
                 PoBoxNo = s.PoBoxNo,
                 Phone = s.Phone,
                 DOB = s.DOB,
-                School = s.School
+                School = s.School,
+                SEProcessSteps = s.SEProcessSteps,
+                SEProcessCompletedDate = s.SEProcessCompletedDate
             })
             .ToListAsync();
 

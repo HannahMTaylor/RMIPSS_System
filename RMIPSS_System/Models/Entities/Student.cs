@@ -38,14 +38,13 @@ public class Student
     public int? SchoolId { get; set; }
     [ValidateNever]
     public School? School { get; set; }
-    
     [MaxLength(50)]
     public string PrimaryLanguage { get; set; } = String.Empty;
     [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
-    
     /// <summary>
-    /// current completed special education form of the student
+    /// Recently completed special education form of the student
     /// </summary>
     public SEProcessSteps SEProcessSteps { get; set; } 
+    public DateOnly SEProcessCompletedDate { get; set; }
 }
