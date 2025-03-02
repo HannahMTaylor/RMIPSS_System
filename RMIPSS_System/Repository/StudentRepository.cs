@@ -70,4 +70,14 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         );
         return student;
     }
+    
+    public void Update(Student student)
+    {
+        _db.Students.Update(student);
+    }
+    
+    public async Task SaveAsync()
+    {
+        await _db.SaveChangesAsync();
+    }
 }
