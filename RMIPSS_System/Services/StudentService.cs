@@ -17,10 +17,17 @@ public class StudentService
         _logger = logger;
         _studentRepository = studentRepository;
     }
-
-    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int pageNo, int pageSize)
+    
+    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
-        return await _studentRepository.GetPaginatedStudentsAsync(search, pageNo, pageSize);
+        try
+        {
+            return await _studentRepository.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error fetching student list.");
+            throw;
+        }
     }
 
     /// <summary>
@@ -243,5 +250,37 @@ public class StudentService
         }
 
         return studentForms;
+    }
+    
+    public async Task<Student> GetStudent(int studentId)
+    {
+        try
+        {
+            return await _studentRepository.GetAsync(student => student.Id == studentId);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error fetching student.");
+            throw;
+        }
+    }
+    
+    public async Task updateSEProcessSteps(int studentId, SEProcessSteps se1, SEProcessSteps se2)
+    {
+        try
+        {
+            Student student = await GetStudent(studentId);
+            if (student.SEProcessSteps.Equals(se1))
+            {
+                student.SEProcessSteps = se2;
+                student.SEProcessCompletedDate = DateOnly.FromDateTime(DateTime.Now);
+                _studentRepository.Update(student);
+                await _studentRepository.SaveAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating student.");
+            throw;
+        }
     }
 }
