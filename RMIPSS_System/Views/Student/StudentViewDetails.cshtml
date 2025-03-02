@@ -71,6 +71,10 @@
     .mr-20{
         margin-right: 20px;
     }
+    .back-button{
+        color: rgb(40 40 40);;
+        text-decoration: auto;
+    }
   
 </style>
 
@@ -166,8 +170,11 @@
 
     <!-- Back Button -->
     <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-secondary" onclick="history.back()">
-            <i class="fas fa-arrow-left"></i> Back
+        <button class="btn btn-secondary">
+            <a asp-area="" asp-controller="Student" asp-action="ListStudent" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            
         </button>
     </div>
 </div>
