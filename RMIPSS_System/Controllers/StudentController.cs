@@ -22,29 +22,38 @@ public class StudentController : Controller
     
     public async Task<IActionResult> ListStudent(string search = "", int pageNo = 1, int pageSize = 10)
     {
-        bool isStateUser = User.IsInRole(Constants.ROLE_STATE_USER);
-        int? schoolId = null;
-        
-        // If user is not State user, get their school from the User table
-        if (!isStateUser)
+        try
         {
-            ApplicationUser user = await _userService.getUserByUsername(User.Identity.Name);
-            schoolId = user.SchoolId;
+            bool isStateUser = User.IsInRole(Constants.ROLE_STATE_USER);
+            int? schoolId = null;
+
+            // If user is not State user, get their school from the User table
+            if (!isStateUser)
+            {
+                ApplicationUser user = await _userService.getUserByUsername(User.Identity.Name);
+                schoolId = user.SchoolId;
+            }
+
+            var (students, totalStudents) =
+                await _studentService.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+
+            var viewModel = new StudentListViewModel
+            {
+                Students = students,
+                SearchTerm = search,
+                TotalStudents = totalStudents,
+                PageSize = pageSize,
+                CurrentPage = pageNo,
+                isStateUser = isStateUser
+            };
+
+            return View(viewModel);
         }
-        
-        var (students, totalStudents) = await _studentService.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
-
-        var viewModel = new StudentListViewModel
-        {
-            Students = students,
-            SearchTerm = search,
-            TotalStudents = totalStudents,
-            PageSize = pageSize,
-            CurrentPage = pageNo,
-            isStateUser = isStateUser
-        };
-
-        return View(viewModel);
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error occurred while trying to retrieve student list.");
+            TempData["error"] = "An error occurred while loading the dashboard page. Please try again later.";
+            return RedirectToAction("Error", "Home");
+        }
     }
     
     public async Task<IActionResult>  StudentViewDetails([Bind(Prefix = "id")] int studentId)

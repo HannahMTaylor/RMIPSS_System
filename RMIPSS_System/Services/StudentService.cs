@@ -20,7 +20,14 @@ public class StudentService
     
     public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
-        return await _studentRepository.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+        try
+        {
+            return await _studentRepository.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+        }
+        catch (Exception ex) {
+            _logger.LogError(ex, "Error fetching student list.");
+            throw;
+        }
     }
     
 /// <summary>
