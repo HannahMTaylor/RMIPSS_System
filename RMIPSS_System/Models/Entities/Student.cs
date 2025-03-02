@@ -42,7 +42,7 @@ public class Student
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
     
     /// <summary>
-    /// current completed special education form of the student
+    /// most recently completed special education process step of the student
     /// </summary>
     public SEProcessSteps SEProcessSteps { get; set; } 
 }

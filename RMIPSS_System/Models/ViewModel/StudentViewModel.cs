@@ -14,5 +14,5 @@ public class StudentViewModel
     public char Sex { get; set; }
     public SEProcessSteps SEProcessSteps { get; set; }
     public List<DocumentViewModel> documentsList = new List<DocumentViewModel>();
-    public List<SEProcessSteps> upcomingSEForms = new List<SEProcessSteps>();
+    public List<DocumentViewModel> upcomingSEForms = new List<DocumentViewModel>();
 }
