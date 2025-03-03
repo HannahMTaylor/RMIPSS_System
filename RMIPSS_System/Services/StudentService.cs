@@ -45,15 +45,14 @@ public class StudentService
         if (student == null)
         {
             _logger.LogError("Student with id: {id} not found", id);
+            return null;
         }
         
-        if (schoolId != null)
+        if (schoolId != null && student.SchoolId != schoolId)
         {
-            if (student.SchoolId != schoolId)
-            {
                 studentViewModel.hasAccess = false;
                 return studentViewModel;
-            }
+            
         }
 
         studentViewModel.Id = student.Id;

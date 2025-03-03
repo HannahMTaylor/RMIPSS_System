@@ -9,20 +9,17 @@ public class ConsentFormService
 {
     private readonly ILogger<ConsentFormService> _logger;
     private readonly IConsentFormRepository _consentFormRepository;
-    //private readonly IRepository<Student> _repositoryStudent;
     private readonly StudentService _studentService;
 
     public ConsentFormService(ILogger<ConsentFormService> logger, IConsentFormRepository db,StudentService studentService)
     {
         _logger = logger;
         _consentFormRepository = db;
-       // _repositoryStudent = repositoryStudent;
         _studentService = studentService;
     }
     
     public async Task<ConsentForm> CreateConsentForm(ConsentFormViewModel consentForm)
     {
-      // Student student = _repositoryStudent.GetById(consentForm.StudentId);
         ConsentForm consentFormResult = new ConsentForm();
         try
         {
