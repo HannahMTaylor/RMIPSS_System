@@ -51,7 +51,7 @@ public class StudentUnitTest
        ConsentForm c = new ConsentForm();
        c = new ConsentForm
        {
-           Date = new DateOnly(),
+           EnteredDate = new DateOnly(),
            To = "Parent",
            From = "Principal",
            ConsentOption = ConsentOption.NotGiven,
@@ -61,7 +61,7 @@ public class StudentUnitTest
        //Act
        ConsentForm SavedConsentForm = _consentFormRepo.SaveConsentFormAsync(c).Result;
        Assert.IsNotNull(SavedConsentForm.Id);
-       studentViewModel =  _sut.GetStudentByIdAsync(student.Id).Result;
+       studentViewModel =  _sut.GetStudentByIdAsync(student.Id,null).Result;
        Assert.IsNotNull(studentViewModel);
        Assert.AreEqual(student.FirstName, studentViewModel.FirstName);
        Assert.AreEqual(student.SEProcessSteps, studentViewModel.SEProcessSteps);

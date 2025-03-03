@@ -12,7 +12,7 @@ public class ConsentFormViewModel
     public string From { get; set; }
     public bool Status { get; set; }
     public DateOnly SubmittedDate { get; set; }
-    public DateOnly Date { get; set; }
+    public DateOnly EnteredDate { get; set; }
     public bool? Evaluation { get; set; }
     public int ConsentOption { get; set; } 
 }

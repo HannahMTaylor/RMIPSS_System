@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Data;
@@ -10,7 +11,8 @@ using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System.Controllers
 {
-   
+    
+    [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public class ConsentFormController : Controller
     {
         private readonly ILogger<ConsentFormController> _logger;
@@ -37,7 +39,7 @@ namespace RMIPSS_System.Controllers
                 TempData["success"] = "Consent Form Updated Successfully!";
             }
            
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("StudentViewDetails", "Student", new { id = obj.StudentId});
  
         }
         
@@ -46,7 +48,7 @@ namespace RMIPSS_System.Controllers
             if (studentId == null || studentId == 0)
             {
                 TempData["error"] = "Select Student";
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("ListStudent", "Student");
             }
             else
             {
@@ -56,7 +58,7 @@ namespace RMIPSS_System.Controllers
                    ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
                         Id = consentForm.Id,
-                        Date = consentForm.Date,
+                        EnteredDate = consentForm.EnteredDate,
                         To = consentForm.To,
                         From = consentForm.From,
                         ConsentOption = (int)consentForm.ConsentOption,
@@ -72,7 +74,7 @@ namespace RMIPSS_System.Controllers
                     
                     ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
-                        Date = DateOnly.FromDateTime(DateTime.Now),
+                        EnteredDate = DateOnly.FromDateTime(DateTime.Now),
                         Evaluation = null,
                         StudentId = studentId,
                         ConsentOption = (int)ConsentOption.NotSpecified

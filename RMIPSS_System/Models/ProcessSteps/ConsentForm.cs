@@ -11,14 +11,18 @@ public class ConsentForm:IStudentEntity
     
     public int Id { get; set; }
 
-    public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly EnteredDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [MaxLength(150)] public string To { get; set; } = String.Empty;
 
     [MaxLength(150)] public string From { get; set; } = String.Empty;
 
+    /// <summary>
+    /// true - for initial evaluation
+    /// false - for reevaluation
+    /// </summary>
     public Boolean? Evaluation { get; set; }
-
+   
     public ConsentOption ConsentOption { get; set; } = ConsentOption.NotSpecified;
 
     public int StudentId { get; set; }
