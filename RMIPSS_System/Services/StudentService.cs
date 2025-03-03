@@ -275,14 +275,14 @@ public class StudentService
         }
     }
     
-    public async Task updateSEProcessSteps(int studentId, SEProcessSteps se1, SEProcessSteps se2)
+    public async Task updateSEProcessSteps(int studentId, SEProcessSteps oldSEProcessSteps, SEProcessSteps newSEProcessSteps)
     {
         try
         {
             Student student = await GetStudent(studentId);
-            if (student.SEProcessSteps.Equals(se1))
+            if (student.SEProcessSteps.Equals(oldSEProcessSteps))
             {
-                student.SEProcessSteps = se2;
+                student.SEProcessSteps = newSEProcessSteps;
                 student.SEProcessCompletedDate = DateOnly.FromDateTime(DateTime.Now);
                 _studentRepository.Update(student);
                 await _studentRepository.SaveAsync();
