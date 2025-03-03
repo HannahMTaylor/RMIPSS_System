@@ -19,7 +19,7 @@ public class StudentController : Controller
         _studentService = studentService;
         _userService = userService;
     }
-
+    
     public async Task<IActionResult> ListStudent(string search = "", int pageNo = 1, int pageSize = 10)
     {
         try
@@ -64,7 +64,6 @@ public class StudentController : Controller
             TempData["error"] = "Please select a student";
             return RedirectToAction("ListStudent", "Student");
         }
-
         try
         {
             bool isSchoolUser = User.IsInRole(Constants.ROLE_SCHOOL_USER);
