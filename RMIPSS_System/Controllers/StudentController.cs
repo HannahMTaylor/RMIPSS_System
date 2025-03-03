@@ -62,7 +62,7 @@ public class StudentController : Controller
         if (studentId == null || studentId == 0)
         {
             TempData["error"] = "Please select a student";
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ListStudent", "Student");
         }
 
         try
