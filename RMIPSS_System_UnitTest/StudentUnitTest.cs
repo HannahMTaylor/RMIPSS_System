@@ -111,4 +111,31 @@ public class StudentUnitTest
         result = _sut.GetStudent(student.Id).Result;
         Assert.That(result, Is.Null);
     }
+
+    [Test]
+    public async Task ShouldGetPaginatedStudentsAsync()
+    {
+        // Arrange
+        Student student = new Student()
+        {
+            FirstName = "1234567890",
+            LastName = "qwertyuiopasdfghjkl"
+        };
+
+        Student savedStudent = _studenRepo.Save(student);
+        
+        // Act
+        var (students, totalStudents) =
+            await _sut.GetPaginatedStudentsAsync("1234567890 qwertyuiopasdfghjkl", null, 1, 1);
+        
+        // Assert
+        Assert.That(totalStudents, Is.EqualTo(1));
+        Assert.That(students, Is.Not.Empty);
+        
+        // Revert the changes
+        _studenRepo.Remove(student);
+        _studenRepo.Save();
+        Student result = _sut.GetStudent(student.Id).Result;
+        Assert.That(result, Is.Null);
+    }
 }
