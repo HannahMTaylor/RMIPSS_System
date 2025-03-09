@@ -20,6 +20,14 @@ public class StudentController : Controller
         _userService = userService;
     }
     
+    /// <summary>
+    /// Retrieves a paginated list of students based on search criteria and user role.
+    /// If the user is a State user, all students are returned; otherwise, only students from the user's school are retrieved.
+    /// </summary>
+    /// <param name="search">Optional search term to filter students by name.</param>
+    /// <param name="pageNo">Current page number for pagination (default is 1).</param>
+    /// <param name="pageSize">Number of students to display per page (default is 10).</param>
+    /// <returns>A view containing a list of students along with pagination details.</returns>
     public async Task<IActionResult> ListStudent(string search = "", int pageNo = 1, int pageSize = 10)
     {
         try
