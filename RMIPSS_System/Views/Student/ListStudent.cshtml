@@ -3,6 +3,16 @@
 }
 
 @model StudentListViewModel
+@using RMIPSS_System.Services
+@inject IApplicationUserRepository ApplicationUserRepository
+
+@{
+    var loginUser = await ApplicationUserRepository.GetAsync(user =>
+        user.UserName.ToLower() == User.Identity.Name.ToLower()
+    );
+
+    bool isSchoolUser = User.IsInRole(Constants.ROLE_SCHOOL_USER);
+}
 
 <style>
     .container {
@@ -14,7 +24,13 @@
 <div class="content">
     <div class="table-container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4>List of Students</h4>
+            <h4>
+                List of Students
+                @if (isSchoolUser)
+                {
+                    @(" for " + loginUser.School.Name)
+                }
+            </h4>
             <span>Total Students: @Model.TotalStudents</span>
         </div>
 
