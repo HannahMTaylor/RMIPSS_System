@@ -19,7 +19,7 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         var query = _db.Students.AsQueryable();
 
         // Search across Student's FirstName, MiddleInitial, and LastName
-        if (!string.IsNullOrEmpty(search))
+        if (search != "")
         {
             query = query.Where(s =>
                 (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
