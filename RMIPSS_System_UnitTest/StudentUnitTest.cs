@@ -1,4 +1,3 @@
-using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RMIPSS_System.Data;
@@ -81,5 +80,35 @@ public class StudentUnitTest
        Assert.That(removedConsentForm, Is.EqualTo(null));
        Assert.That(removedStudent, Is.EqualTo(null));
 
+    }
+
+    [Test]
+    public async Task ShouldUpdateSEProcessSteps()
+    {
+        // Arrange
+        Student student = new Student()
+        {
+            FirstName = "John",
+            LastName = "Doe",
+            Email = "doe@gmail.com",
+            SEProcessSteps = SEProcessSteps.SE1
+        };
+
+        Student savedStudent = _studenRepo.Save(student);
+        
+        // Act
+        await _sut.updateSEProcessSteps(student.Id, SEProcessSteps.SE1, SEProcessSteps.SE2);
+        Student result = _sut.GetStudent(student.Id).Result;
+        
+        // Assert
+        Assert.That(result.SEProcessSteps, Is.Not.EqualTo(SEProcessSteps.SE1));
+        Assert.That(result.SEProcessSteps, Is.EqualTo(SEProcessSteps.SE2));
+        Assert.That(result.SEProcessCompletedDate, Is.EqualTo(DateOnly.FromDateTime(DateTime.Now)));
+        
+        // Revert the changes
+        _studenRepo.Remove(result);
+        _studenRepo.Save();
+        result = _sut.GetStudent(student.Id).Result;
+        Assert.That(result, Is.Null);
     }
 }

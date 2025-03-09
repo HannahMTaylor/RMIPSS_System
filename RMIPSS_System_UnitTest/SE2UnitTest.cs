@@ -39,7 +39,7 @@ public class ASE2UnitTest
     }
     
     [Test]
-    public void GetLoggedInUser()
+    public void ShouldGetLoggedInUser()
     {
         // Arrange
         ApplicationUser appUser = new ApplicationUser()
@@ -70,7 +70,7 @@ public class ASE2UnitTest
     }
 
     [Test]
-    public void saveFormDataAndGetSE2Data()
+    public void ShouldSaveFormDataAndGetSE2Data()
     {
         // Arrange
         Student student = new Student()
@@ -116,7 +116,7 @@ public class ASE2UnitTest
     }
     
     [Test]
-    public void updateFormData()
+    public void ShouldUpdateFormData()
     {
         // Arrange
         Student student = new Student()
