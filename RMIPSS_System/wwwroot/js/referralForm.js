@@ -10,6 +10,10 @@
     }
 
     function initializeSection(sectionClass, hiddenFieldId) {
+        //testing checkboxes registering
+        let checkboxes = document.querySelectorAll("." + sectionClass);
+        alert("Found " + checkboxes.length + " checkboxes with class: " + sectionClass);
+
         // Load saved values from hidden input (from the database)
         let savedValues = document.getElementById(hiddenFieldId).value;
         alert(savedValues) 
