@@ -19,6 +19,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    
+    public IActionResult ProcessStep()
+    {
+        return View();
+    }
 
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public IActionResult Dashboard()

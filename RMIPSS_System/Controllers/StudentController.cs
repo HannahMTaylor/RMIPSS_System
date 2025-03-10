@@ -92,7 +92,8 @@ public class StudentController : Controller
 
                 if (!studentViewModel.hasAccess)
                 {
-                    TempData["error"] = "You are not authorized to view this page.";
+                    return RedirectToPage("/Account/AccessDenied", new { area = "Identity" });
+
                 }
             }
 
