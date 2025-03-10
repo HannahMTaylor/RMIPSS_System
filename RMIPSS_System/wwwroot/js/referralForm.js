@@ -1,4 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
+    alert("entered event listener for DOMContentLoaded")
     function updateSelectedValues(sectionClass, hiddenFieldId) {
         let selectedValues = [];
         alert("hello") 
@@ -67,7 +68,7 @@ $(document).ready(function () {
             { id: "studentGuardLang", errorId: "studentGuardLangError", message: "Required Field" },
             { id: "referralName", errorId: "referrerPersonNameError", message: "Required Field" },
             { id: "phone", errorId: "referrerPersonPhoneError", message: "Required Field" },
-            { id: "email", errorId: "referrerPersonEmailError", message: "Required Field" },
+            { id: "referrerPersonEmail", errorId: "referrerPersonEmailError", message: "Required Field" },
             { id: "referralDate", errorId: "referrerPersonDateFilledError", message: "Required Field" },
             { id: "dateReferralReceived", errorId: "dateReceivedError", message: "Required Field" },
             { id: "dateChildStudyTeam", errorId: "toChildStudyError", message: "Required Field" },
@@ -111,10 +112,10 @@ $(document).ready(function () {
 
             isValid = false;
         }
-        let email = $("#email").val().trim();
+        let email = $("#referrerPersonEmail").val().trim();
         if (email !== "" && !/^\S+@\S+\.\S+$/.test(email)) {
             $("#referrerPersonEmailError").text("Enter a valid email.");
-            $("#email").addClass("error-border");
+            $("#referrerPersonEmail").addClass("error-border");
 
             if (!firstInvalidField) {
                 firstInvalidField = $("#completedByEmail")[0];

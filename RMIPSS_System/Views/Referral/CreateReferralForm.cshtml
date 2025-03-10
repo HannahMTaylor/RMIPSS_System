@@ -256,7 +256,7 @@
                 </div>
                 <div class="col">
                     <label asp-for="person.Email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input asp-for="person.Email" type="email" id="email" class="form-control" required>
+                    <input asp-for="person.Email" type="email" id="referrerPersonEmail" class="form-control" required>
                     <span id="referrerPersonEmailError" class="text-danger"></span>
                 </div>
             </div>
@@ -390,4 +390,13 @@
     </form>
 </div>
 
-<script src="~/js/referralForm.js" asp-append-version="true"></script>
+@section Scripts {
+    <script src="~/js/referralForm.js" asp-append-version="true"></script>
+}
+
+
+@* @section Scripts {
+    <script>
+        alert("section scripts loaded");
+    </script>
+} *@
