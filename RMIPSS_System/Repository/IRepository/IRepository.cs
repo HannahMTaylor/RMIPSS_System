@@ -5,17 +5,17 @@ namespace RMIPSS_System.Repository.IRepository;
 
 public interface IRepository<T> where T : class
 {
-    IEnumerable<T> GetAll();
-    T Get(Expression<Func<T, bool>> filter);
-    void Add(T entity);
-    void Remove(T entity);
+    IEnumerable<T?> GetAll();
+    T? Get(Expression<Func<T?, bool>> filter);
+    void Add(T? entity);
+    void Remove(T? entity);
 
     // Asynchronous Functions
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetAsync(Expression<Func<T, bool>> filter);
-    Task AddAsync(T entity);
+    Task<IEnumerable<T?>> GetAllAsync();
+    Task<T?> GetAsync(Expression<Func<T?, bool>> filter);
+    Task AddAsync(T? entity);
     
-    T GetById(int id);
+    Task<T?> GetByIdAsync(int id);
     
     void RemoveById(int id);
     
@@ -24,6 +24,8 @@ public interface IRepository<T> where T : class
 
     void Save();
     
-    Task<int> GetEntityIdByStudentId<T>(int id) where T : class, IStudentEntity;
+    Task<int> GetProcessStepIdByStudentId<TU>(int id) where TU : class, IStudentEntity;
+    
+    
     
 }

@@ -15,7 +15,7 @@ public static class Repositories
     
     private static UserManager<ApplicationUser> _userManager = unitConnection.GetUserManager();
 
-    public static ISE2Repository _se2Repository = new SE2Repository(_db);
+    public static ISe2Repository _se2Repository = new Se2Repository(_db);
     public static IStudentRepository _studentRepository = new StudentRepository(_db);
     public static IApplicationUserRepository _appUserRepo = new ApplicationUserRepository(_db, _userManager);
 

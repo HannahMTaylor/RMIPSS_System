@@ -2,8 +2,6 @@
     ViewData["Title"] = "Consent Form";
 }
 
-@using System.Collections
-@using Microsoft.CodeAnalysis.CSharp.Syntax
 @model ConsentFormViewModel
 
 <link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
@@ -26,10 +24,9 @@
     </div>
 
     <form method="post" asp-action="Create">
-        @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
-        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ConsentId" />
         <input type="hidden" asp-for="StudentId" />
+        
        
         <div class="form-group">
             <label for="dateInput" class="fw-bold">Personally Delivered</label>
@@ -66,7 +63,7 @@
         <div class="section">
             <label>Granting parental consent is voluntary. Parents retain the right to refuse consent for initial evaluation or for reevaluation for a possible change in placement and to revoke it at any time. However, should a parent refuse consent or revoke it, the Ministry of Education may then request a hearing to obtain approval to conduct the initial evaluation or reevaluation for a possible change in placement. Parents have the right to seek an independent evaluation. Under certain conditions this evaluation may be at public expense. In addition, please note in the Parents' Rights and Due Process Procedures in Chapter 25 of education rules and regulations that an impartial hearing may be requested by a parent or the Ministry of Education on any matter relating to proposed (or refused) action to initiate (or change) the identification, evaluation, program, or placement of a child.</label>
         </div>
-@if (Model.Id == 0)
+@if (Model.ConsentId == 0)
         {
             <div class="row section">
                 <div class="col-6">Signature of Parent: <input type="text" placeholder="Enter Signature"></div>

@@ -23,35 +23,35 @@ public class SchoolController : Controller
     public IActionResult Index()
     {
         // Create
-        School school = new School();
+        School? school = new School();
         school.Name = "ETSU";
         school.Address = "Johnson City";
         school.Phone = "123456789";
 
         _schoolRepo.Add(school);
-        _schoolRepo.Save();
+        _schoolRepo.SaveAsync();
 
         // Get All
-        List<School> objCategoryList = _schoolRepo.GetAll().ToList();
+        List<School?> objCategoryList = _schoolRepo.GetAll().ToList();
 
         // Update
         school.Phone = "987654321";
         _schoolRepo.Update(school);
-        _schoolRepo.Save();
+        _schoolRepo.SaveAsync();
 
         // Get
         School? schoolFromDb = _schoolRepo.Get(u => u.Name == "ETSU");
 
         // Delete
         _schoolRepo.Remove(schoolFromDb);
-        _schoolRepo.Save();
+        _schoolRepo.SaveAsync();
 
         return RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Create()
     {
-        School school = new School();
+        School? school = new School();
         school.Name = "ETSU";
         school.Address = "Johnson City";
         school.Phone = "123456789";

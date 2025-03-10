@@ -5,15 +5,11 @@ using RMIPSS_System.Repository.IRepository;
 
 namespace RMIPSS_System.Repository;
 
-public class StudentRepository : Repository<Student>, IStudentRepository
+public class StudentRepository(ApplicationDbContext db) : Repository<Student>(db), IStudentRepository
 {
-    private readonly ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db = db;
 
-    public StudentRepository(ApplicationDbContext db) : base(db)
-    {
-        _db = db;
-    }
-    
+
     public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
         var query = _db.Students.AsQueryable();
@@ -22,7 +18,7 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         if (search != "")
         {
             query = query.Where(s =>
-                (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
+                s != null && (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
                 .Contains(search.ToLower())
             );
         }
@@ -30,7 +26,7 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         // Filter by School
         if (schoolId.HasValue)
         {
-            query = query.Where(s => s.SchoolId == schoolId);
+            query = query.Where(s => s != null && s.SchoolId == schoolId);
         }
 
         // Get total number of students
@@ -38,12 +34,16 @@ public class StudentRepository : Repository<Student>, IStudentRepository
 
         // Apply pagination
         var students = await query
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             .OrderBy(s => s.FirstName)
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             .Skip((pageNo - 1) * pageSize)
             .Take(pageSize)
             .Select(s => new Student
             {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Id = s.Id,
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 FirstName = s.FirstName,
                 MiddleInitial = s.MiddleInitial,
                 LastName = s.LastName,
@@ -63,17 +63,19 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         return (students, totalStudents);
     }
     
-    public async Task<Student> GetByStudentIdAsync(int id)
+    public async Task<Student?> GetByStudentIdAsync(int id)
     {
-        Student student = await GetAsync(s =>
-            s.Id == id
+        Student? student = await GetAsync(s =>
+            s != null && s.Id == id
         );
         return student;
     }
     
-    public void Update(Student student)
+    public void Update(Student? student)
     {
-        _db.Students.Update(student);
+            _db.Students.Update(student);
+            _db.SaveChangesAsync();
+       
     }
     
     public async Task SaveAsync()

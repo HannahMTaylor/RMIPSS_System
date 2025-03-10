@@ -2,8 +2,8 @@ namespace RMIPSS_System.Models.ViewModel;
 
 public class DocumentViewModel
 {
-    public int id { get; set; }
-    public string name { get; set; }
-    public string controller { get; set; }
-    public string method { get; set; }
+    public int Id { get; set; }
+    public string? Name { get; set; }
+    public string? Controller { get; set; } = "Home";
+    public string? Method { get; set; } = "ProcessStep";
 }

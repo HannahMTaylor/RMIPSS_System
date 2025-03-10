@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
@@ -30,7 +31,7 @@ namespace RMIPSS_System.Controllers
         public async Task<IActionResult>  Create(ConsentFormViewModel obj)
         {
             await _consentFormService.CreateConsentForm(obj);
-            if (obj.Id == 0)
+            if (obj.ConsentId == 0)
             {
                 TempData["success"] = "Consent Form Created Successfully!";
             }
@@ -52,12 +53,12 @@ namespace RMIPSS_System.Controllers
             }
             else
             {
-                ConsentForm consentForm = await _consentFormRepository.GetConsentFormByStudentId(studentId);
+                ConsentForm? consentForm = await _consentFormRepository.GetConsentFormByStudentId(studentId);
                 if (consentForm != null)
                 {
                    ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
-                        Id = consentForm.Id,
+                        ConsentId = consentForm.Id,
                         EnteredDate = consentForm.EnteredDate,
                         To = consentForm.To,
                         From = consentForm.From,

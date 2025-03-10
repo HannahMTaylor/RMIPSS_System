@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@ using NuGet.Protocol.Core.Types;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
@@ -20,27 +22,27 @@ public class ConsentFormUnitTest
 {
     
     [Test]
-    public void ShouldCreateConsentForm()
+    public async Task ShouldCreateConsentForm()
     {
 
         //Arrange
         ApplicationDbContextUnit unitConnection = new();
         DbContextOptions<ApplicationDbContext> options = unitConnection.GetOptions();
-        ApplicationDbContext _db = new ApplicationDbContext(options);
-        IConsentFormRepository _consentFormRepository=new ConsentFormRepository(_db);
-        IStudentRepository _repositoryStudent = new StudentRepository(_db);
-        IRepository<School> _repositorySchool = new Repository<School>(_db);
-        ILogger<ConsentFormService> _logger = new Logger<ConsentFormService>(new LoggerFactory());
-        ILogger<StudentService> _loggerStudent = new Logger<StudentService>(new LoggerFactory());
-        StudentService studentService = new StudentService(_loggerStudent, _repositoryStudent);
-        ConsentFormService sut = new ConsentFormService( _logger, _consentFormRepository, studentService);
+        ApplicationDbContext db = new ApplicationDbContext(options);
+        IConsentFormRepository consentFormRepository=new ConsentFormRepository(db);
+        IStudentRepository repositoryStudent = new StudentRepository(db);
+        IRepository<School> repositorySchool = new Repository<School>(db);
+        ILogger<ConsentFormService> logger = new Logger<ConsentFormService>(new LoggerFactory());
+        ILogger<StudentService> loggerStudent = new Logger<StudentService>(new LoggerFactory());
+        StudentService studentService = new StudentService(loggerStudent, repositoryStudent);
+        ConsentFormService sut = new ConsentFormService( logger, consentFormRepository, studentService);
         School school = new ()
         {
             Name = "ETSU",
             Address = "Johnson City",
             Phone = "123456789"
         };
-        School schoolSaved = _repositorySchool.Save(school);
+        School schoolSaved = repositorySchool.Save(school);
         Student student = new()
         {
             FirstName = "John",
@@ -50,9 +52,8 @@ public class ConsentFormUnitTest
             Phone = "123456789",
             GuardianName = "Johnny Doe",
         };
-        Student studentSaved = _repositoryStudent.Save(student);
-        ConsentFormViewModel c = new ConsentFormViewModel();
-        c = new ConsentFormViewModel()
+        Student studentSaved = repositoryStudent.Save(student);
+        var c = new ConsentFormViewModel()
         {
             EnteredDate = new DateOnly(),
             To = "Parent",
@@ -62,21 +63,22 @@ public class ConsentFormUnitTest
             StudentId = studentSaved.Id
         };
         //Act
-        ConsentForm SavedConsentForm = sut.CreateConsentForm(c).Result;
+        ConsentForm? savedConsentForm = sut.CreateConsentForm(c).Result;
       
         //Assert
-        Assert.That(SavedConsentForm.To, Is.EqualTo("Parent"));
-        Assert.That(SavedConsentForm.Id, Is.Not.EqualTo(0));
+        Debug.Assert(savedConsentForm != null, nameof(savedConsentForm) + " != null");
+        Assert.That(savedConsentForm.To, Is.EqualTo("Parent"));
+        Assert.That(savedConsentForm.Id, Is.Not.EqualTo(0));
         
         //Remove from database
-        sut.RemoveById(SavedConsentForm.Id);
-        sut.Save();
-        ConsentForm removedConsentForm = sut.GetById(SavedConsentForm.Id);
+        sut.RemoveById(savedConsentForm.Id);
+        await repositoryStudent.SaveAsync();
+        ConsentForm? removedConsentForm = await sut.GetByIdAsync(savedConsentForm.Id);
         
-        _repositoryStudent.RemoveById(studentSaved.Id);
-        _repositoryStudent.Save();
+        repositoryStudent.RemoveById(studentSaved.Id);
+        repositoryStudent.Save();
         
-        Student removedStudent = _repositoryStudent.GetById(studentSaved.Id);
+        Student? removedStudent = await repositoryStudent.GetByIdAsync(studentSaved.Id);
         
         
         //Assert

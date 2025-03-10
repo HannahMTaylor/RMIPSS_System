@@ -11,11 +11,11 @@ namespace RMIPSS_System.Controllers;
 [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
 public class SE2Controller : Controller
 {
-    private readonly SE2Service _se2Service;
+    private readonly Se2Service _se2Service;
     private readonly StudentService _studentService;
     private readonly ILogger<SE2Controller> _logger;
 
-    public SE2Controller(SE2Service se2Service, StudentService studentService, ILogger<SE2Controller> logger)
+    public SE2Controller(Se2Service se2Service, StudentService studentService, ILogger<SE2Controller> logger)
     {
         _se2Service = se2Service;
         _studentService = studentService;
@@ -26,7 +26,7 @@ public class SE2Controller : Controller
     {
         try
         {
-            Student student = await _se2Service.GetStudent(studentId);
+            Student? student = await _se2Service.GetStudent(studentId);
             if (student == null)
             {
                 _logger.LogError("Error:: StudentId = {StudentId} does not exits.", studentId);
@@ -34,22 +34,22 @@ public class SE2Controller : Controller
                 return RedirectToAction("Error", "Home");
             }
 
-            SE2 se2 = await _se2Service.GetSE2Data(studentId);
+            SE2? se2 = await _se2Service.GetSe2Data(studentId);
             if (se2 != null)
             {
-                SE2ViewModel viewModel = new SE2ViewModel
+                Se2ViewModel viewModel = new Se2ViewModel
                 {
                     Student = student,
-                    SE2 = se2
+                    Se2 = se2
                 };
                 return View(viewModel);
             }
 
-            ApplicationUser user = await _se2Service.GetLoggedInUser(User.Identity.Name);
-            SE2ViewModel newModel = new SE2ViewModel
+            ApplicationUser? user = await _se2Service.GetLoggedInUser(User.Identity.Name);
+            Se2ViewModel newModel = new Se2ViewModel
             {
                 Student = student,
-                SE2 = new SE2
+                Se2 = new SE2
                 {
                     CompletedByName = user.FirstName + " " + user.LastName,
                     CompletedByPhone = user.PhoneNumber,
@@ -67,25 +67,25 @@ public class SE2Controller : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveScreeningInformationForm(SE2ViewModel se2Model)
+    public async Task<IActionResult> SaveScreeningInformationForm(Se2ViewModel se2Model)
     {
         try
         {
-            se2Model.SE2.StudentId = se2Model.Student.Id;
-            if (se2Model.SE2.Id == 0)
+            se2Model.Se2.StudentId = se2Model.Student.Id;
+            if (se2Model.Se2.Id == 0)
             {
-                await _se2Service.saveFormData(se2Model.SE2);
+                await _se2Service.SaveFormData(se2Model.Se2);
                 _logger.LogInformation("SE2 Form created successfully for {FirstName} {lastName}.", se2Model.Student.FirstName, se2Model.Student.LastName);
                 TempData["success"] = "SE2 Form created successfully!";
             }
             else
             {
-                await _se2Service.updateFormData(se2Model.SE2);
+                await _se2Service.UpdateFormData(se2Model.Se2);
                 _logger.LogInformation("SE2 Form updated successfully for {FirstName} {lastName}.", se2Model.Student.FirstName, se2Model.Student.LastName);
                 TempData["success"] = "SE2 Form updated successfully!";
             }
 
-            await _studentService.updateSEProcessSteps(se2Model.Student.Id, SEProcessSteps.SE1, SEProcessSteps.SE2);
+            await _studentService.UpdateSeProcessSteps(se2Model.Student.Id, SEProcessSteps.SE1, SEProcessSteps.SE2);
         }
         catch (Exception ex)
         {

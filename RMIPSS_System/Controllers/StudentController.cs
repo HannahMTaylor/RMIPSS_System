@@ -67,7 +67,7 @@ public class StudentController : Controller
 
     public async Task<IActionResult> StudentViewDetails([Bind(Prefix = "id")] int studentId)
     {
-        if (studentId == null || studentId == 0)
+        if (studentId == 0)
         {
             TempData["error"] = "Please select a student";
             return RedirectToAction("ListStudent", "Student");
