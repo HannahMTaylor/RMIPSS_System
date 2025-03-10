@@ -37,27 +37,30 @@ public class ReferralController : Controller
         try
         {
             ApplicationUser appUser = await _referralService.GetLoggedInUser(User.Identity.Name);
-
-            ReferralViewModel viewModelWithuser = new ReferralViewModel
+            if (appUser != null)
             {
-                student = new(),
-                person = new ReferrerPerson
+                ReferralViewModel viewModelWithuser = new ReferralViewModel
                 {
-                    FullName = appUser.FirstName + " " + appUser.LastName,
-                    Phone = appUser.PhoneNumber,
-                    Email = appUser.Email,
-                    DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
-                },
-                referral = new()
-            };
-            return View(viewModelWithuser);
+                    student = new(),
+                    person = new ReferrerPerson
+                    {
+                        FullName = appUser.FirstName + " " + appUser.LastName,
+                        Phone = appUser.PhoneNumber,
+                        Email = appUser.Email,
+                        DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
+                    },
+                    referral = new()
+                };
+                return View(viewModelWithuser);
+            }
+            
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error getting logged in user");
-            
+
         }
-       
+
         ReferralViewModel viewModel = new ReferralViewModel
         {
             student = new(),
@@ -65,7 +68,6 @@ public class ReferralController : Controller
             referral = new()
         };
         return View(viewModel);
-
     }
 
 
@@ -74,10 +76,52 @@ public class ReferralController : Controller
     //need to add some sort of functionality to save incrementally?? might add in next sprint
     //
     //*** need to go back through and make sure Student and Referrer are getting created and mapped properly to Referral on submission
-    public async Task<IActionResult> SaveReferralForm(ReferralViewModel referralVM)
+    /// <summary>
+    /// Save referral form - submit button (includes input validation)
+    /// </summary>
+    /// <param name="referralVM"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<IActionResult> CreateReferralForm(ReferralViewModel referralVM)
     {
         try
         {
+            if (!ModelState.IsValid)
+            {
+                try
+                {
+                    ApplicationUser appUser = await _referralService.GetLoggedInUser(User.Identity.Name);
+                    if (appUser != null)
+                    {
+                        ReferralViewModel viewModelWithuser = new ReferralViewModel
+                        {
+                            student = new(),
+                            person = new ReferrerPerson
+                            {
+                                FullName = appUser.FirstName + " " + appUser.LastName,
+                                Phone = appUser.PhoneNumber,
+                                Email = appUser.Email,
+                                DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
+                            },
+                            referral = new()
+                        };
+                        return View(viewModelWithuser);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error getting logged in user");
+
+                }
+                ReferralViewModel viewModel = new ReferralViewModel
+                {
+                    student = new(),
+                    person = new(),
+                    referral = new()
+                };
+                return View(viewModel);
+            }
             //use service class to convert view model to model and pass model to controllers
             Referral refer = await _referralService.ConvertViewModel(referralVM);
 

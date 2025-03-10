@@ -14,7 +14,7 @@ public class Referral
     public Student? Student { get; set; }
 
     //section two of form
-    public string ReasonsForReferral { get; set; } = string.Empty;
+    public string? ReasonsForReferral { get; set; } = string.Empty;
     public string? OtherReasonsForReferral { get; set; }
     //this has not been added to Db table Referrals yet bc not working
     // public PdfUpload? MIDScoringSheet { get; set; }

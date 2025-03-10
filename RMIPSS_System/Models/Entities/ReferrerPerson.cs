@@ -13,7 +13,7 @@ public class ReferrerPerson
     [MaxLength(50)]
     public string? FirstName { get; set; }
     [MaxLength(50)]
-    public string RelationshipToStudent { get; set; }
+    public string? RelationshipToStudent { get; set; }
     //public Student Student { get; set; }
     //public Referral Referral { get; set; }
     [MaxLength(50)]

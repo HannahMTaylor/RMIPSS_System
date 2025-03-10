@@ -38,10 +38,12 @@ public class Program
         builder.Services.AddScoped<IStudentRepository, StudentRepository>();
         builder.Services.AddScoped<ISE2Repository, SE2Repository>();
         builder.Services.AddScoped<IEmailSender, EmailSender>();
+        builder.Services.AddScoped<IReferralRepository, ReferralRepository>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<SE2Service>();
         builder.Services.AddScoped<ConsentFormService>();
+        builder.Services.AddScoped<ReferralService>();
         //builder.Services.AddScoped<IPdfUploadRepository, PdfUploadRepository>();
         builder.Services.AddScoped<StudentService>();
         builder.Services.AddControllersWithViews();

@@ -41,8 +41,8 @@
         </p>
     </div>
 
-    <form id="ReferralForm" asp-controller="Referral" asp-action="SaveReferralForm" method="post" novalidate>
-        
+    <form id="ReferralForm" asp-controller="Referral" asp-action="CreateReferralForm" method="post" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <!--Section 1: Student-->
         <section class="mb-3">
             <div class="mb-3 text-center p-2 section-header"><strong>Section 1: Child/Student Being Referred</strong></div>
@@ -51,15 +51,18 @@
                 <b class="col-auto width-15">Full Name:</b>
                 <div class="col">
                     <label asp-for="student.LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                    <input asp-for="student.LastName" type="text" class="form-control" required>
+                    <input asp-for="student.LastName" type="text" id="studentLastName" class="form-control" required>
+                    <span id="studentLastNameError" class="text-danger"></span>
+                    <span asp-validation-for="student.LastName" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.FirstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                    <input asp-for="student.FirstName" type="text" class="form-control" required>
+                    <input asp-for="student.FirstName" type="text" id="studentFirstName" class="form-control" required>
+                    <span id="studentFirstNameError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.MiddleInitial" class="form-label">Middle Initial</label>
-                    <input asp-for="student.MiddleInitial" type="text" class="form-control">
+                    <input asp-for="student.MiddleInitial" type="text" id="studentMidInitial" class="form-control">
                 </div>
             </div>
 
@@ -67,65 +70,75 @@
                 <b class="col-auto width-15">Address:</b>
                 <div class="col">
                     <label asp-for="student.Village" class="form-label">Village <span class="text-danger">*</span></label>
-                    <input asp-for="student.Village" type="text" class="form-control" required>
+                    <input asp-for="student.Village" type="text" id="studentVillage" class="form-control" required>
+                    <span id="studentVillageError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.Atoll" class="form-label">Atoll <span class="text-danger">*</span></label>
-                    <input asp-for="student.Atoll" type="text" class="form-control" required>
+                    <input asp-for="student.Atoll" type="text" id="studentAtoll" class="form-control" required>
+                    <span id="studentAtollError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.PoBoxNo" class="form-label">P.O. Box No. <span class="text-danger">*</span></label>
-                    <input asp-for="student.PoBoxNo" type="text" class="form-control" required>
+                    <input asp-for="student.PoBoxNo" type="text" id="studentPOBox" class="form-control" required>
+                    <span id="studentPOBoxError" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.FatherName" class="form-label">Father's Name <span class="text-danger">*</span></label>
-                    <input asp-for="student.FatherName" type="text" class="form-control" required>
+                    <input asp-for="student.FatherName" type="text" id="studentFatherName" class="form-control" required>
+                    <span id="studentFatherNameError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.MotherName" class="form-label">Mother's Name <span class="text-danger">*</span></label>
-                    <input asp-for="student.MotherName" type="text" class="form-control" required>
+                    <input asp-for="student.MotherName" type="text" id="studentMotherName" class="form-control" required>
+                    <span id="studentMotherNameError" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.GuardianName" class="form-label">Guardian's Name (if applicable)</label>
-                    <input asp-for="student.GuardianName" type="text" class="form-control">
+                    <input asp-for="student.GuardianName" type="text" id="studentGuardName" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.Phone" class="form-label">Phone <span class="text-danger">*</span></label>
-                    <input asp-for="student.Phone" type="text" class="form-control" required>
+                    <input asp-for="student.Phone" type="text" id="studentPhone" class="form-control" required>
+                    <span id="studentPhoneError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.Email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input asp-for="student.Email" type="email" class="form-control" required>
+                    <input asp-for="student.Email" type="email" id="studentEmail" class="form-control" required>
+                    <span id="studentEmailError" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.Sex" class="form-label">Sex <span class="text-danger">*</span></label>
-                    <select asp-for="student.Sex" class="form-select" required>
+                    <select asp-for="student.Sex" id="studentSex" class="form-select" required>
                         <option value="">Select</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                         <option value="O">Others</option>
                     </select>
+                    <span id="studentSexError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.Age" class="form-label">Age <span class="text-danger">*</span></label>
-                    <input asp-for="student.Age" type="text" class="form-control" required>
+                    <input asp-for="student.Age" type="text" id="studentAge" class="form-control" required>
+                    <span id="studentAgeError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.DOB" class="form-label">Date of Birth <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <input asp-for="student.DOB" type="date" class="form-control px-3" required>
+                        <input asp-for="student.DOB" type="date" id="studentDOB" class="form-control px-3" required>
+                        <span id="studentDOBError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -133,33 +146,38 @@
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.HospitalNo" class="form-label">Hospital No. <span class="text-danger">*</span></label>
-                    <input asp-for="student.HospitalNo" type="text" class="form-control" required>
+                    <input asp-for="student.HospitalNo" type="text" id="studentHospitalNo" class="form-control" required>
+                    <span id="studentHospitalNoError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.SSN" class="form-label">Social Security No. <span class="text-danger">*</span></label>
-                    <input asp-for="student.SSN" type="text" class="form-control" required>
+                    <input asp-for="student.SSN" type="text" id="studentSSN" class="form-control" required>
+                    <span id="studentSSNError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="student.Grade" class="form-label">Grade <span class="text-danger">*</span></label>
-                    <input asp-for="student.Grade" type="text" class="form-control" required>
+                    <input asp-for="student.Grade" type="text" id="studentGrade" class="form-control" required>
+                    <span id="studentGradeError" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.PrimaryLanguage" class="form-label">Primary Language of Child/Student <span class="text-danger">*</span></label>
-                    <input asp-for="student.PrimaryLanguage" type="text" class="form-control" required>
+                    <input asp-for="student.PrimaryLanguage" type="text" id="studentLang" class="form-control" required>
+                    <span id="studentLangError" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
                     <label asp-for="student.ParentGuardianPrimaryLanguage" class="form-label">Primary Language of Parent or Guardian <span class="text-danger">*</span></label>
-                    <input asp-for="student.ParentGuardianPrimaryLanguage" type="text" class="form-control" required>
+                    <input asp-for="student.ParentGuardianPrimaryLanguage" type="text" id="studentGuardLang" class="form-control" required>
+                    <span id="studentGuardLangError" class="text-danger"></span>
                 </div>
             </div>
 
-            <!--not sure what this is for yet-->
+            <!---->
             <input asp-for="student.Id" type="hidden" />
             <input asp-for="referral.ID" type="hidden" />
         </section>
@@ -170,36 +188,38 @@
             <div class="mb-3 text-center p-2 section-header"><strong>Section 2: Reason for Referral (Please Check All Areas of Concern)</strong></div>
 
             <!--may need to add a checkbox error div here to make sure at least one is checked-->
+            <div id="checkboxError" class="text-danger mb-3"></div>
+            
 
             <div class="table-responsive">
                 <table class="table table-bordered three-equal-width">
                     <tr>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="vision"> Vision</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="hearing"> Hearing</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="physical"> Physical</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="vision"> Vision</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="hearing"> Hearing</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="physical"> Physical</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="behavior"> Behavior</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="speech"> Speech</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="language"> Language</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="behavior"> Behavior</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="speech"> Speech</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="language"> Language</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="medical"> Medical</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="academic"> Academic</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="learning in subject area"> Learning in Subject Area</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="medical"> Medical</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="academic"> Academic</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="learning in subject area"> Learning in Subject Area</td>
                     </tr>
                     <tr>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="school attendance"> School Attendance</td>
-                        <td><input type="checkbox" class="form-check-input small-check-box" value="other"> Other (please specify) <input asp-for="referral.OtherReasonsForReferral" type="text" class="form-control mt-2" placeholder="Enter text" /></td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="school attendance"> School Attendance</td>
+                        <td><input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="other"> Other (please specify) <input asp-for="referral.OtherReasonsForReferral" type="text" class="form-control mt-2" placeholder="Enter text" /></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <input type="checkbox" class="form-check-input small-check-box">  Pre-school age child’s total score on the Micronesia Inventory of Development (MID)
+                            <input type="checkbox" class="form-check-input small-check-box reasons-checkbox">  Pre-school age child’s total score on the Micronesia Inventory of Development (MID)
                             is in referral range (attach copy of child’s capital MID Scoring Sheet)
                         </td>
                     </tr>
-                    <input type="hidden" class="ReferralReasonCheckbox" id="reasons" asp-for="referral.ReasonsForReferral" />
+                    <input type="hidden" class="ReferralReasonCheckbox" id="reasons" asp-for="referral.ReasonsForReferral"/>
                 </table>
             </div>
 
@@ -220,10 +240,11 @@
                 <div class="col">
                     <label asp-for="person.FullName" class="form-label">Full Name <span class="text-danger">*</span></label>
                     <input asp-for="person.FullName" type="text" id="referralName" class="form-control" required>
+                    <span id="referrerPersonNameError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="person.RelationshipToStudent" class="form-label">Relationship to child/student or agency/position <span class="text-danger">*</span></label>
-                    <input asp-for="person.RelationshipToStudent" type="text" id="relationship" class="form-control" required>
+                    <input asp-for="person.RelationshipToStudent" type="text" id="relationship" class="form-control">
                 </div>
             </div>
 
@@ -231,10 +252,12 @@
                 <div class="col">
                     <label asp-for="person.Phone" class="form-label">Phone <span class="text-danger">*</span></label>
                     <input asp-for="person.Phone" type="text" id="phone" class="form-control" required>
+                    <span id="referrerPersonPhoneError" class="text-danger"></span>
                 </div>
                 <div class="col">
                     <label asp-for="person.Email" class="form-label">Email <span class="text-danger">*</span></label>
                     <input asp-for="person.Email" type="email" id="email" class="form-control" required>
+                    <span id="referrerPersonEmailError" class="text-danger"></span>
                 </div>
             </div>
 
@@ -243,6 +266,7 @@
                     <label asp-for="person.DateFilledReferral" class="form-label">Date <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input asp-for="person.DateFilledReferral" type="date" id="referralDate" class="form-control px-3" required>
+                        <span id="referrerPersonDateFilledError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
@@ -259,12 +283,14 @@
                     <label asp-for="referral.ReferralReceived" class="form-label">Date Referral Received</label>
                     <div class="input-group">
                         <input asp-for="referral.ReferralReceived" type="date" id="dateReferralReceived" class="form-control px-3" required>
+                        <span id="dateReceivedError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.ReferredToChildStudyTeam" class="form-label">Date referred to child study team</label>
                     <div class="input-group">
                         <input asp-for="referral.ReferredToChildStudyTeam" type="date" id="dateChildStudyTeam" class="form-control px-3" required>
+                        <span id="toChildStudyError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -274,12 +300,14 @@
                     <label asp-for="referral.TeamRecommendation" class="form-label">Date of team recommendation</label>
                     <div class="input-group">
                         <input asp-for="referral.TeamRecommendation" type="date" id="dateTeamRecommendation" class="form-control px-3" required>
+                        <span id="teamRecommendataionError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.Disposition" class="form-label">Disposition</label>
                     <div class="input-group">
                         <input asp-for="referral.Disposition" type="date" id="disposition" class="form-control px-3" required>
+                        <span id="dispositionError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -289,12 +317,14 @@
                     <label asp-for="referral.DispositionNoticeToReferrer" class="form-label">Date of disposition notice to person referring</label>
                     <div class="input-group">
                         <input asp-for="referral.DispositionNoticeToReferrer" type="date" id="dateDispositionNoticeReferring" class="form-control px-3" required>
+                        <span id="dispositionNoticeToReferrerError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.DispositionNoticeToParent" class="form-label">Date of disposition notice to parent</label>
                     <div class="input-group">
                         <input asp-for="referral.DispositionNoticeToParent" type="date" id="dateDispositionNoticeParent" class="form-control px-3" required>
+                        <span id="dispositionNoticeToParentError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -304,12 +334,14 @@
                     <label asp-for="referral.ParentalConsentForEvaluation" class="form-label">Date of parental consent for evaluation</label>
                     <div class="input-group">
                         <input asp-for="referral.ParentalConsentForEvaluation" type="date" id="dateParentConsentEvaluation" class="form-control px-3" required>
+                        <span id="parentConsentForEvalError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.ReferralToEvaluationTeam" class="form-label">Date of referral to evaluation team</label>
                     <div class="input-group">
                         <input asp-for="referral.ReferralToEvaluationTeam" type="date" id="dateReferralEvaluationTeam" class="form-control px-3" required>
+                        <span id="referEvalTeamError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -319,12 +351,14 @@
                     <label asp-for="referral.EvaluationTeamRecommendation" class="form-label">Date of evaluation team recommendation</label>
                     <div class="input-group">
                         <input asp-for="referral.EvaluationTeamRecommendation" type="date" id="dateEvaluationTeamRecommendation" class="form-control px-3" required>
+                        <span id="evalTeamError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.Recommendation" class="form-label">Recommendation</label>
                     <div class="input-group">
                         <input asp-for="referral.Recommendation" type="date" id="recommendation" class="form-control px-3" required>
+                        <span id="recommendationError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -334,12 +368,14 @@
                     <label asp-for="referral.ParentNoticeForMeeting" class="form-label">Date of parent notice for meeting</label>
                     <div class="input-group">
                         <input asp-for="referral.ParentNoticeForMeeting" type="date" id="dateParentNoticeMeeting" class="form-control px-3" required>
+                        <span id="parentNoticeError" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col">
                     <label asp-for="referral.IEPMeeting" class="form-label">Date of IEP Meeting</label>
                     <div class="input-group">
                         <input asp-for="referral.IEPMeeting" type="date" id="dateIEPMeeting" class="form-control px-3" required>
+                        <span id="iepMeetingError" class="text-danger"></span>
                     </div>
                 </div>
             </div>
@@ -354,3 +390,4 @@
     </form>
 </div>
 
+<script src="~/js/referralForm.js" asp-append-version="true"></script>
