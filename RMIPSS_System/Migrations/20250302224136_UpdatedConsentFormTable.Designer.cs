@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMIPSS_System.Data;
 
@@ -11,9 +12,11 @@ using RMIPSS_System.Data;
 namespace RMIPSS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250302224136_UpdatedConsentFormTable")]
+    partial class UpdatedConsentFormTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,22 +291,18 @@ namespace RMIPSS_System.Migrations
 
                     b.Property<string>("Affiliation")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeachingLicenseType")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -323,31 +322,23 @@ namespace RMIPSS_System.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("FullName")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RelationshipToStudent")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -487,33 +478,6 @@ namespace RMIPSS_System.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("RMIPSS_System.Models.OtherModels.PdfUpload", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("Data")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("Length")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PdfUploads");
-                });
-
             modelBuilder.Entity("RMIPSS_System.Models.ProcessSteps.Referral", b =>
                 {
                     b.Property<int>("ID")
@@ -523,10 +487,12 @@ namespace RMIPSS_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("AreasOfConcernAndHelpNeededDescription")
+                        .IsRequired()
                         .HasMaxLength(560)
                         .HasColumnType("nvarchar(560)");
 
                     b.Property<string>("Disposition")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("DispositionNoticeToParent")
@@ -541,9 +507,6 @@ namespace RMIPSS_System.Migrations
                     b.Property<DateOnly>("IEPMeeting")
                         .HasColumnType("date");
 
-                    b.Property<string>("OtherReasonsForReferral")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateOnly>("ParentNoticeForMeeting")
                         .HasColumnType("date");
 
@@ -555,6 +518,7 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Recommendation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateOnly>("ReferralReceived")
@@ -566,7 +530,7 @@ namespace RMIPSS_System.Migrations
                     b.Property<DateOnly>("ReferredToChildStudyTeam")
                         .HasColumnType("date");
 
-                    b.Property<int>("ReferrerId")
+                    b.Property<int>("ReferrerID")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentId")
@@ -577,7 +541,7 @@ namespace RMIPSS_System.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ReferrerId");
+                    b.HasIndex("ReferrerID");
 
                     b.HasIndex("StudentId");
 
@@ -760,7 +724,7 @@ namespace RMIPSS_System.Migrations
                 {
                     b.HasOne("RMIPSS_System.Models.Entities.ReferrerPerson", "Referrer")
                         .WithMany()
-                        .HasForeignKey("ReferrerId")
+                        .HasForeignKey("ReferrerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

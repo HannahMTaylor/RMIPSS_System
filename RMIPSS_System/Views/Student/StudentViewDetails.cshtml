@@ -45,8 +45,7 @@
         text-decoration: none;
         display: block;
     }
-    .dropdown:hover .dropdown-menu {display: block;}
-    .table-container {
+      .table-container {
         margin-top: 0px;
     }
     .table thead th {
@@ -70,6 +69,10 @@
     }
     .mr-20{
         margin-right: 20px;
+    }
+    .back-button{
+        color: rgb(40 40 40);;
+        text-decoration: auto;
     }
   
 </style>
@@ -100,11 +103,11 @@
                 <!-- Right Column: Suggested Next Steps -->
                 <div class="col-md-6">
                     <div class="info-item">
-                        <span class="info-label">Suggested Next Steps:</span>
+                        <span class="info-label">Suggested Next Process Steps:</span>
                         <ul class="list-unstyled mb-0">
                             @foreach (var step in Model.upcomingSEForms)
                             {
-                                <li>@step</li>
+                                <li>@step.name</li>
                             }
                         </ul>
                     </div>
@@ -118,14 +121,18 @@
         <div class="d-flex justify-content-between align-items-center">
            <h5 class="ml-20 mb-0"> List of Submitted Forms</h5>
             <div class="dropdown mr-20">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="formDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    New Form
+                <button class="btn btn-primary dropdown-toggle" onclick="myFunction()" type="button" id="formDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Next Process Step
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="formDropdown">
-                    <li><a class="dropdown-item" href="#" onclick="selectForm('SE-1')">SE-1</a></li>
+                <ul id="myDropdown" class="dropdown-menu" aria-labelledby="formDropdown">
+                    @foreach (var step in Model.upcomingSEForms)
+                    {
+                        <li><a class="dropdown-item" asp-controller="@step.controller" asp-action="@step.method" asp-route-id="@Model.Id">@step.name</a></li>
+                    }
+                   <!-- <li><a class="dropdown-item" href="#" onclick="selectForm('SE-1')">SE-1</a></li>
                     <li><a class="dropdown-item" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-id="@Model.Id">SE-2</a></li>
                     <li><a class="dropdown-item" href="#" onclick="selectForm('SE-3')">SE-3</a></li>
-                    <li><a class="dropdown-item" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="@Model.Id" method="get">SE-4</a></li>
+                    <li><a class="dropdown-item" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="@Model.Id" method="get">SE-4</a></li> -->
                 </ul>
             </div>
         </div>
@@ -162,16 +169,33 @@
 
     <!-- Back Button -->
     <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-secondary" onclick="history.back()">
-            <i class="fas fa-arrow-left"></i> Back
+        <button class="btn btn-secondary">
+            <a asp-area="" asp-controller="Student" asp-action="ListStudent" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            
         </button>
     </div>
 </div>
 
 <script>
-    function selectForm(formName) {
+    function myFunction() {
         // You can replace the alert with redirection if needed:
-        alert("Selected Form: " + formName);
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('#formDropdown')) {
+            var dropdowns = document.getElementsByClassName("dropdown-menu");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

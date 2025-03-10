@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using RMIPSS_System.Models.Enums;
 
 namespace RMIPSS_System.Models.Entities;
@@ -34,18 +35,16 @@ public class Student
     [MaxLength(11)]
     public string SSN { get; set; } = String.Empty;
     public int Grade { get; set; }
-
-
-    [MaxLength(100)]
-    //this needs to be changed to type school and nullable bc not used in all forms
-    public string School { get; set; } = String.Empty;
+    public int? SchoolId { get; set; }
+    [ValidateNever]
+    public School? School { get; set; }
     [MaxLength(50)]
     public string PrimaryLanguage { get; set; } = String.Empty;
     [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
-    
     /// <summary>
-    /// current completed special education form of the student
+    /// Recently completed special education form of the student
     /// </summary>
     public SEProcessSteps SEProcessSteps { get; set; } 
+    public DateOnly SEProcessCompletedDate { get; set; }
 }

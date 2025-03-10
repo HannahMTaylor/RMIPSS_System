@@ -14,17 +14,23 @@ public class StudentRepository : Repository<Student>, IStudentRepository
         _db = db;
     }
     
-    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int pageNo, int pageSize)
+    public async Task<(List<Student>, int)> GetPaginatedStudentsAsync(string search, int? schoolId, int pageNo, int pageSize)
     {
         var query = _db.Students.AsQueryable();
 
         // Search across Student's FirstName, MiddleInitial, and LastName
-        if (!string.IsNullOrEmpty(search))
+        if (search != "")
         {
             query = query.Where(s =>
                 (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
                 .Contains(search.ToLower())
             );
+        }
+        
+        // Filter by School
+        if (schoolId.HasValue)
+        {
+            query = query.Where(s => s.SchoolId == schoolId);
         }
 
         // Get total number of students
@@ -47,7 +53,10 @@ public class StudentRepository : Repository<Student>, IStudentRepository
                 Atoll = s.Atoll,
                 PoBoxNo = s.PoBoxNo,
                 Phone = s.Phone,
-                DOB = s.DOB
+                DOB = s.DOB,
+                School = s.School,
+                SEProcessSteps = s.SEProcessSteps,
+                SEProcessCompletedDate = s.SEProcessCompletedDate
             })
             .ToListAsync();
 
@@ -60,5 +69,15 @@ public class StudentRepository : Repository<Student>, IStudentRepository
             s.Id == id
         );
         return student;
+    }
+    
+    public void Update(Student student)
+    {
+        _db.Students.Update(student);
+    }
+    
+    public async Task SaveAsync()
+    {
+        await _db.SaveChangesAsync();
     }
 }

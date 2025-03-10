@@ -183,6 +183,10 @@ body {
     padding: 40px !important;
 }
 
+.pad-60 {
+    padding: 60px !important;
+}
+
 .pad-20 {
     padding: 20px !important;
 }
@@ -409,12 +413,19 @@ label {
 }
 
 .search-container {
-    float: right;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-end; 
+    margin-right: 10px;
+}
+
+.search-container small {
+    margin: 2px 56px 2px 0px;
+    color: #666;
 }
 
 .search-container button {
     margin-top: 8px;
-    margin-right: 16px;
     background: #ddd;
     font-size: 17px;
     border: none;
@@ -450,4 +461,19 @@ label {
     padding: 8px 12px;
     margin: 2px;
     display: inline-block;
+}
+
+.list-student-table>:not(caption)>*>* {
+    padding: 5px !important;
+}
+
+.flex-between-center {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 10px;
+}
+
+.pad-60 {
+    padding-top: 60px;
 }

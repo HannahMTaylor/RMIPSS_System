@@ -1,9 +1,12 @@
-﻿@inject IApplicationUserRepository ApplicationUserRepository
+﻿@using RMIPSS_System.Services
+@inject IApplicationUserRepository ApplicationUserRepository
 
 @{
     var loginUser = await ApplicationUserRepository.GetAsync(user =>
         user.UserName.ToLower() == User.Identity.Name.ToLower()
     );
+    
+    bool isStateUser = User.IsInRole(Constants.ROLE_STATE_USER);
 }
 
 <div class="top-bar">
@@ -18,10 +21,11 @@
     </div>
 
     <a asp-area="" asp-controller="Student" asp-action="ListStudent">Student List</a>
-    <a asp-area="" asp-controller="User" asp-action="List">User List</a>
-    <a asp-area="" asp-controller="Referral" asp-action="CreateReferralForm">Referral</a>
-    <a asp-area="" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-id="1">SE-2 Form</a>
-    <a asp-area="" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="1">Consent Form</a>
+    @if (isStateUser)
+    { 
+        <a asp-area="" asp-controller="User" asp-action="List">User List</a>
+    }
+    <a asp-area="" asp-controller="Home" asp-action="Referral">Referral Form</a>
     <hr>
 
     <a asp-area="Identity" asp-page="/Account/Manage/Index">
