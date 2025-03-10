@@ -30,8 +30,8 @@ public class HomeController : Controller
     
     //public IActionResult Referral()
     //{
-    //    //return RedirectToAction("CreateReferralForm", "Referral");
-    //    //return ReferralController.CreateReferralForm();
+    //    //return RedirectToAction("SaveReferralForm", "Referral");
+    //    //return ReferralController.SaveReferralForm();
     //    return View();
     //}
     

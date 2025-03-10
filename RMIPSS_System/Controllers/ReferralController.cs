@@ -19,12 +19,15 @@ public class ReferralController : Controller
     private readonly ILogger<ReferralController> _logger;
     private readonly IReferralRepository _referralRepo;
     private readonly ReferralService _referralService;
+    private readonly IStudentRepository _studentRepository;
+    //private readonly ReferrerPersnRepository _referrerPersonRepo;
 
-    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService)
+    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService, IStudentRepository studentRepository)
     {
         _logger = logger;
         _referralRepo = referralRepo;
         _referralService = referralService;
+        _studentRepository = studentRepository;
     }
 
 
@@ -81,52 +84,20 @@ public class ReferralController : Controller
     /// </summary>
     /// <param name="referralVM"></param>
     /// <returns></returns>
-    [HttpPost]
-    public async Task<IActionResult> CreateReferralForm(ReferralViewModel referralVM)
+    public async Task<IActionResult> SaveReferralForm(ReferralViewModel referralVM)
     {
         try
         {
-            if (!ModelState.IsValid)
-            {
-                try
-                {
-                    ApplicationUser appUser = await _referralService.GetLoggedInUser(User.Identity.Name);
-                    if (appUser != null)
-                    {
-                        ReferralViewModel viewModelWithuser = new ReferralViewModel
-                        {
-                            student = new(),
-                            person = new ReferrerPerson
-                            {
-                                FullName = appUser.FirstName + " " + appUser.LastName,
-                                Phone = appUser.PhoneNumber,
-                                Email = appUser.Email,
-                                DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
-                            },
-                            referral = new()
-                        };
-                        return View(viewModelWithuser);
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error getting logged in user");
-
-                }
-                ReferralViewModel viewModel = new ReferralViewModel
-                {
-                    student = new(),
-                    person = new(),
-                    referral = new()
-                };
-                return View(viewModel);
-            }
             //use service class to convert view model to model and pass model to controllers
+
+            //save student
+            await _studentRepository.AddAsync(referralVM.student);
+            //save referrerPerson
+            //then map Ids to referral and save referral
             Referral refer = await _referralService.ConvertViewModel(referralVM);
 
             //then update database
-            await _referralRepo.SaveReferralAsync(refer);
+            //await _referralRepo.SaveReferralAsync(refer);
         }
         catch (Exception ex)
         {

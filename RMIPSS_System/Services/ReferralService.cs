@@ -63,11 +63,11 @@ public class ReferralService
     //map viewmodel to referral data
     public Task<Referral> ConvertViewModel(ReferralViewModel referralVM)
     {
-        Referral referralEntity = new();
+        
         try
         {
             //break this out and map inputs directly to make sure no data is null
-            referralEntity = referralVM.referral;
+            Referral referralEntity = referralVM.referral;
             return Task.FromResult(referralEntity);
         }
         catch (Exception ex) 

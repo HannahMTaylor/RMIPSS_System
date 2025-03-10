@@ -1,8 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    alert("entered event listener for DOMContentLoaded")
+    /*alert("entered event listener for DOMContentLoaded")*/
     function updateSelectedValues(sectionClass, hiddenFieldId) {
         let selectedValues = [];
-        alert("hello") 
+        /*alert("hello") */
         document.querySelectorAll("." + sectionClass + ":checked").forEach(function (checkbox) {
             selectedValues.push(checkbox.value);
         });
@@ -17,7 +17,7 @@
 
         // Load saved values from hidden input (from the database)
         let savedValues = document.getElementById(hiddenFieldId).value;
-        alert(savedValues) 
+        /*alert(savedValues)*/ 
         if (savedValues) {
             let checkedValues = savedValues.split(",");
             document.querySelectorAll("." + sectionClass).forEach(function (checkbox) {
@@ -29,7 +29,7 @@
 
         // Update hidden input on change
         document.querySelectorAll("." + sectionClass).forEach(function (checkbox) {
-            alert("hello from SelectorAll")
+            /*alert("hello from SelectorAll")*/
             checkbox.addEventListener("change", function () {
                 updateSelectedValues(sectionClass, hiddenFieldId);
             });
@@ -42,7 +42,7 @@
 });
 
 $(document).ready(function () {
-    $("#SE2Form").submit(function (event) {
+    $("#ReferralForm").submit(function (event) {
         event.preventDefault();
         let isValid = true;
         let firstInvalidField = null;
@@ -112,8 +112,8 @@ $(document).ready(function () {
 
             isValid = false;
         }
-        let email = $("#referrerPersonEmail").val().trim();
-        if (email !== "" && !/^\S+@\S+\.\S+$/.test(email)) {
+        let emailRP = $("#referrerPersonEmail").val().trim();
+        if (emailRP !== "" && !/^\S+@\S+\.\S+$/.test(emailRP)) {
             $("#referrerPersonEmailError").text("Enter a valid email.");
             $("#referrerPersonEmail").addClass("error-border");
 
