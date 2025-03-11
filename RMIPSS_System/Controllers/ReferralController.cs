@@ -20,14 +20,15 @@ public class ReferralController : Controller
     private readonly IReferralRepository _referralRepo;
     private readonly ReferralService _referralService;
     private readonly IStudentRepository _studentRepository;
-    //private readonly ReferrerPersnRepository _referrerPersonRepo;
+    private readonly IReferrerPersonRepository _referrerPersonRepo;
 
-    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService, IStudentRepository studentRepository)
+    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService, IStudentRepository studentRepository, IReferrerPersonRepository referrerPersonRepo)
     {
         _logger = logger;
         _referralRepo = referralRepo;
         _referralService = referralService;
         _studentRepository = studentRepository;
+        _referrerPersonRepo = referrerPersonRepo;
     }
 
 
@@ -92,12 +93,18 @@ public class ReferralController : Controller
 
             //save student
             await _studentRepository.AddAsync(referralVM.student);
+            await _studentRepository.SaveAsync();
             //save referrerPerson
+            //await _referrerPersonRepo.AddAsync(referralVM.person);
+            //await _referrerPersonRepo.SaveAsync();
+            await _referrerPersonRepo.SaveReferrerPersonAsync(referralVM.person);
             //then map Ids to referral and save referral
-            Referral refer = await _referralService.ConvertViewModel(referralVM);
+            //Referral refer = await _referralService.ConvertViewModel(referralVM);
 
             //then update database
-            //await _referralRepo.SaveReferralAsync(refer);
+            referralVM.referral.Student = referralVM.student;
+            referralVM.referral.Referrer = referralVM.person;
+            await _referralRepo.SaveReferralAsync(referralVM.referral);
         }
         catch (Exception ex)
         {

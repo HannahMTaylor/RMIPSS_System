@@ -27,8 +27,8 @@ public class ReferralRepository : Repository<Referral>, IReferralRepository
 
     public async Task<Referral> SaveReferralAsync(Referral referral)
     {
-        _db.Referrals.Add(referral);
-        _db.SaveChanges();
+        await _db.Referrals.AddAsync(referral);
+        await _db.SaveChangesAsync();
         return referral;
     }
 
