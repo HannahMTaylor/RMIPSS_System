@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Models.Entities;
@@ -7,19 +8,12 @@ using RMIPSS_System.Services;
 namespace RMIPSS_System.Controllers;
 
 [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
-public class StudentController : Controller
+public class StudentController(
+    ILogger<StudentController> logger,
+    StudentService studentService,
+    UserService userService)
+    : Controller
 {
-    private readonly ILogger<StudentController> _logger;
-    private readonly StudentService _studentService;
-    private readonly UserService _userService;
-
-    public StudentController(ILogger<StudentController> logger, StudentService studentService, UserService userService)
-    {
-        _logger = logger;
-        _studentService = studentService;
-        _userService = userService;
-    }
-    
     /// <summary>
     /// Retrieves a paginated list of students based on search criteria and user role.
     /// If the user is a State user, all students are returned; otherwise, only students from the user's school are retrieved.
@@ -38,12 +32,16 @@ public class StudentController : Controller
             // If user is not State user, get their school from the User table
             if (!isStateUser)
             {
-                ApplicationUser user = await _userService.getUserByUsername(User.Identity.Name);
-                schoolId = user.SchoolId;
+                if (User.Identity != null)
+                {
+                    Debug.Assert(User.Identity.Name != null, "User.Identity.Name != null");
+                    ApplicationUser? user = await userService.GetUserByUsername(User.Identity.Name);
+                    schoolId = user.SchoolId;
+                }
             }
 
             var (students, totalStudents) =
-                await _studentService.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
+                await studentService.GetPaginatedStudentsAsync(search, schoolId, pageNo, pageSize);
 
             var viewModel = new StudentListViewModel
             {
@@ -59,7 +57,7 @@ public class StudentController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error occurred while trying to retrieve student list.");
+            logger.LogError(ex, "Error occurred while trying to retrieve student list.");
             TempData["error"] = "An error occurred while loading the dashboard page. Please try again later.";
             return RedirectToAction("Error", "Home");
         }
@@ -78,11 +76,15 @@ public class StudentController : Controller
             int? schoolId = null;
             if (isSchoolUser)
             {
-                ApplicationUser user = await _userService.getUserByUsername(User.Identity.Name);
-                schoolId = user.SchoolId;
+                if (User.Identity != null)
+                {
+                    Debug.Assert(User.Identity.Name != null, "User.Identity.Name != null");
+                    ApplicationUser? user = await userService.GetUserByUsername(User.Identity.Name);
+                    schoolId = user.SchoolId;
+                }
             }
 
-            StudentViewModel? studentViewModel = await _studentService.GetStudentByIdAsync(studentId, schoolId);
+            StudentViewModel? studentViewModel = await studentService.GetStudentByIdAsync(studentId, schoolId);
             if (studentViewModel != null)
             {
                 if (studentViewModel.hasAccess)
@@ -99,13 +101,13 @@ public class StudentController : Controller
 
             else
             {
-                _logger.LogError("Error while viewing details of student");
+                logger.LogError("Error while viewing details of student");
                 TempData["error"] = "Error: Error while viewing details of student, Please try again.";
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An exception occurred while viewing the student details");
+            logger.LogError(ex, "An exception occurred while viewing the student details");
             Console.WriteLine($"Exception occurred: {ex.Message}");
             Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             TempData["error"] = "An unexpected error occurred. Please try again.";

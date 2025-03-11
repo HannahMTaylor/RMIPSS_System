@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RMIPSS_System.Models;
@@ -8,17 +9,8 @@ using RMIPSS_System.Services;
 namespace RMIPSS_System.Controllers;
 
 [Authorize(Roles = Constants.ROLE_STATE_USER)]
-public class UserController : Controller
+public class UserController(UserService userService, ILogger<UserController> logger) : Controller
 {
-    private readonly UserService _userService;
-    private readonly ILogger<UserController> _logger;
-
-    public UserController(UserService userService, ILogger<UserController> logger)
-    {
-        _userService = userService;
-        _logger = logger;
-    }
-
     public IActionResult List()
     {
         return View();
@@ -26,14 +18,14 @@ public class UserController : Controller
 
     public IActionResult Edit()
     {
-        return Content("Edit Feature Comming Soon");
+        return Content("Edit Feature Coming Soon");
     }
 
     public async Task<IActionResult> Add()
     {
         try
         {
-            List<SelectListItem> roleList = await _userService.GetRoleList();
+            List<SelectListItem> roleList = await userService.GetRoleList();
 
             AddEditUserViewModel addEditUserViewModel = new AddEditUserViewModel
             {
@@ -44,7 +36,7 @@ public class UserController : Controller
             return View(addEditUserViewModel);
         }
         catch (Exception ex) {
-            _logger.LogError(ex, "Error occurred while trying to retrieve role list or create Add/Edit user view.");
+            logger.LogError(ex, "Error occurred while trying to retrieve role list or create Add/Edit user view.");
             TempData["error"] = "An error occurred while loading the user creation page. Please try again later.";
             return RedirectToAction("Error", "Home");
         }
@@ -55,36 +47,37 @@ public class UserController : Controller
     {
         if (!ModelState.IsValid)
         {
-            addUserViewModel.Roles = await _userService.GetRoleList();
-            _logger.LogWarning("Invalid model state during add new user.");
+            addUserViewModel.Roles = await userService.GetRoleList();
+            logger.LogWarning("Invalid model state during add new user.");
             return View(addUserViewModel);
         }
 
         try
         {
             User? user = addUserViewModel.User;
-            if (await _userService.IsUserExist(user!.Email))
+            Debug.Assert(user != null, nameof(user) + " != null");
+            if (await userService.IsUserExist(user.Email))
             {
-                addUserViewModel.Roles = await _userService.GetRoleList();
-                _logger.LogInformation("User with email {Email} already exists.", user.Email);
+                addUserViewModel.Roles = await userService.GetRoleList();
+                logger.LogInformation("User with email {Email} already exists.", user.Email);
                 ModelState.AddModelError("", "A user with this email already exists. Please try a different email.");
                 return View(addUserViewModel);
             }
 
-            if (await _userService.CreateUser(user))
+            if (await userService.CreateUser(user))
             {
-                await _userService.SendUserCreationEmailAsync(user);
-                _logger.LogInformation("User {Email} created successfully.", user.Email);
+                await userService.SendUserCreationEmailAsync(user);
+                logger.LogInformation("User {Email} created successfully.", user.Email);
                 TempData["success"] = "User Created Successfully!";
             } else
             {
-                _logger.LogError("Error creating user: {Email}", user.Email);
+                logger.LogError("Error creating user: {Email}", user.Email);
                 TempData["error"] = "Error: User Not Created. Please try again.";
             }
         }
         catch (Exception ex) 
         {
-            _logger.LogError(ex, "An exception occurred while adding a user.");
+            logger.LogError(ex, "An exception occurred while adding a user.");
             Console.WriteLine($"Exception occurred: {ex.Message}");
             Console.WriteLine($"Stack Trace: {ex.StackTrace}");
             TempData["error"] = "An unexpected error occurred. Please try again.";

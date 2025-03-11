@@ -13,17 +13,17 @@ public class Initializer(
     {
         await db.Database.EnsureCreatedAsync();
 
-        if (!db.Roles.Any(r => r.Name!.Equals(Constants.ROLE_STATE_USER)))
+        if (!db.Roles.Any(r => r.Name != null && r.Name.Equals(Constants.ROLE_STATE_USER)))
         {
             await roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_STATE_USER });
         }
 
-        if (!db.Roles.Any(r => r.Name!.Equals(Constants.ROLE_SCHOOL_USER)))
+        if (!db.Roles.Any(r => r.Name != null && r.Name.Equals(Constants.ROLE_SCHOOL_USER)))
         {
             await roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_SCHOOL_USER });
         }
 
-        if (!db.Users.Any(u => u.UserName!.Equals("stateUser@rmipss.com")))
+        if (!db.Users.Any(u => u.UserName != null && u.UserName.Equals("stateUser@rmipss.com")))
         {
             var user = new ApplicationUser
             {
@@ -36,7 +36,7 @@ public class Initializer(
             await userManager.AddToRoleAsync(user, Constants.ROLE_STATE_USER);
         }
 
-        if (!db.Users.Any(u => u.UserName!.Equals("schoolUser@rmipss.com")))
+        if (!db.Users.Any(u => u.UserName != null && u.UserName.Equals("schoolUser@rmipss.com")))
         {
             var user = new ApplicationUser
             {
