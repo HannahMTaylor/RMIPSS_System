@@ -1,4 +1,4 @@
-namespace RMIPSS_System.Models.OtherModels;
+namespace RMIPSS_System.Models.Entities;
 
 public class PdfUpload
 {

@@ -33,13 +33,6 @@ public class HomeController : Controller
         return View();
     }
     
-    //public IActionResult Referral()
-    //{
-    //    //return RedirectToAction("SaveReferralForm", "Referral");
-    //    //return ReferralController.SaveReferralForm();
-    //    return View();
-    //}
-    
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {

@@ -1,17 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using RMIPSS_System.Models;
-using RMIPSS_System.Models.Entities;
+﻿using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
-using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Repository.IRepository;
 
 namespace RMIPSS_System.Services;
+
 /// <summary>
-/// The service class is used to get logged in user info, student info, and other necessary information or system information to load pages from the controller.
-/// 
-/// This is for use of viewing/editing existing referral forms by student id which should be the only time the referral process requires a logged in user.
-/// 
-/// Creating a new referral should be accessible by anyone.
+/// basic CRUD functionality and will utilize the repository and service classes for the referralVM process step
 /// </summary>
 public class ReferralService
 {
@@ -27,7 +21,11 @@ public class ReferralService
         _appUserRepo = appUserRepo;
     }
 
-    //get logged in user
+    /// <summary>
+    /// The service class is used to get logged in user info, Student info, and other necessary information or system information to load pages from the controller.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public async Task<ApplicationUser> GetLoggedInUser(string? name)
     {
         ApplicationUser appUser = await _appUserRepo.GetAsync(user =>
@@ -36,9 +34,9 @@ public class ReferralService
         return appUser;
     }
 
-    //get student id - if applicable
+    //get Student id - if applicable
     /// <summary>
-    /// This should be used when viewing existing referrals for students
+    /// This is for use of viewing/editing existing Referral forms by student id which should be the only time the Referral process requires a logged in user.
     /// </summary>
     /// <param name="studentId"></param>
     /// <returns></returns>
@@ -47,8 +45,7 @@ public class ReferralService
     {
         throw new NotImplementedException();
     }
-
-    //get referral id/data for view existing referrrals (if null - create new referral? or redirect to home page so they can create one)
+    
     /// <summary>
     /// This should be used to view existing referrals only, shouldn't need to create new here -- done in controller
     /// </summary>
@@ -57,26 +54,7 @@ public class ReferralService
     /// <exception cref="NotImplementedException"></exception>
     public async Task<Referral> GetReferralDataByStudentId(int studentId)
     {
+        //get Referral id/data for view existing referrrals (if null - create new Referral? or redirect to home page so they can create one)
         throw new NotImplementedException();
     }
-
-    //map viewmodel to referral data
-    public Task<Referral> ConvertViewModel(ReferralViewModel referralVM)
-    {
-        
-        try
-        {
-            //break this out and map inputs directly to make sure no data is null
-            Referral referralEntity = referralVM.referral;
-            return Task.FromResult(referralEntity);
-        }
-        catch (Exception ex) 
-        {
-            _logger.LogError(ex, "Error converting view model to model");
-            throw;
-        }
-
-    }
-
-    
 }

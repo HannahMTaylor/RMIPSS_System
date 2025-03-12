@@ -1,6 +1,4 @@
-﻿
-
-using RMIPSS_System.Data;
+﻿using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository.IRepository;
 
@@ -27,7 +25,7 @@ public class ReferrerPersonRepository : Repository<ReferrerPerson>, IReferrerPer
 
     //public async Task<ReferrerPerson> GetReferrerPersonById(int id)
     //{
-    //    ReferrerPerson person = await GetAsync(p => p.)
+    //    ReferrerPerson Person = await GetAsync(p => p.)
     //}
 
 

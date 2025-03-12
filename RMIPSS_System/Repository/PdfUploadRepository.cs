@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RMIPSS_System.Data;
-using RMIPSS_System.Models.OtherModels;
+using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Repository.IRepository;
 
 namespace RMIPSS_System.Repository;

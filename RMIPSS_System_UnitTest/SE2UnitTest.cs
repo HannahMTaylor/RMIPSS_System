@@ -106,7 +106,7 @@ public class ASE2UnitTest
         /*
          * **** Revert the changes - Student ****
          * 
-         * Automatically deletes the associated SE2 form when a student is deleted due to
+         * Automatically deletes the associated SE2 form when a Student is deleted due to
          * configured cascading delete behavior.
          */
         Repositories._studentRepository.Remove(savedStudent);
@@ -156,7 +156,7 @@ public class ASE2UnitTest
         /*
          * **** Revert the changes - Student ****
          *
-         * Automatically deletes the associated SE2 form when a student is deleted due to
+         * Automatically deletes the associated SE2 form when a Student is deleted due to
          * configured cascading delete behavior.
          */
         Repositories._studentRepository.Remove(savedStudent);

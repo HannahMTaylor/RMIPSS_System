@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Models.OtherModels;
 using RMIPSS_System.Models.ProcessSteps;
 
 namespace RMIPSS_System.Data;

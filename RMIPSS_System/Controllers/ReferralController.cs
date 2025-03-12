@@ -9,7 +9,8 @@ using RMIPSS_System.Models.Entities;
 namespace RMIPSS_System.Controllers;
 
 /// <summary>
-/// The controller handles basic CRUD functionality and will utilize the repository and service classes for the referralVM process step
+/// The controller handles API requests received from front end and passes it along to Service and Repo for handling
+/// Increases Code Reusability
 /// </summary>
 /// 
 
@@ -32,12 +33,10 @@ public class ReferralController : Controller
     }
 
 
-    //create new referralVM when click on referral button on home screen or dashboard
+    //create new referralVM when click on Referral button on home screen or dashboard
     //pull logged in user info as referrer if possible - but leave editable
     public async Task<IActionResult> CreateReferralForm()
     {
-        //is this method needed? how to decrease coupling between dashboard nav links and home controller that just return the view?
-        //how does amit control loading of SE2 with prepop data
         try
         {
             ApplicationUser appUser = await _referralService.GetLoggedInUser(User.Identity.Name);
@@ -45,15 +44,15 @@ public class ReferralController : Controller
             {
                 ReferralViewModel viewModelWithuser = new ReferralViewModel
                 {
-                    student = new(),
-                    person = new ReferrerPerson
+                    Student = new(),
+                    Person = new ReferrerPerson
                     {
                         FullName = appUser.FirstName + " " + appUser.LastName,
                         Phone = appUser.PhoneNumber,
                         Email = appUser.Email,
                         DateFilledReferral = DateOnly.FromDateTime(DateTime.UtcNow)
                     },
-                    referral = new()
+                    Referral = new()
                 };
                 return View(viewModelWithuser);
             }
@@ -67,9 +66,9 @@ public class ReferralController : Controller
 
         ReferralViewModel viewModel = new ReferralViewModel
         {
-            student = new(),
-            person = new(),
-            referral = new()
+            Student = new(),
+            Person = new(),
+            Referral = new()
         };
         return View(viewModel);
     }
@@ -81,7 +80,7 @@ public class ReferralController : Controller
     //
     //*** need to go back through and make sure Student and Referrer are getting created and mapped properly to Referral on submission
     /// <summary>
-    /// Save referral form - submit button (includes input validation)
+    /// Save Referral form - submit button (includes input validation)
     /// </summary>
     /// <param name="referralVM"></param>
     /// <returns></returns>
@@ -89,22 +88,22 @@ public class ReferralController : Controller
     {
         try
         {
-            //use service class to convert view model to model and pass model to controllers
+            //use service class to call to repo instead
 
-            //save student
-            await _studentRepository.AddAsync(referralVM.student);
+            //save Student
+            await _studentRepository.AddAsync(referralVM.Student);
             await _studentRepository.SaveAsync();
             //save referrerPerson
-            //await _referrerPersonRepo.AddAsync(referralVM.person);
+            //await _referrerPersonRepo.AddAsync(referralVM.Person);
             //await _referrerPersonRepo.SaveAsync();
-            await _referrerPersonRepo.SaveReferrerPersonAsync(referralVM.person);
-            //then map Ids to referral and save referral
+            await _referrerPersonRepo.SaveReferrerPersonAsync(referralVM.Person);
+            //then map Ids to Referral and save Referral
             //Referral refer = await _referralService.ConvertViewModel(referralVM);
 
             //then update database
-            referralVM.referral.Student = referralVM.student;
-            referralVM.referral.Referrer = referralVM.person;
-            await _referralRepo.SaveReferralAsync(referralVM.referral);
+            referralVM.Referral.Student = referralVM.Student;
+            referralVM.Referral.Referrer = referralVM.Person;
+            await _referralRepo.SaveReferralAsync(referralVM.Referral);
         }
         catch (Exception ex)
         {
@@ -129,15 +128,15 @@ public class ReferralController : Controller
                 return RedirectToAction("Error", "Home");
             }
 
-            //if student is valid... continue fetching referral data
+            //if Student is valid... continue fetching Referral data
             Referral referralEntForStudent = await _referralService.GetReferralDataByStudentId(studentId);
             if (referralEntForStudent != null)
             {
                 ReferralViewModel referralViewModel = new ReferralViewModel
                 {
-                    student = student,
-                    person = referralEntForStudent.Referrer!,
-                    referral = referralEntForStudent
+                    Student = student,
+                    Person = referralEntForStudent.Referrer!,
+                    Referral = referralEntForStudent
                 };
                 return View(referralViewModel);
             }
