@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMIPSS_System.Data;
 
@@ -11,9 +12,11 @@ using RMIPSS_System.Data;
 namespace RMIPSS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250224235046_referral-fix")]
+    partial class referralfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,9 +210,6 @@ namespace RMIPSS_System.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("SchoolId")
-                        .HasColumnType("int");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -230,8 +230,6 @@ namespace RMIPSS_System.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("SchoolId");
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -246,7 +244,7 @@ namespace RMIPSS_System.Migrations
                     b.Property<int>("ConsentOption")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("EnteredDate")
+                    b.Property<DateOnly>("Date")
                         .HasColumnType("date");
 
                     b.Property<bool?>("Evaluation")
@@ -345,6 +343,7 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("RelationshipToStudent")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -456,9 +455,6 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateOnly>("SEProcessCompletedDate")
-                        .HasColumnType("date");
-
                     b.Property<int>("SEProcessSteps")
                         .HasColumnType("int");
 
@@ -467,8 +463,10 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
-                    b.Property<int?>("SchoolId")
-                        .HasColumnType("int");
+                    b.Property<string>("School")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Sex")
                         .IsRequired()
@@ -480,8 +478,6 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
 
                     b.ToTable("Students");
                 });
@@ -550,6 +546,7 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("date");
 
                     b.Property<string>("ReasonsForReferral")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Recommendation")
@@ -725,15 +722,6 @@ namespace RMIPSS_System.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RMIPSS_System.Models.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("RMIPSS_System.Models.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
-
-                    b.Navigation("School");
-                });
-
             modelBuilder.Entity("RMIPSS_System.Models.Entities.ConsentForm", b =>
                 {
                     b.HasOne("RMIPSS_System.Models.Entities.Student", "Student")
@@ -743,15 +731,6 @@ namespace RMIPSS_System.Migrations
                         .IsRequired();
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("RMIPSS_System.Models.Entities.Student", b =>
-                {
-                    b.HasOne("RMIPSS_System.Models.Entities.School", "School")
-                        .WithMany()
-                        .HasForeignKey("SchoolId");
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("RMIPSS_System.Models.ProcessSteps.Referral", b =>

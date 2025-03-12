@@ -4,6 +4,8 @@ using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 using System.Diagnostics;
 
+using RMIPSS_System.Controllers;
+
 namespace RMIPSS_System.Controllers;
 
 public class HomeController : Controller
@@ -27,11 +29,6 @@ public class HomeController : Controller
 
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public IActionResult Dashboard()
-    {
-        return View();
-    }
-    
-    public IActionResult Referral()
     {
         return View();
     }

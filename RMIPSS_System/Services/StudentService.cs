@@ -33,10 +33,10 @@ public class StudentService
     }
 
     /// <summary>
-    /// method to get the details of student through student id
+    /// method to get the details of Student through Student id
     /// </summary>
-    /// <param name="id">student id</param>
-    /// <returns>student details</returns>
+    /// <param name="id">Student id</param>
+    /// <returns>Student details</returns>
     public async Task<StudentViewModel> GetStudentByIdAsync(int id, int? schoolId)
     {
         StudentViewModel studentViewModel = new StudentViewModel();
@@ -227,7 +227,7 @@ public class StudentService
     }
 
     /// <summary>
-    /// method to retrieve stored submitted forms of the student
+    /// method to retrieve stored submitted forms of the Student
     /// Needs to be updated as other forms will be implemented in the system
     /// </summary>
     /// <param name="student"></param>
