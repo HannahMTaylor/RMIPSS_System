@@ -4,6 +4,8 @@ using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 using System.Diagnostics;
 
+using RMIPSS_System.Controllers;
+
 namespace RMIPSS_System.Controllers;
 /// <summary>
 /// Using primary constructors for classes, which simplify constructor declaration by allowing
@@ -26,11 +28,6 @@ public class HomeController(ILogger<HomeController> logger) : Controller
 
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public IActionResult Dashboard()
-    {
-        return View();
-    }
-    
-    public IActionResult Referral()
     {
         return View();
     }
