@@ -8,6 +8,12 @@ using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
 
+/// <summary>
+/// Using primary constructors for classes, which simplify constructor declaration by allowing
+/// you to declare parameters directly in the class declaration.
+/// </summary>
+/// <param name="userService"></param>
+/// <param name="logger"></param>
 [Authorize(Roles = Constants.ROLE_STATE_USER)]
 public class UserController(UserService userService, ILogger<UserController> logger) : Controller
 {

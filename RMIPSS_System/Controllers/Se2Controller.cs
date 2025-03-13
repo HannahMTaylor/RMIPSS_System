@@ -7,7 +7,13 @@ using RMIPSS_System.Models.ViewModel;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
-
+/// <summary>
+/// Using primary constructors for classes, which simplify constructor declaration by allowing
+/// you to declare parameters directly in the class declaration.
+/// </summary>
+/// <param name="se2Service"></param>
+/// <param name="studentService"></param>
+/// <param name="logger"></param>
 [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
 public class Se2Controller(Se2Service se2Service, StudentService studentService, ILogger<Se2Controller> logger)
     : Controller

@@ -12,6 +12,12 @@ using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System.Controllers
 {
+    /// <summary>
+    /// Using primary constructors for classes, which simplify constructor declaration by allowing
+    /// you to declare parameters directly in the class declaration.
+    /// </summary>
+    /// <param name="consentFormRepository"></param>
+    /// <param name="consentFormService"></param>
     
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public class ConsentFormController(

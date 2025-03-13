@@ -7,6 +7,13 @@ using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
 
+/// <summary>
+/// Using primary constructors for classes, which simplify constructor declaration by allowing
+/// you to declare parameters directly in the class declaration.
+/// </summary>
+/// <param name="logger"></param>
+/// <param name="studentService"></param>
+/// <param name="userService"></param>
 [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
 public class StudentController(
     ILogger<StudentController> logger,
@@ -34,7 +41,6 @@ public class StudentController(
             {
                 if (User.Identity != null)
                 {
-                    Debug.Assert(User.Identity.Name != null, "User.Identity.Name != null");
                     ApplicationUser? user = await userService.GetUserByUsername(User.Identity.Name);
                     schoolId = user.SchoolId;
                 }
