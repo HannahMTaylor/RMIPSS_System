@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
@@ -11,26 +12,24 @@ using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System.Controllers
 {
+    /// <summary>
+    /// Using primary constructors for classes, which simplify constructor declaration by allowing
+    /// you to declare parameters directly in the class declaration.
+    /// </summary>
+    /// <param name="consentFormRepository"></param>
+    /// <param name="consentFormService"></param>
     
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
-    public class ConsentFormController : Controller
+    public class ConsentFormController(
+        IConsentFormRepository consentFormRepository,
+        ConsentFormService consentFormService)
+        : Controller
     {
-        private readonly ILogger<ConsentFormController> _logger;
-        private readonly IConsentFormRepository _consentFormRepository;
-        private readonly ConsentFormService _consentFormService;
-        public ConsentFormController(IConsentFormRepository consentFormRepository, ILogger<ConsentFormController> logger, ConsentFormService consentFormService)
-        {
-            _consentFormRepository = consentFormRepository;
-            _logger = logger;
-            _consentFormService = consentFormService;
-        }
-
-       
         [HttpPost]
         public async Task<IActionResult>  Create(ConsentFormViewModel obj)
         {
-            await _consentFormService.CreateConsentForm(obj);
-            if (obj.Id == 0)
+            await consentFormService.CreateConsentForm(obj);
+            if (obj.ConsentId == 0)
             {
                 TempData["success"] = "Consent Form Created Successfully!";
             }
@@ -45,19 +44,19 @@ namespace RMIPSS_System.Controllers
         
         public async Task<IActionResult>  ConsentFormEvaluationReevaluation([Bind(Prefix = "id")] int studentId)
         {
-            if (studentId == null || studentId == 0)
+            if (studentId == 0)
             {
                 TempData["error"] = "Select Student";
                 return RedirectToAction("ListStudent", "Student");
             }
             else
             {
-                ConsentForm consentForm = await _consentFormRepository.GetConsentFormByStudentId(studentId);
+                ConsentForm? consentForm = await consentFormRepository.GetConsentFormByStudentId(studentId);
                 if (consentForm != null)
                 {
                    ConsentFormViewModel consentFormView = new ConsentFormViewModel()
                     {
-                        Id = consentForm.Id,
+                        ConsentId = consentForm.Id,
                         EnteredDate = consentForm.EnteredDate,
                         To = consentForm.To,
                         From = consentForm.From,

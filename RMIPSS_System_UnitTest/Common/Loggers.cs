@@ -5,5 +5,5 @@ namespace RMIPSS_System_UnitTest.Common;
 
 public static class Loggers
 {
-    public static ILogger<SE2Service> _se2Logger = new Logger<SE2Service>(new LoggerFactory());
+    public static ILogger<Se2Service>? _se2Logger = new Logger<Se2Service>(new LoggerFactory());
 }

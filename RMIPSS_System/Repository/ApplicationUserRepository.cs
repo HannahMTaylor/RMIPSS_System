@@ -5,16 +5,11 @@ using RMIPSS_System.Repository.IRepository;
 
 namespace RMIPSS_System.Repository;
 
-public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
+public class ApplicationUserRepository(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+    : Repository<ApplicationUser>(db), IApplicationUserRepository
 {
-    private readonly ApplicationDbContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ApplicationDbContext _db = db;
 
-    public ApplicationUserRepository(ApplicationDbContext db, UserManager<ApplicationUser> userManager) : base(db)
-    {
-        _db = db;
-        _userManager = userManager;
-    }
 
     public async Task SaveAsync()
     {
@@ -28,7 +23,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
 
     public async Task<ApplicationUser> CreateApplicationUserAsync(ApplicationUser applicationUser, string password)
     {
-        await _userManager.CreateAsync(applicationUser, password);
+        await userManager.CreateAsync(applicationUser, password);
         return applicationUser;
     }
 
@@ -36,16 +31,16 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     {
 
         // Fetch user using `UserManager` instead of tracking `DbContext`
-        var user = await _userManager.FindByNameAsync(userName);
+        var user = await userManager.FindByNameAsync(userName);
 
         if (user != null)
         {
             // Check if user is already in the role
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await userManager.GetRolesAsync(user);
             if (!roles.Contains(rolename))
             {
                 // Assign role
-                await _userManager.AddToRoleAsync(user, rolename);
+                await userManager.AddToRoleAsync(user, rolename);
             }
 
 
@@ -55,7 +50,7 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
     public async Task<bool> DeleteUserAsync(String username)
     {
         // Retrieve the user from UserManager
-        var user = await _userManager.FindByNameAsync(username);
+        var user = await userManager.FindByNameAsync(username);
 
         if (user == null)
         {
@@ -63,15 +58,15 @@ public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicati
         }
 
         // Check if the user has roles before removing them
-        var roles = await _userManager.GetRolesAsync(user);
+        var roles = await userManager.GetRolesAsync(user);
         if (roles.Any())
         {
             // Remove the roles from the user    
-            await _userManager.RemoveFromRolesAsync(user, roles);
+            await userManager.RemoveFromRolesAsync(user, roles);
         }
 
         // Delete the user from UserManager
-        var result = await _userManager.DeleteAsync(user);
+        var result = await userManager.DeleteAsync(user);
         return result.Succeeded;
     }
 }

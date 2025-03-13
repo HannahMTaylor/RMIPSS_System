@@ -7,15 +7,14 @@ using System.Diagnostics;
 using RMIPSS_System.Controllers;
 
 namespace RMIPSS_System.Controllers;
-
-public class HomeController : Controller
+/// <summary>
+/// Using primary constructors for classes, which simplify constructor declaration by allowing
+/// you to declare parameters directly in the class declaration.
+/// </summary>
+/// <param name="logger"></param>
+public class HomeController(ILogger<HomeController> logger) : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
+    private readonly ILogger<HomeController> _logger = logger;
 
     public IActionResult Index()
     {

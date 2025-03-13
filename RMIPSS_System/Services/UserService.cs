@@ -29,7 +29,7 @@ public class UserService
         try
         {
             var existingUser = await _appUserRepo.GetAsync(user =>
-                user.UserName.ToLower() == username.ToLower()
+                user != null && user.UserName != null && user.UserName.ToLower() == username.ToLower()
             );
             return existingUser != null;
         }
@@ -40,12 +40,12 @@ public class UserService
         }
     }
     
-    public async Task<ApplicationUser> getUserByUsername(String username)
+    public async Task<ApplicationUser?> GetUserByUsername(String username)
     {
         try
         {
             return await _appUserRepo.GetAsync(user =>
-                user.UserName.ToLower() == username.ToLower()
+                user != null && user.UserName != null && user.UserName.ToLower() == username.ToLower()
             );
         }
         catch (Exception ex)
@@ -88,10 +88,15 @@ public class UserService
         try
         {
             var roles = await _roleManager.Roles.ToListAsync();
-            List<SelectListItem> roleList = roles.Select(r => new SelectListItem
+            List<SelectListItem> roleList = roles.Select(r =>
             {
-                Value = r.Name,
-                Text = TransformRoleName(r.Name)
+                if (r.Name != null)
+                    return new SelectListItem
+                    {
+                        Value = r.Name,
+                        Text = TransformRoleName(r.Name)
+                    };
+                throw new InvalidOperationException();
             }).ToList();
 
             return roleList;
@@ -103,7 +108,7 @@ public class UserService
         }
     }
 
-    public string TransformRoleName(string roleName)
+    private string TransformRoleName(string roleName)
     {
         // Check if the input starts with "ROLE_"
         if (roleName.StartsWith("ROLE_", StringComparison.OrdinalIgnoreCase))

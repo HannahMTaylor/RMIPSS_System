@@ -21,5 +21,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<ReferrerPerson> ReferrerPeople { get; set; }
     public DbSet<Referral> Referrals { get; set; }
     public DbSet<PdfUpload> PdfUploads { get; set; } //=> Set<PdfUpload>();  ??
-    public DbSet<SE2> SE2 { get; set; }
+    public DbSet<SE2> Se2 { get; set; }
 }

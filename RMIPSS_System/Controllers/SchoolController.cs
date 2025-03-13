@@ -5,91 +5,98 @@ using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
 
 namespace RMIPSS_System.Controllers;
-
+/// <summary>
+/// Using primary constructors for classes, which simplify constructor declaration by allowing
+/// you to declare parameters directly in the class declaration.
+/// </summary>
+/// <param name="db"></param>
 [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
-public class SchoolController : Controller
+public class SchoolController(ISchoolRepository db) : Controller
 {
     /*
     The SchoolController is just an example class to demonstrate CRRUD Operation
     */
 
-    private readonly ISchoolRepository _schoolRepo;
-
-    public SchoolController(ISchoolRepository db)
-    {
-        _schoolRepo = db;
-    }
-
     public IActionResult Index()
     {
         // Create
-        School school = new School();
-        school.Name = "ETSU";
-        school.Address = "Johnson City";
-        school.Phone = "123456789";
+        School school = new School
+        {
+            Name = "ETSU",
+            Address = "Johnson City",
+            Phone = "123456789"
+        };
 
-        _schoolRepo.Add(school);
-        _schoolRepo.Save();
+        db.Add(school);
+        db.SaveAsync();
 
         // Get All
-        List<School> objCategoryList = _schoolRepo.GetAll().ToList();
+       // List<School> objCategoryList = db.GetAll().ToList();
 
         // Update
         school.Phone = "987654321";
-        _schoolRepo.Update(school);
-        _schoolRepo.Save();
+        db.Update(school);
+        db.SaveAsync();
 
         // Get
-        School? schoolFromDb = _schoolRepo.Get(u => u.Name == "ETSU");
+        School? schoolFromDb = db.Get(u => u != null && u.Name == "ETSU");
 
         // Delete
-        _schoolRepo.Remove(schoolFromDb);
-        _schoolRepo.Save();
+        db.Remove(schoolFromDb);
+        db.SaveAsync();
 
         return RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Create()
     {
-        School school = new School();
-        school.Name = "ETSU";
-        school.Address = "Johnson City";
-        school.Phone = "123456789";
+        School school = new School
+        {
+            Name = "ETSU",
+            Address = "Johnson City",
+            Phone = "123456789"
+        };
 
-        await _schoolRepo.AddAsync(school);
-        await _schoolRepo.SaveAsync();
+        await db.AddAsync(school);
+        await db.SaveAsync();
 
         return Content($"School Created !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
     }
 
-    public async Task<IActionResult> ReadAll()
+    public Task<IActionResult> ReadAll()
     {
-        var objCategoryList = await _schoolRepo.GetAllAsync();
-        return Content($"All Schools Extracted!!!");
+      //  var objCategoryList = await db.GetAllAsync();
+        return Task.FromResult<IActionResult>(Content($"All Schools Extracted!!!"));
     }
 
     public async Task<IActionResult> Read()
     {
-        School? schoolFromDb = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
-        return Content($"School Extracted !!! [school.Name = {schoolFromDb.Name}, school.Address = {schoolFromDb.Address}, school.Phone = {schoolFromDb.Phone}]");
+        School? schoolFromDb = await db.GetAsync(u => u != null && u.Name == "ETSU");
+        return Content($"School Extracted !!! [school.Name = {schoolFromDb?.Name}, school.Address = {schoolFromDb?.Address}, school.Phone = {schoolFromDb?.Phone}]");
     }
 
-    public async Task<IActionResult> Update()
+    public async Task<IActionResult?> Update()
     {
-        School? school = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
-        school.Phone = "987654321";
-        _schoolRepo.Update(school);
-        await _schoolRepo.SaveAsync();
+        School? school = await db.GetAsync(u => u != null && u.Name == "ETSU");
+        if (school != null)
+        {
+            school.Phone = "987654321";
+            db.Update(school);
+            await db.SaveAsync();
 
-        return Content($"School Updated !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
+            return Content(
+                $"School Updated !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
+        }
+
+        return null;
     }
 
     public async Task<IActionResult> Delete()
     {
-        School? school = await _schoolRepo.GetAsync(u => u.Name == "ETSU");
-        _schoolRepo.Remove(school);
-        await _schoolRepo.SaveAsync();
+        School? school = await db.GetAsync(u => u != null && u.Name == "ETSU");
+        db.Remove(school);
+        await db.SaveAsync();
 
-        return Content($"School Deleted !!! [school.Name = {school.Name}, school.Address = {school.Address}, school.Phone = {school.Phone}]");
+        return Content($"School Deleted !!! [school.Name = {school?.Name}, school.Address = {school?.Address}, school.Phone = {school?.Phone}]");
     }
 }

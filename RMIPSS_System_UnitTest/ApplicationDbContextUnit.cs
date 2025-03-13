@@ -50,6 +50,7 @@ public class ApplicationDbContextUnit
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<ConsentFormService>();
+        builder.Services.AddScoped<LanguageTranslateService>();
         _serviceProvider = builder.Services.BuildServiceProvider();
 
         }
