@@ -18,7 +18,7 @@ public class StudentRepository(ApplicationDbContext db) : Repository<Student>(db
         if (search != "")
         {
             query = query.Where(s =>
-                s != null && (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
+                (s.FirstName + " " + (s.MiddleInitial.HasValue ? s.MiddleInitial.ToString() + " " : "") + s.LastName).ToLower()
                 .Contains(search.ToLower())
             );
         }
@@ -26,7 +26,7 @@ public class StudentRepository(ApplicationDbContext db) : Repository<Student>(db
         // Filter by School
         if (schoolId.HasValue)
         {
-            query = query.Where(s => s != null && s.SchoolId == schoolId);
+            query = query.Where(s => s.SchoolId == schoolId);
         }
 
         // Get total number of students
@@ -34,16 +34,12 @@ public class StudentRepository(ApplicationDbContext db) : Repository<Student>(db
 
         // Apply pagination
         var students = await query
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
             .OrderBy(s => s.FirstName)
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
             .Skip((pageNo - 1) * pageSize)
             .Take(pageSize)
             .Select(s => new Student
             {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 Id = s.Id,
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 FirstName = s.FirstName,
                 MiddleInitial = s.MiddleInitial,
                 LastName = s.LastName,
