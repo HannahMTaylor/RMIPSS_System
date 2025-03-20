@@ -43,14 +43,18 @@ public class ApplicationDbContextUnit
        builder.Services.AddSingleton<IEmailSender>(new EmailSender(Options.Create(emailConfig)));
 
         builder.Services.AddScoped<Initializer>();
-        builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
+        //builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         //builder.Services.AddScoped<IEmailSender, EmailSender>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
+        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+        builder.Services.AddScoped<ISe2Repository, Se2Repository>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<ConsentFormService>();
         builder.Services.AddScoped<LanguageTranslateService>();
+       // builder.Services.AddScoped(IStudentRepository,StudentRepository)();
+        
         _serviceProvider = builder.Services.BuildServiceProvider();
 
         }

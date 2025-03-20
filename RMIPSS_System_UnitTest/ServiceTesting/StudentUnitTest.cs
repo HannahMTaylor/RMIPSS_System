@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using RMIPSS_System_UnitTest.Common;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
@@ -11,24 +12,16 @@ using RMIPSS_System.Services;
 
 namespace RMIPSS_System_UnitTest;
 
-public class StudentUnitTest
+public class AStudent
 {
     
-    private IStudentRepository _studenRepo;
-    private ILogger<StudentService> _logger;
-    private IConsentFormRepository _consentFormRepo;
     private StudentService _sut; // System Under Test
+    
     [SetUp]
     public void Setup()
     {
         //Arrange
-        ApplicationDbContextUnit unitConnection = new();
-        DbContextOptions<ApplicationDbContext> options = unitConnection.GetOptions();
-        ApplicationDbContext db = new ApplicationDbContext(options);
-        _logger = new LoggerFactory().CreateLogger<StudentService>();
-        _studenRepo = new StudentRepository(db);
-        _consentFormRepo = new ConsentFormRepository(db);
-        _sut = new StudentService(_logger, _studenRepo);
+        _sut = Services.StudentService;
     }
     
     [Test]
@@ -36,49 +29,26 @@ public class StudentUnitTest
     {
         
         // Arrange
-        var student = new Student
-        {
-            FirstName = "John",
-            LastName = "Doe",
-            Email = "doe@gmail.com",
-            SEProcessSteps = SEProcessSteps.SE4
-            
-        };
-
-       student = _studenRepo.Save(student);
-       Assert.IsNotNull(student.Id);
-       var c = new ConsentForm
-       {
-           EnteredDate = new DateOnly(),
-           To = "Parent",
-           From = "Principal",
-           ConsentOption = ConsentOption.NotGiven,
-           Evaluation = true,
-           StudentId = student.Id
-       };
+        Student student = await DummyObject.CreateDummyStudent();
+        int se2Id = await DummyObject.CreateDummySe2Form(student.Id);
+        int consentId = await DummyObject.CreateDummyConsentForm(student.Id);
+        
        //Act
-       ConsentForm? savedConsentForm = await _consentFormRepo.SaveConsentFormAsync(c);
-       if (savedConsentForm == null) throw new ArgumentNullException(nameof(savedConsentForm));
-       Assert.IsNotNull(savedConsentForm.Id);
-       var studentViewModel = _sut.GetStudentByIdAsync(student.Id,null).Result;
-       Assert.IsNotNull(studentViewModel);
+       var studentViewModel = await _sut.GetStudentByIdAsync(student.Id, null);
+       
+       //Assert
+       Assert.That(studentViewModel, Is.Not.Null);
+       Assert.That(studentViewModel.Id, Is.EqualTo(student.Id));
        Assert.That(studentViewModel.FirstName, Is.EqualTo(student.FirstName));
        Assert.That(studentViewModel.SEProcessSteps, Is.EqualTo(student.SEProcessSteps));
-       Assert.IsNotNull(studentViewModel.upcomingSEForms);
-       Assert.IsNotNull(studentViewModel.documentsList);
+       Assert.That(studentViewModel.upcomingSEForms, Is.Not.Null );
+       Assert.That(studentViewModel.documentsList.Count, Is.EqualTo(2));
      
        
        //Remove from database
-       _consentFormRepo.RemoveById(savedConsentForm.Id);
-       _consentFormRepo.Save();
-       _studenRepo.RemoveById(student.Id);
-       _studenRepo.Save();
-       ConsentForm? removedConsentForm = await _consentFormRepo.GetByIdAsync(savedConsentForm.Id);
-       Student? removedStudent = await _studenRepo.GetByIdAsync(student.Id);
-        
-       //Assert
-       Assert.That(removedConsentForm, Is.EqualTo(null));
-       Assert.That(removedStudent, Is.EqualTo(null));
+       await DummyObject.DeleteDummySe2Form(se2Id);
+       await DummyObject.DeleteDummyConsentForm(consentId);
+       await DummyObject.DeleteDummyStudent(student.Id);
 
     }
 
@@ -94,7 +64,7 @@ public class StudentUnitTest
             SEProcessSteps = SEProcessSteps.SE1
         };
 
-      await  _studenRepo.SaveAsync();
+      await  Repositories._studentRepository.SaveAsync();
         
         // Act
         await _sut.UpdateSeProcessSteps(student.Id, SEProcessSteps.SE1, SEProcessSteps.SE2);
@@ -108,8 +78,8 @@ public class StudentUnitTest
             Assert.That(result.SEProcessCompletedDate, Is.EqualTo(DateOnly.FromDateTime(DateTime.Now)));
 
             // Revert the changes
-            _studenRepo.Remove(result);
-            _studenRepo.Save();
+            Repositories._studentRepository.Remove(result);
+            Repositories._studentRepository.Save();
         }
 
         result = _sut.GetStudent(student.Id).Result;
@@ -126,7 +96,7 @@ public class StudentUnitTest
             LastName = "qwertyuiopasdfghjkl"
         };
 
-        Student savedStudent = _studenRepo.Save(student);
+        Student savedStudent = Repositories._studentRepository.Save(student);
         
         // Act
         var (students, totalStudents) =
@@ -137,8 +107,8 @@ public class StudentUnitTest
         Assert.That(students, Is.Not.Empty);
         
         // Revert the changes
-        _studenRepo.Remove(student);
-        _studenRepo.Save();
+        Repositories._studentRepository.Remove(student);
+        Repositories._studentRepository.Save();
         Student? result = _sut.GetStudent(student.Id).Result;
         Assert.That(result, Is.Null);
     }

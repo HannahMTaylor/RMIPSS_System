@@ -1,0 +1,47 @@
+using RMIPSS_System_UnitTest.Common;
+using RMIPSS_System.Data;
+using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.Enums;
+using RMIPSS_System.Models.ProcessSteps;
+using RMIPSS_System.Repository;
+using RMIPSS_System.Repository.IRepository;
+using RMIPSS_System.Services;
+using RMIPSS_System.Models.ViewModel;
+
+namespace RMIPSS_System_UnitTest;
+
+public class ConsentFormUnitTest
+{
+    private ConsentFormService _sut; // System Under Test
+    
+    [SetUp]
+    public void Setup()
+    {
+        //Arrange
+        _sut = Services.ConsentFormService;
+    }
+    
+    [Test]
+    public async Task ShouldCreateConsentForm()
+    {
+        //Arrange
+        Student student = await DummyObject.CreateDummyStudent();
+        ConsentFormViewModel consentForm = DummyObject.CreateConsentFormViewModel(student.Id);
+        
+        //Act
+        ConsentForm? savedConsentForm = await _sut.CreateConsentForm(consentForm);
+      
+        //Assert
+        Assert.That(savedConsentForm, Is.Not.Null);
+        Assert.That(savedConsentForm.Id, Is.Not.EqualTo(0));
+        Assert.That(savedConsentForm.To, Is.EqualTo("Parent"));
+        Assert.That(savedConsentForm.StudentId, Is.EqualTo(student.Id));
+        
+        //Remove from database
+        await DummyObject.DeleteDummyConsentForm(savedConsentForm.Id);
+        await DummyObject.DeleteDummyStudent(student.Id);
+        
+        
+    }
+    
+}
