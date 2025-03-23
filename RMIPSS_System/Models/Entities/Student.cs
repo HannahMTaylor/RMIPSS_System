@@ -43,7 +43,7 @@ public class Student
     [MaxLength(50)]
     public string ParentGuardianPrimaryLanguage { get; set; } = String.Empty;
     /// <summary>
-    /// Recently completed special education form of the student
+    /// Recently completed special education form of the Student
     /// </summary>
     public SEProcessSteps SEProcessSteps { get; set; } 
     public DateOnly SEProcessCompletedDate { get; set; }

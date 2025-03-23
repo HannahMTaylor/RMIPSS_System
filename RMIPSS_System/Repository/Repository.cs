@@ -9,45 +9,46 @@ namespace RMIPSS_System.Repository;
 public class Repository<T> : IRepository<T> where T : class
 {
     private readonly ApplicationDbContext _db;
-    internal DbSet<T> dbSet;
+    private readonly DbSet<T> _dbSet;
 
     public Repository(ApplicationDbContext db)
     {
         _db = db;
-        dbSet = _db.Set<T>();
+         _dbSet = _db.Set<T>();
+    }
+    
+
+    public void Add(T? entity)
+    {
+        if (entity != null) _dbSet.Add(entity);
     }
 
-    public void Add(T entity)
+    public T? Get(Expression<Func<T?, bool>> filter)
     {
-        dbSet.Add(entity);
-    }
-
-    public T Get(Expression<Func<T, bool>> filter)
-    {
-        IQueryable<T> query = dbSet;
+        IQueryable<T?> query = _dbSet;
         query = query.Where(filter);
         return query.FirstOrDefault();
     }
 
-    public IEnumerable<T> GetAll()
+    public IEnumerable<T?> GetAll()
     {
-        IQueryable<T> query = dbSet;
+        IQueryable<T?> query = _dbSet;
         return query.ToList();
     }
 
-    public void Remove(T entity)
+    public void Remove(T? entity)
     {
-        dbSet.Remove(entity);
+        if (entity != null) _dbSet.Remove(entity);
     }
     
-    public T GetById(int id)
+    public async Task<T?> GetByIdAsync(int id)
     {
-        return dbSet.Find(id);
+        return await _dbSet.FindAsync(id);
     }
 
     public void RemoveById(int id)
     {
-        dbSet.Remove(dbSet.Find(id));
+        _dbSet.Remove(_dbSet.Find(id) ?? throw new InvalidOperationException());
     }
 
     public T Save(T entity)
@@ -62,11 +63,11 @@ public class Repository<T> : IRepository<T> where T : class
         _db.SaveChanges();
     }
 
-    public  async Task<int> GetEntityIdByStudentId<T>(int id) where T : class, IStudentEntity
+    public  async Task<int> GetProcessStepIdByStudentId<TU>(int id) where TU : class, IStudentEntity
     {
             // Query the appropriate DbSet for the type U.
-            var entityId = await _db.Set<T>()
-                .Where(e => e.Student.Id == id)
+            var entityId = await _db.Set<TU>()
+                .Where(e => e.Student != null && e.Student.Id == id)
                 .Select(e => e.Id)
                 .FirstOrDefaultAsync();
             return entityId;
@@ -74,21 +75,21 @@ public class Repository<T> : IRepository<T> where T : class
 
 
     // Asynchronous Functions
-    public async Task AddAsync(T entity)
+    public async Task AddAsync(T? entity)
     {
-        await dbSet.AddAsync(entity);
+        if (entity != null) await _dbSet.AddAsync(entity);
     }
 
-    public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
+    public async Task<T?> GetAsync(Expression<Func<T?, bool>> filter)
     {
-        IQueryable<T> query = dbSet;
+        IQueryable<T?> query = _dbSet;
         query = query.Where(filter);
         return await query.FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T?>> GetAllAsync()
     {
-        IQueryable<T> query = dbSet;
+        IQueryable<T?> query = _dbSet;
         return await query.ToListAsync();
     }
 }

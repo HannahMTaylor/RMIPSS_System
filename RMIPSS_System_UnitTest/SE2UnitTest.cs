@@ -11,7 +11,7 @@ public class ASE2UnitTest
     public void ShouldGetStudent()
     {
         // Arrange
-        Student student = new Student()
+        Student? student = new Student()
         {
             FirstName = "John",
             LastName = "Doe",
@@ -20,13 +20,13 @@ public class ASE2UnitTest
 
         Student savedStudent = Repositories._studentRepository.Save(student);
 
-        SE2Service sut = new SE2Service(Loggers._se2Logger,
+        Se2Service sut = new Se2Service(Loggers._se2Logger,
                                         Repositories._se2Repository,
                                         Repositories._studentRepository,
                                         Repositories._appUserRepo);
         
         // Act
-        Student result = sut.GetStudent(student.Id).Result;
+        Student? result = sut.GetStudent(student.Id).Result;
         
         // Assert
         Assert.That(result, Is.EqualTo(student));
@@ -42,7 +42,7 @@ public class ASE2UnitTest
     public void ShouldGetLoggedInUser()
     {
         // Arrange
-        ApplicationUser appUser = new ApplicationUser()
+        ApplicationUser? appUser = new ApplicationUser()
         {
             FirstName = "John",
             LastName = "Doe",
@@ -51,13 +51,13 @@ public class ASE2UnitTest
 
         ApplicationUser savedAppUser = Repositories._appUserRepo.Save(appUser);
 
-        SE2Service sut = new SE2Service(Loggers._se2Logger,
+        Se2Service sut = new Se2Service(Loggers._se2Logger,
             Repositories._se2Repository,
             Repositories._studentRepository,
             Repositories._appUserRepo);
         
         // Act
-        ApplicationUser result = sut.GetLoggedInUser(appUser.UserName).Result;
+        ApplicationUser? result = sut.GetLoggedInUser(appUser.UserName).Result;
         
         // Assert
         Assert.That(result, Is.EqualTo(appUser));
@@ -80,9 +80,9 @@ public class ASE2UnitTest
             Email = "doe@gmail.com",
         };
 
-        Student savedStudent = Repositories._studentRepository.Save(student);
+        Student? savedStudent = Repositories._studentRepository.Save(student);
 
-        SE2 se2 = new()
+        SE2? se2 = new()
         {
             Student = student,
             CompletedByName = "Prince",
@@ -91,14 +91,14 @@ public class ASE2UnitTest
             CompletedByEmail = "prince@gmail.com"
         };
 
-        SE2Service sut = new SE2Service(Loggers._se2Logger,
+        Se2Service sut = new Se2Service(Loggers._se2Logger,
             Repositories._se2Repository,
             Repositories._studentRepository,
             Repositories._appUserRepo);
         
         // Act
-        sut.saveFormData(se2);
-        SE2 result = sut.GetSE2Data(student.Id).Result;
+        sut.SaveFormData(se2);
+        SE2? result = sut.GetSe2Data(student.Id).Result;
         
         // Assert
         Assert.That(result, Is.EqualTo(se2));
@@ -106,12 +106,12 @@ public class ASE2UnitTest
         /*
          * **** Revert the changes - Student ****
          * 
-         * Automatically deletes the associated SE2 form when a student is deleted due to
+         * Automatically deletes the associated SE2 form when a Student is deleted due to
          * configured cascading delete behavior.
          */
         Repositories._studentRepository.Remove(savedStudent);
         Repositories._studentRepository.Save();
-        Student deletedStudent = sut.GetStudent(student.Id).Result;
+        Student? deletedStudent = sut.GetStudent(student.Id).Result;
         Assert.That(deletedStudent, Is.Null);
     }
     
@@ -126,9 +126,9 @@ public class ASE2UnitTest
             Email = "doe@gmail.com",
         };
 
-        Student savedStudent = Repositories._studentRepository.Save(student);
+        Student? savedStudent = Repositories._studentRepository.Save(student);
 
-        SE2 se2 = new()
+        SE2? se2 = new()
         {
             Student = student,
             CompletedByName = "Prince",
@@ -137,18 +137,18 @@ public class ASE2UnitTest
             CompletedByEmail = "prince@gmail.com"
         };
 
-        SE2Service sut = new SE2Service(Loggers._se2Logger,
+        Se2Service sut = new Se2Service(Loggers._se2Logger,
             Repositories._se2Repository,
             Repositories._studentRepository,
             Repositories._appUserRepo);
         
-        sut.saveFormData(se2);
+        sut.SaveFormData(se2);
         
         se2.CompletedByName = "James";
         
         // Act
-        sut.updateFormData(se2);
-        SE2 result = sut.GetSE2Data(student.Id).Result;
+        sut.UpdateFormData(se2);
+        SE2? result = sut.GetSe2Data(student.Id).Result;
         
         // Assert
         Assert.That(result.CompletedByName, Is.EqualTo("James"));
@@ -156,12 +156,12 @@ public class ASE2UnitTest
         /*
          * **** Revert the changes - Student ****
          *
-         * Automatically deletes the associated SE2 form when a student is deleted due to
+         * Automatically deletes the associated SE2 form when a Student is deleted due to
          * configured cascading delete behavior.
          */
         Repositories._studentRepository.Remove(savedStudent);
         Repositories._studentRepository.Save();
-        Student deletedStudent = sut.GetStudent(student.Id).Result;
+        Student? deletedStudent = sut.GetStudent(student.Id).Result;
         Assert.That(deletedStudent, Is.Null);
     }
 }

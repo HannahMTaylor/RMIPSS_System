@@ -4,12 +4,12 @@ namespace RMIPSS_System.Models.ViewModel;
 
 public class ConsentFormViewModel
 {
-    public int Id { get; set; }
+    public int ConsentId { get; set; }
     public int StudentId { get; set; }
     
-    public string To { get; set; }
+    public string? To { get; set; }
 
-    public string From { get; set; }
+    public string? From { get; set; }
     public bool Status { get; set; }
     public DateOnly SubmittedDate { get; set; }
     public DateOnly EnteredDate { get; set; }

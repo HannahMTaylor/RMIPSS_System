@@ -36,12 +36,16 @@ public class Program
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-        builder.Services.AddScoped<ISE2Repository, SE2Repository>();
+        builder.Services.AddScoped<ISe2Repository, Se2Repository>();
         builder.Services.AddScoped<IEmailSender, EmailSender>();
+        builder.Services.AddScoped<IReferralRepository, ReferralRepository>();
+        builder.Services.AddScoped<IReferrerPersonRepository, ReferrerPersonRepository>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
         builder.Services.AddScoped<UserService>();
-        builder.Services.AddScoped<SE2Service>();
+        builder.Services.AddScoped<Se2Service>();
         builder.Services.AddScoped<ConsentFormService>();
+        builder.Services.AddScoped<ReferralService>();
+        //builder.Services.AddScoped<IPdfUploadRepository, PdfUploadRepository>();
         builder.Services.AddScoped<StudentService>();
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();

@@ -16,9 +16,9 @@ public class SE2 :IStudentEntity
     [MaxLength(50)]
     public string? CompletedByRelationship { get; set; }
     [MaxLength(15)]
-    public string CompletedByPhone { get; set; } = String.Empty;
+    public string? CompletedByPhone { get; set; } = String.Empty;
     [MaxLength(255)]
-    public string CompletedByEmail { get; set; } = String.Empty;
+    public string? CompletedByEmail { get; set; } = String.Empty;
     public DateOnly CompletedDate { get; set; }
     [MaxLength(50)]
     public string? PhysicalConcerns { get; set; }

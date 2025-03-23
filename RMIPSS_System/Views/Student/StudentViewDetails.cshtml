@@ -107,7 +107,7 @@
                         <ul class="list-unstyled mb-0">
                             @foreach (var step in Model.upcomingSEForms)
                             {
-                                <li>@step.name</li>
+                                <li>@step.Name</li>
                             }
                         </ul>
                     </div>
@@ -127,12 +127,8 @@
                 <ul id="myDropdown" class="dropdown-menu" aria-labelledby="formDropdown">
                     @foreach (var step in Model.upcomingSEForms)
                     {
-                        <li><a class="dropdown-item" asp-controller="@step.controller" asp-action="@step.method" asp-route-id="@Model.Id">@step.name</a></li>
+                        <li><a class="dropdown-item" asp-controller="@step.Controller" asp-action="@step.Method" asp-route-id="@Model.Id">@step.Name</a></li>
                     }
-                   <!-- <li><a class="dropdown-item" href="#" onclick="selectForm('SE-1')">SE-1</a></li>
-                    <li><a class="dropdown-item" asp-controller="SE2" asp-action="ScreeningInformationForm" asp-route-id="@Model.Id">SE-2</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="selectForm('SE-3')">SE-3</a></li>
-                    <li><a class="dropdown-item" asp-controller="ConsentForm" asp-action="ConsentFormEvaluationReevaluation" asp-route-id="@Model.Id" method="get">SE-4</a></li> -->
                 </ul>
             </div>
         </div>
@@ -149,13 +145,9 @@
                     @foreach (var item in Model.documentsList)
                     {
                         <tr>
-                            <td>@item.name</td>
+                            <td>@item.Name</td>
                             <td>
-                                <!-- <a asp-controller="@item.controller" asp-action="@item.method" asp-route-id="@Model.Id" class="d-inline">
-                                    <i class="fas fa-eye mr-10"></i>
-                                </a>
-                                -->
-                                <a asp-controller="@item.controller" asp-action="@item.method" asp-route-id="@Model.Id" class="d-inline">
+                                <a asp-controller="@item.Controller" asp-action="@item.Method" asp-route-id="@Model.Id" class="d-inline">
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                             </td>

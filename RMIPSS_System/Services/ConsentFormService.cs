@@ -1,44 +1,38 @@
-using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Models.ViewModel;
 
 namespace RMIPSS_System.Services;
 
-public class ConsentFormService
+public class ConsentFormService(
+    ILogger<ConsentFormService> logger,
+    IConsentFormRepository db,
+    StudentService studentService)
 {
-    private readonly ILogger<ConsentFormService> _logger;
-    private readonly IConsentFormRepository _consentFormRepository;
-    private readonly StudentService _studentService;
-
-    public ConsentFormService(ILogger<ConsentFormService> logger, IConsentFormRepository db,StudentService studentService)
+    public async Task<ConsentForm?> CreateConsentForm(ConsentFormViewModel consentForm)
     {
-        _logger = logger;
-        _consentFormRepository = db;
-        _studentService = studentService;
-    }
-    
-    public async Task<ConsentForm> CreateConsentForm(ConsentFormViewModel consentForm)
-    {
-        ConsentForm consentFormResult = new ConsentForm();
         try
         {
-            ConsentForm objFromDb = _consentFormRepository.GetAsync(c => c.Id == consentForm.Id).Result;
+            ConsentForm? objFromDb = await db.GetByIdAsync(consentForm.ConsentId);
+            ConsentForm? consentFormResult;
             if (objFromDb == null)
             {
-                objFromDb = new ConsentForm();
-                objFromDb.EnteredDate = consentForm.EnteredDate;
-                objFromDb.To = consentForm.To;
-                objFromDb.From = consentForm.From;
-                objFromDb.Evaluation = consentForm.Evaluation;
-                objFromDb.StudentId = consentForm.StudentId;
-                consentFormResult =  await _consentFormRepository.SaveConsentFormAsync(objFromDb);
+                objFromDb = new ConsentForm
+                {
+                    EnteredDate = consentForm.EnteredDate,
+                    To = consentForm.To,
+                    From = consentForm.From,
+                    Evaluation = consentForm.Evaluation,
+                    StudentId = consentForm.StudentId
+                };
+                consentFormResult =  await db.SaveConsentFormAsync(objFromDb);
                
             }
             else
             {
              
-                objFromDb.Id = consentForm.Id;
+                objFromDb.Id = consentForm.ConsentId;
                 objFromDb.EnteredDate = consentForm.EnteredDate;
                 objFromDb.To = consentForm.To;
                 objFromDb.From = consentForm.From;
@@ -47,31 +41,27 @@ public class ConsentFormService
                 objFromDb.StudentId = consentForm.StudentId;
                 objFromDb.Status = consentForm.Status;
                 objFromDb.SubmittedDate = consentForm.SubmittedDate;
-                consentFormResult =  await _consentFormRepository.UpdateConsentFormAsync(objFromDb);
+                consentFormResult =  await db.UpdateConsentFormAsync(objFromDb);
                 
             }
-            await _studentService.updateSEProcessSteps(consentForm.StudentId, SEProcessSteps.SE3A, SEProcessSteps.SE4);
+            await studentService.UpdateSeProcessSteps(consentForm.StudentId, SEProcessSteps.SE3A, SEProcessSteps.SE4);
             return consentFormResult;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error creating consent form");
+            logger.LogError(ex, $"Error creating consent form");
             throw;
         }
     }
 
     public void RemoveById(int resultId)
     {
-        _consentFormRepository.RemoveById(resultId);
+        db.RemoveById(resultId);
     }
+    
 
-    public void Save()
+    public async Task<ConsentForm?> GetByIdAsync(int resultId)
     {
-        _consentFormRepository.Save();
-    }
-
-    public ConsentForm GetById(int resultId)
-    {
-        return _consentFormRepository.GetById(resultId);
+        return await db.GetByIdAsync(resultId);
     }
 }

@@ -3,8 +3,8 @@ using RMIPSS_System.Models.ProcessSteps;
 
 namespace RMIPSS_System.Repository.IRepository;
 
-public interface ISE2Repository : IRepository<SE2>
+public interface ISe2Repository : IRepository<SE2>
 {
-    void Update(SE2 se2);
-    Task SaveAsync();
+    void Update(SE2? se2);
+    Task? SaveAsync();
 }

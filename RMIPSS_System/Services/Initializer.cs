@@ -4,34 +4,26 @@ using RMIPSS_System.Models.Entities;
 
 namespace RMIPSS_System.Services;
 
-public class Initializer
+public class Initializer(
+    ApplicationDbContext db,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
 {
-    private readonly ApplicationDbContext _db;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-
-    public Initializer(ApplicationDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
-    {
-        _db = db;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
     public async Task SeedUserAsync()
     {
-        _db.Database.EnsureCreated();
+        await db.Database.EnsureCreatedAsync();
 
-        if (!_db.Roles.Any(r => r.Name.Equals(Constants.ROLE_STATE_USER)))
+        if (!db.Roles.Any(r => r.Name != null && r.Name.Equals(Constants.ROLE_STATE_USER)))
         {
-            await _roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_STATE_USER });
+            await roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_STATE_USER });
         }
 
-        if (!_db.Roles.Any(r => r.Name.Equals(Constants.ROLE_SCHOOL_USER)))
+        if (!db.Roles.Any(r => r.Name != null && r.Name.Equals(Constants.ROLE_SCHOOL_USER)))
         {
-            await _roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_SCHOOL_USER });
+            await roleManager.CreateAsync(new IdentityRole { Name = Constants.ROLE_SCHOOL_USER });
         }
 
-        if (!_db.Users.Any(u => u.UserName.Equals("stateUser@rmipss.com")))
+        if (!db.Users.Any(u => u.UserName != null && u.UserName.Equals("stateUser@rmipss.com")))
         {
             var user = new ApplicationUser
             {
@@ -40,11 +32,11 @@ public class Initializer
                 FirstName = "State User",
                 LastName = "RMIPSS"
             };
-            await _userManager.CreateAsync(user, "Pass123!");
-            await _userManager.AddToRoleAsync(user, Constants.ROLE_STATE_USER);
+            await userManager.CreateAsync(user, "Pass123!");
+            await userManager.AddToRoleAsync(user, Constants.ROLE_STATE_USER);
         }
 
-        if (!_db.Users.Any(u => u.UserName.Equals("schoolUser@rmipss.com")))
+        if (!db.Users.Any(u => u.UserName != null && u.UserName.Equals("schoolUser@rmipss.com")))
         {
             var user = new ApplicationUser
             {
@@ -53,8 +45,8 @@ public class Initializer
                 FirstName = "School User",
                 LastName = "RMIPSS"
             };
-            await _userManager.CreateAsync(user, "Pass123!");
-            await _userManager.AddToRoleAsync(user, Constants.ROLE_SCHOOL_USER);
+            await userManager.CreateAsync(user, "Pass123!");
+            await userManager.AddToRoleAsync(user, Constants.ROLE_SCHOOL_USER);
         }
     }
 }
