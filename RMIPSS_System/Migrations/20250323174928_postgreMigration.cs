@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -8,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RMIPSS_System.Migrations
 {
     /// <inheritdoc />
-    public partial class PostgreMigration : Migration
+    public partial class postgreMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,14 +32,30 @@ namespace RMIPSS_System.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    Affiliation = table.Column<string>(type: "text", nullable: false),
-                    TeachingLicenseType = table.Column<string>(type: "text", nullable: true)
+                    LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Affiliation = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    TeachingLicenseType = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PdfUploads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Data = table.Column<byte[]>(type: "bytea", nullable: true),
+                    Length = table.Column<int>(type: "integer", nullable: false),
+                    ContentType = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PdfUploads", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -49,11 +64,10 @@ namespace RMIPSS_System.Migrations
                 {
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    LastName = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    RelationshipToStudent = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    FullName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    RelationshipToStudent = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Phone = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     DateFilledReferral = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
@@ -261,8 +275,8 @@ namespace RMIPSS_System.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     EnteredDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    To = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    From = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    To = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    From = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
                     Evaluation = table.Column<bool>(type: "boolean", nullable: true),
                     ConsentOption = table.Column<int>(type: "integer", nullable: false),
                     StudentId = table.Column<int>(type: "integer", nullable: false),
@@ -287,9 +301,10 @@ namespace RMIPSS_System.Migrations
                     ID = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     StudentId = table.Column<int>(type: "integer", nullable: false),
-                    ReasonsForReferral = table.Column<List<string>>(type: "text[]", nullable: false),
-                    AreasOfConcernAndHelpNeededDescription = table.Column<string>(type: "character varying(560)", maxLength: 560, nullable: false),
-                    ReferrerID = table.Column<int>(type: "integer", nullable: false),
+                    ReasonsForReferral = table.Column<string>(type: "text", nullable: true),
+                    OtherReasonsForReferral = table.Column<string>(type: "text", nullable: true),
+                    AreasOfConcernAndHelpNeededDescription = table.Column<string>(type: "character varying(560)", maxLength: 560, nullable: true),
+                    ReferrerId = table.Column<int>(type: "integer", nullable: false),
                     ReferralReceived = table.Column<DateOnly>(type: "date", nullable: false),
                     TeamRecommendation = table.Column<DateOnly>(type: "date", nullable: false),
                     DispositionNoticeToReferrer = table.Column<DateOnly>(type: "date", nullable: false),
@@ -297,18 +312,18 @@ namespace RMIPSS_System.Migrations
                     EvaluationTeamRecommendation = table.Column<DateOnly>(type: "date", nullable: false),
                     ParentNoticeForMeeting = table.Column<DateOnly>(type: "date", nullable: false),
                     ReferredToChildStudyTeam = table.Column<DateOnly>(type: "date", nullable: false),
-                    Disposition = table.Column<string>(type: "text", nullable: false),
+                    Disposition = table.Column<string>(type: "text", nullable: true),
                     DispositionNoticeToParent = table.Column<DateOnly>(type: "date", nullable: false),
                     ReferralToEvaluationTeam = table.Column<DateOnly>(type: "date", nullable: false),
-                    Recommendation = table.Column<string>(type: "text", nullable: false),
+                    Recommendation = table.Column<string>(type: "text", nullable: true),
                     IEPMeeting = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Referrals", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Referrals_ReferrerPeople_ReferrerID",
-                        column: x => x.ReferrerID,
+                        name: "FK_Referrals_ReferrerPeople_ReferrerId",
+                        column: x => x.ReferrerId,
                         principalTable: "ReferrerPeople",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -321,7 +336,7 @@ namespace RMIPSS_System.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SE2",
+                name: "Se2",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -329,8 +344,8 @@ namespace RMIPSS_System.Migrations
                     StudentId = table.Column<int>(type: "integer", nullable: false),
                     CompletedByName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     CompletedByRelationship = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    CompletedByPhone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
-                    CompletedByEmail = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    CompletedByPhone = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true),
+                    CompletedByEmail = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     CompletedDate = table.Column<DateOnly>(type: "date", nullable: false),
                     PhysicalConcerns = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     OtherPhysicalConcerns = table.Column<string>(type: "text", nullable: true),
@@ -350,9 +365,9 @@ namespace RMIPSS_System.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SE2", x => x.Id);
+                    table.PrimaryKey("PK_Se2", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SE2_Students_StudentId",
+                        name: "FK_Se2_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -407,9 +422,9 @@ namespace RMIPSS_System.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Referrals_ReferrerID",
+                name: "IX_Referrals_ReferrerId",
                 table: "Referrals",
-                column: "ReferrerID");
+                column: "ReferrerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Referrals_StudentId",
@@ -417,8 +432,8 @@ namespace RMIPSS_System.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SE2_StudentId",
-                table: "SE2",
+                name: "IX_Se2_StudentId",
+                table: "Se2",
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
@@ -452,10 +467,13 @@ namespace RMIPSS_System.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
+                name: "PdfUploads");
+
+            migrationBuilder.DropTable(
                 name: "Referrals");
 
             migrationBuilder.DropTable(
-                name: "SE2");
+                name: "Se2");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
