@@ -1,0 +1,25 @@
+﻿# .NET runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+# .NET SDK image for building the application
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["RMIPSS_System/RMIPSS_System.csproj", "RMIPSS_System/"]
+RUN dotnet restore "RMIPSS_System/RMIPSS_System.csproj"
+COPY . .
+WORKDIR "/src/RMIPSS_System"
+RUN dotnet build "RMIPSS_System.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "RMIPSS_System.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "RMIPSS_System.dll"]
