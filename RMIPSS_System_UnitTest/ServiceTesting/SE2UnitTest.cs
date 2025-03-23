@@ -3,9 +3,9 @@ using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Services;
 
-namespace RMIPSS_System_UnitTest;
+namespace RMIPSS_System_UnitTest.ServiceTesting;
 
-public class ASE2UnitTest
+public class Ase2UnitTest
 {
     [Test]
     public void ShouldGetStudent()

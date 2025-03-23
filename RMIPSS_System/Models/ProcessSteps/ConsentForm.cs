@@ -4,7 +4,7 @@ using RMIPSS_System.Models.Enums;
 
 namespace RMIPSS_System.Models.ProcessSteps;
 
-public class ConsentForm:IStudentEntity
+public class ConsentForm
 {
     
     public int Id { get; set; }

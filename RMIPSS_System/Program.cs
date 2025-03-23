@@ -45,6 +45,8 @@ public class Program
         builder.Services.AddScoped<Se2Service>();
         builder.Services.AddScoped<ConsentFormService>();
         builder.Services.AddScoped<ReferralService>();
+        builder.Services.AddScoped<MarshalleseTranslateService>();
+        builder.Services.AddScoped<IProcessStepService, ProcessStepService>();
         //builder.Services.AddScoped<IPdfUploadRepository, PdfUploadRepository>();
         builder.Services.AddScoped<StudentService>();
         builder.Services.AddControllersWithViews();
