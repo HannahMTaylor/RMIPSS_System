@@ -1,13 +1,9 @@
-using FluentAssertions.Execution;
-using Microsoft.Extensions.Logging;
 using RMIPSS_System_UnitTest.Common;
 using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Models.ProcessSteps;
-using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 
-namespace RMIPSS_System_UnitTest;
+namespace RMIPSS_System_UnitTest.RepoTesting;
 
 public class AStudentRepo
 {

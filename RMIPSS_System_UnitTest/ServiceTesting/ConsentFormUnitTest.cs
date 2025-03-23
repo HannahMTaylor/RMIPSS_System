@@ -1,14 +1,10 @@
 using RMIPSS_System_UnitTest.Common;
-using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
-using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Models.ProcessSteps;
-using RMIPSS_System.Repository;
-using RMIPSS_System.Repository.IRepository;
-using RMIPSS_System.Services;
 using RMIPSS_System.Models.ViewModel;
+using RMIPSS_System.Services;
 
-namespace RMIPSS_System_UnitTest;
+namespace RMIPSS_System_UnitTest.ServiceTesting;
 
 public class ConsentFormUnitTest
 {

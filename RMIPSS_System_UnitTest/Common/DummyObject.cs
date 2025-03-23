@@ -1,4 +1,5 @@
 using RMIPSS_System_UnitTest.Common;
+using RMIPSS_System.Models;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
 using RMIPSS_System.Models.ProcessSteps;
@@ -99,6 +100,53 @@ public class DummyObject
         Repositories._studentRepository.Save();
         Student? removedStudent = await Repositories._studentRepository.GetByIdAsync(studentId);
         Assert.That(removedStudent, Is.EqualTo(null));
+    }
+
+    public static User GenerateDummyUser()
+    {
+        var user = new User
+        {
+            FirstName = "Tester",
+            LastName = "Doe",
+            Email = "test@gmail.com",
+            PhoneNumber = "1234567890",
+            Password = "Test@1234",
+            ConfirmPassword = "Test@1234",
+            Role = "ROLE_SCHOOL_USER"
+        };
+        return user;
+    }
+    
+    public static async Task<User> CreateDummyUser()
+    {
+        var user = new User
+        {
+            FirstName = "Tester",
+            LastName = "Doe",
+            Email = "test@gmail.com",
+            PhoneNumber = "1234567890",
+            Password = "Test@1234",
+            ConfirmPassword = "Test@1234",
+            Role = "ROLE_SCHOOL_USER"
+        };
+        _ = await Services.UserService.CreateUser(user);
+      /*  ApplicationUser applicationUser = await Repositories._appUserRepo.CreateApplicationUserAsync(user, "Test@1234");
+      //  var savedUser = new User()
+     //   {
+     //     FirstName = applicationUser.FirstName,
+            LastName = applicationUser.LastName,
+            Email = applicationUser.Email,
+            PhoneNumber = applicationUser.PhoneNumber,
+        };
+          */
+        Console.WriteLine("check"+ user.Email);
+      
+        return user;
+    }
+
+    public static async Task DeleteDummyUser(String email)
+    {
+        await Repositories._appUserRepo.DeleteUserAsync(email);
     }
     
 }

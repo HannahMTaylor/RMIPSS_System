@@ -10,4 +10,5 @@ public class Services
 
     public static ConsentFormService ConsentFormService =
         new ConsentFormService(Loggers._consentFormLogger, Repositories._consentFormRepo, StudentService);
+    public static UserService UserService = new UserService(Loggers._userLogger, Repositories._appUserRepo,Repositories._roleManager,Repositories._emailSender);
 }
