@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: RMIPSS_System/Dockerfile
     container_name: RMIPSS-WEB-APP
+    platform: linux/amd64
     ports:
       - "8080:8080"
     depends_on:
