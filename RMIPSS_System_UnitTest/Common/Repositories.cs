@@ -23,5 +23,6 @@ public static class Repositories
     public static IApplicationUserRepository _appUserRepo = new ApplicationUserRepository(_db, _userManager);
     public static IConsentFormRepository _consentFormRepo = new ConsentFormRepository(_db);
   
+    public static IReferrerPersonRepository _refPersonRepo = new ReferrerPersonRepository(_db);
 
 }

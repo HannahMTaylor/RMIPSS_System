@@ -116,6 +116,7 @@ public class ReferralController : Controller
     }
 
     //load/read existing referralVM -- needs logged in user permissions
+    //this is not being used yet
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public async Task<IActionResult> ViewExistingReferralByStudentId([Bind(Prefix = "id")] int studentId)
     {
