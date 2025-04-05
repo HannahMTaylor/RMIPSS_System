@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository;
+using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System_UnitTest.Common;
 
 namespace RMIPSS_System_UnitTest.ReferralTests;
@@ -31,7 +33,17 @@ public class AReferralRepository
         };
         Repositories._refPersonRepo.Save(testPerson);
 
-        ReferralRepository sut = new ReferralRepository();
+        Referral referralData = new Referral
+        {
+            Student = testStudent,
+            Referrer = testPerson,
+            ReasonsForReferral = "vision",
+
+        };
+
+
+
+        IReferralRepository _sut = Repositories._referralRepo;
 
         //Act
 

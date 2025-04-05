@@ -26,18 +26,18 @@ public class Referral
     public ReferrerPerson? Referrer { get; set; }
 
     //section 4: school use only
-    public DateOnly ReferralReceived {  get; set; }
-    public DateOnly TeamRecommendation {  get; set; }
-    public DateOnly DispositionNoticeToReferrer {  get; set; }
-    public DateOnly ParentalConsentForEvaluation {  get; set; }
-    public DateOnly EvaluationTeamRecommendation {  get; set; }
-    public DateOnly ParentNoticeForMeeting {  get; set; }
-    public DateOnly ReferredToChildStudyTeam {  get; set; }
+    public DateOnly? ReferralReceived {  get; set; }
+    public DateOnly? TeamRecommendation {  get; set; }
+    public DateOnly? DispositionNoticeToReferrer {  get; set; }
+    public DateOnly? ParentalConsentForEvaluation {  get; set; }
+    public DateOnly? EvaluationTeamRecommendation {  get; set; }
+    public DateOnly? ParentNoticeForMeeting {  get; set; }
+    public DateOnly? ReferredToChildStudyTeam {  get; set; }
 
     public string? Disposition {  get; set; }
-    public DateOnly DispositionNoticeToParent {  get; set; }
-    public DateOnly ReferralToEvaluationTeam {  get; set; }
+    public DateOnly? DispositionNoticeToParent {  get; set; }
+    public DateOnly? ReferralToEvaluationTeam {  get; set; }
     public string? Recommendation { get; set; }
-    public DateOnly IEPMeeting {  get; set; }
+    public DateOnly? IEPMeeting {  get; set; }
 
 }
