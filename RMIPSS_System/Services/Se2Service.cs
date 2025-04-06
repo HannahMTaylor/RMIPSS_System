@@ -46,9 +46,7 @@ public class Se2Service(
         try
         {
                 await _se2Repo.AddAsync(se2);
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 await _se2Repo.SaveAsync();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
         catch (Exception? ex)
         {
@@ -75,9 +73,7 @@ public class Se2Service(
         try
         {
                 _se2Repo.Update(sE2);
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 await _se2Repo.SaveAsync();
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
         
         }
         catch (Exception? ex)

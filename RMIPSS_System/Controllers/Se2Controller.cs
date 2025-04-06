@@ -84,9 +84,7 @@ public class Se2Controller(Se2Service se2Service, StudentService studentService,
                 }
                 else
                 {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
                     await se2Service.UpdateFormData(se2Model.Se2);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
                     logger.LogInformation("SE2 Form updated successfully for {FirstName} {lastName}.",
                         se2Model.Student.FirstName, se2Model.Student.LastName);
                     TempData["success"] = "SE2 Form updated successfully!";

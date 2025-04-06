@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using RMIPSS_System.Configuration;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
+using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository;
 using RMIPSS_System.Repository.IRepository;
 using RMIPSS_System.Services;
@@ -44,13 +45,20 @@ public class ApplicationDbContextUnit
 
         builder.Services.AddScoped<Initializer>();
         builder.Services.AddScoped<IRepository<Student>, Repository<Student>>();
+        builder.Services.AddScoped<IRepository<ConsentForm>, Repository<ConsentForm>>();
+        builder.Services.AddScoped<IRepository<SE2>, Repository<SE2>>();
         builder.Services.AddScoped<ISchoolRepository, SchoolRepository>();
         builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         //builder.Services.AddScoped<IEmailSender, EmailSender>();
         builder.Services.AddScoped<IConsentFormRepository, ConsentFormRepository>();
+        builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+        builder.Services.AddScoped<ISe2Repository, Se2Repository>();
         builder.Services.AddScoped<UserService>();
         builder.Services.AddScoped<ConsentFormService>();
         builder.Services.AddScoped<LanguageTranslateService>();
+        builder.Services.AddScoped<IProcessStepService, ProcessStepService>();
+       // builder.Services.AddScoped(IStudentRepository,StudentRepository)();
+        
         _serviceProvider = builder.Services.BuildServiceProvider();
 
         }

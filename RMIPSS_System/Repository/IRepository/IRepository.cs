@@ -20,12 +20,15 @@ public interface IRepository<T> where T : class
     void RemoveById(int id);
     
     T Save(T entity);
-
-
+    
+    Task RemoveByIdAsync(int id);
+    
     void Save();
     
-    Task<int> GetProcessStepIdByStudentId<TU>(int id) where TU : class, IStudentEntity;
-    
-    
-    
+   // Task<int> GetProcessStepIdByStudentId<TU>(int id) where TU : class, IStudentEntity;
+
+    Task<Dictionary<Type, int>> GetProcessStepIdsByStudentId(int studentId, Type[] processTypes);
+
+
+
 }

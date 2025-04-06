@@ -13,12 +13,12 @@
         </div>
 
         <div class="col-md-8">
-            <h2 class="text-end"><strong>Republic of the Marshall Islands</strong></h2>
-            <h2 class="text-end"><strong>Public School System</strong></h2>
-            <h4 class="text-end"><strong>Consent for Evaluation/Reevaluation (SE-4)</strong></h4>
+            <h2 class="text-end"><strong class="translate-text">Republic of the Marshall Islands</strong></h2>
+            <h2 class="text-end"><strong class="translate-text">Public School System</strong></h2>
+            <h4 class="text-end"><strong class="translate-text">Consent for Evaluation/Reevaluation (SE-4)</strong></h4>
             <div class="text-end mt-3">
-                <button class="btn btn-primary mt-1 me-2">Print Page</button>
-                <button class="btn btn-primary mt-1">Toggle Language</button>
+                <button class="btn btn-primary mt-1 me-2 translate-text">Print Page</button>
+                <button onclick="toggleTranslation()" class="btn btn-primary mt-1 translate-text">Toggle Language</button>
             </div>
         </div>
     </div>
@@ -29,68 +29,72 @@
         
        
         <div class="form-group">
-            <label for="dateInput" class="fw-bold">Personally Delivered</label>
-            <p>Date: <input asp-for="EnteredDate" type="date"></p>
+            <label for="dateInput" class="fw-bold translate-text">Personally Delivered</label>
+            <p class="translate-text">Date: <input asp-for="EnteredDate" type="date"></p>
         </div>
 
         <div class="section">
-            <p>To: <input asp-for="To" type="text" placeholder="Enter Parent(s) Name"></p>
-            <p>From: <input asp-for="From" type="text" placeholder="Enter Principal's Name"></p>
+            <p class="translate-text">To: <input asp-for="To" type="text" class="translate-text" placeholder="Enter Parent(s) Name"></p>
+            <p class="translate-text">From: <input asp-for="From" type="text" class="translate-text" placeholder="Enter Principal's Name"></p>
         </div>
 
         <div class="section">
-            <div class="border text-center p-2 section-header"><strong>SUBJECT:</strong> Consent for Initial Evaluation or Reevaluation Form SE-4</div>
-            <p class="border p-2">Instructions to Parents: Please complete Part III as indicated below. Please sign your name and fill in the date on the bottom of the page and return this form to the school. Your child’s placement will not be changed without your knowledge and consent or until due process has been exhausted.</p>
+            <div class="border text-center p-2 section-header translate-text"><strong class="translate-text">SUBJECT:</strong> Consent for Initial Evaluation or Reevaluation Form SE-4</div>
+            <p class="border p-2 translate-text">Instructions to Parents: Please complete Part III as indicated below. Please sign your name and fill in the date on the bottom of the page and return this form to the school. Your child’s placement will not be changed without your knowledge and consent or until due process has been exhausted.</p>
         </div>
 
         <div class="section">
-            <strong>Part I</strong>
-            <label class="text-justify"><input type="radio" asp-for="Evaluation" value="true"> The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label>
+            <strong class="translate-text">Part I</strong>
+            <label class="text-justify translate-text"><input type="radio" asp-for="Evaluation" value="true"> The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label>
         </div>
 
         <div class="section">
-            <strong>Part II</strong>
-            <label><input type="radio" asp-for="Evaluation" value="false"> The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.</label>
+            <strong class="translate-text">Part II</strong>
+            <label class="translate-text"><input type="radio" asp-for="Evaluation" value="false"> The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.</label>
         </div>
 
         <div class="section">
-            <strong>Part III</strong>
-            <label><input type="radio" asp-for="ConsentOption" value=0 > I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label>
-            <label><input type="radio" asp-for="ConsentOption" value=1 > I do not give my consent for an initial or reevaluation to be conducted by Ministry of Education.</label>
-            <label><input type="radio" asp-for="ConsentOption" value=2 > I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label>
+            <strong class="translate-text">Part III</strong>
+            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=0 > I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label>
+            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=1 > I do not give my consent for an initial or reevaluation to be conducted by Ministry of Education.</label>
+            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=2 > I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label>
         </div>
 
         <div class="section">
-            <label>Granting parental consent is voluntary. Parents retain the right to refuse consent for initial evaluation or for reevaluation for a possible change in placement and to revoke it at any time. However, should a parent refuse consent or revoke it, the Ministry of Education may then request a hearing to obtain approval to conduct the initial evaluation or reevaluation for a possible change in placement. Parents have the right to seek an independent evaluation. Under certain conditions this evaluation may be at public expense. In addition, please note in the Parents' Rights and Due Process Procedures in Chapter 25 of education rules and regulations that an impartial hearing may be requested by a parent or the Ministry of Education on any matter relating to proposed (or refused) action to initiate (or change) the identification, evaluation, program, or placement of a child.</label>
+            <label class="translate-text">Granting parental consent is voluntary. Parents retain the right to refuse consent for initial evaluation or for reevaluation for a possible change in placement and to revoke it at any time. However, should a parent refuse consent or revoke it, the Ministry of Education may then request a hearing to obtain approval to conduct the initial evaluation or reevaluation for a possible change in placement. Parents have the right to seek an independent evaluation. Under certain conditions this evaluation may be at public expense. In addition, please note in the Parents' Rights and Due Process Procedures in Chapter 25 of education rules and regulations that an impartial hearing may be requested by a parent or the Ministry of Education on any matter relating to proposed (or refused) action to initiate (or change) the identification, evaluation, program, or placement of a child.</label>
         </div>
-@if (Model.ConsentId == 0)
+        @if (Model.ConsentId == 0)
         {
             <div class="row section">
-                <div class="col-6">Signature of Parent: <input type="text" placeholder="Enter Signature"></div>
-                <div class="col-6">Date: <input type="date"></div>
+                <div class="col-6 translate-text">Signature of Parent: <input type="text" placeholder="Enter Signature"></div>
+                <div class="col-6 translate-text">Date: <input type="date"></div>
             </div>
-        }
-else
-{
-    <div class="row section">
-        <div class="row col-7">
-            <label class="col-3">Status:</label>
-            <select class="col-9" asp-for="Status">
-                <option value="">-- Select an option --</option>
-                <option value="true">Received</option>
-                <option value="false">Not Received</option>
-            </select>
+            }
+            else
+            {
+            <div class="row section">
+                <div class="row col-7">
+                    <label class="col-3 translate-text">Status:</label>
+                    <select class="col-9" asp-for="Status">
+                        <option value="" class="translate-text">-- Select an option --</option>
+                        <option value="true" class="translate-text">Received</option>
+                        <option value="false" class="translate-text">Not Received</option>
+                    </select>
 
-        </div>
-        <div class="col-5 text-right">Date: <input asp-for="SubmittedDate" type="date"></div>
-    </div>
-}
+                </div>
+                <div class="col-5 text-right translate-text">Date: <input asp-for="SubmittedDate" type="date"></div>
+            </div>
+            }
 
-        <div class="d-flex justify-content-between mt-4">
-            <button type="button" class="btn btn-secondary w-50 me-3" onclick="history.back()">
-                <i class="fas fa-arrow-left me-2"></i> Back
-            </button>
-            <button type="submit" class="btn btn-primary w-50">Submit</button>
-        </div>
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" class="btn btn-secondary w-50 me-3" onclick="history.back()">
+                    <i class="fas fa-arrow-left me-2"></i> Back
+                </button>
+                <button type="submit" class="btn btn-primary w-50 translate-text">Submit</button>
+            </div>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/translate.js" asp-append-version="true"></script>
+}
