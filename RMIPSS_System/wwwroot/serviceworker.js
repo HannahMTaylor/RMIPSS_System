@@ -3,7 +3,8 @@ const urlsToCache = [
     "/",
     "/css/site.css",
     "/js/site.js",
-    "/offline.html"
+    "/offline.html",
+    "/Referral/CreateReferralForm"
 ];
 
 // Install service worker and cache files
