@@ -5,7 +5,11 @@
 @model ConsentFormViewModel
 
 <link rel="stylesheet" href="~/css/formstyle.css" asp-append-version="true" />
-
+<style>
+    .label-text{
+        display: inline;
+    }
+</style>
 <div class="container content">
     <div class="row align-items-center mb-2">
         <div class="col-md-4 text-center">
@@ -30,12 +34,16 @@
        
         <div class="form-group">
             <label for="dateInput" class="fw-bold translate-text">Personally Delivered</label>
-            <p class="translate-text">Date: <input asp-for="EnteredDate" type="date"></p>
-        </div>
-
-        <div class="section">
-            <p class="translate-text">To: <input asp-for="To" type="text" class="translate-text" placeholder="Enter Parent(s) Name"></p>
-            <p class="translate-text">From: <input asp-for="From" type="text" class="translate-text" placeholder="Enter Principal's Name"></p>
+            <div class="mt-1">
+            <label for="EnteredDate" class="label-text translate-text">Date:</label>
+            <input asp-for="EnteredDate" type="date" id="EnteredDate"/>
+            </div>
+            <div class="mt-1">
+                <label class="label-text translate-text">To: </label> <input asp-for="To" type="text" class="translate-text" placeholder="Enter Parent(s) Name">
+            </div>
+            <div class="mt-1">
+                <label class="label-text translate-text">From: </label> <input asp-for="From" type="text" class="translate-text" placeholder="Enter Principal's Name">
+            </div>
         </div>
 
         <div class="section">
@@ -45,19 +53,47 @@
 
         <div class="section">
             <strong class="translate-text">Part I</strong>
-            <label class="text-justify translate-text"><input type="radio" asp-for="Evaluation" value="true"> The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.</label>
+            <div>
+                <input type="radio" asp-for="Evaluation" value="true" id="evaluationTrue" />
+                <label for="evaluationTrue" class="label-text text-justify translate-text">
+                    The request for an initial evaluation for your child has been received. This initial comprehensive educational evaluation will be used to determine your child’s eligibility; a bilingual evaluator or bilingual assistance may be used in the evaluation. Before the initial evaluation can be conducted, your written consent is required.
+                </label>
+            </div>
         </div>
 
         <div class="section">
             <strong class="translate-text">Part II</strong>
-            <label class="translate-text"><input type="radio" asp-for="Evaluation" value="false"> The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.</label>
+            <div>
+                <input type="radio" asp-for="Evaluation" value="false" id="evaluationFalse" />
+                <label for="evaluationFalse" class="label-text translate-text">
+                    The request for a reevaluation for a possible change in placement for your child has been received. This reevaluation will be used to determine your child’s eligibility for special education. If your child has a language other than English or Marshallese, a reevaluation for a possible change in placement can be conducted, your written consent is required.
+                </label>
+            </div>
         </div>
+
 
         <div class="section">
             <strong class="translate-text">Part III</strong>
-            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=0 > I give my consent for an initial reevaluation to be conducted by the Ministry of Education.</label>
-            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=1 > I do not give my consent for an initial or reevaluation to be conducted by Ministry of Education.</label>
-            <label class="translate-text"><input type="radio" asp-for="ConsentOption" value=2 > I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.</label>
+            <div>
+                <input type="radio" asp-for="ConsentOption" value="0" id="consentOption0" />
+                <label for="consentOption0" class="label-text translate-text">
+                    I give my consent for an initial reevaluation to be conducted by the Ministry of Education.
+                </label>
+            </div>
+
+            <div>
+                <input type="radio" asp-for="ConsentOption" value="1" id="consentOption1" />
+                <label for="consentOption1" class="label-text translate-text">
+                    I do not give my consent for an initial or reevaluation to be conducted by the Ministry of Education.
+                </label>
+            </div>
+
+            <div>
+                <input type="radio" asp-for="ConsentOption" value="2" id="consentOption2" />
+                <label for="consentOption2" class="label-text translate-text">
+                    I will obtain, at my own expense, an Independent educational evaluation and provide the results to the school principal and Special Education Program.
+                </label>
+            </div>
         </div>
 
         <div class="section">
@@ -82,7 +118,7 @@
                     </select>
 
                 </div>
-                <div class="col-5 text-right translate-text">Date: <input asp-for="SubmittedDate" type="date"></div>
+                <div class="col-5 text-right"><label class="label-text translate-text">Date: </label><input asp-for="SubmittedDate" type="date"></div>
             </div>
             }
 
