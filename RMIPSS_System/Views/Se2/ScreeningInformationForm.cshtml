@@ -13,23 +13,23 @@
         </div>
 
         <div class="col-md-8">
-            <h2 class="text-end"><strong>Republic of the Marshall Islands</strong></h2>
-            <h2 class="text-end"><strong>Public School System</strong></h2>
-            <h4 class="text-end"><strong>Special Education Referral (SE-2)</strong></h4>
+            <h2 class="text-end"><strong class="translate-text">Republic of the Marshall Islands</strong></h2>
+            <h2 class="text-end"><strong class="translate-text">Public School System</strong></h2>
+            <h4 class="text-end"><strong class="translate-text">Special Education Referral (SE-2)</strong></h4>
             <div class="text-end mt-3">
-                <button class="btn btn-primary mt-1 me-2">Print Page</button>
-                <button class="btn btn-primary mt-1">Toggle Language</button>
+                <button class="btn btn-primary mt-1 me-2 translate-text">Print Page</button>
+                <button onclick="toggleTranslation()" class="btn btn-primary mt-1 translate-text">Toggle Language</button>
             </div>
         </div>
     </div>
 
     <div class="mb-2">
-        <p class="justify">
+        <p class="justify translate-text">
             This form is to be completed by the teacher or agency person making this referral and members of the child study team.
             Information from other teachers, other agencies, and the students’ parents may also be needed to complete this form.
         </p>
-        <p class="justify">
-            <b>Instructions for other Service Providers completing this form:</b><br>
+        <p class="justify translate-text">
+            <b class="translate-text">Instructions for other Service Providers completing this form:</b><br>
             SE-2 is to be used as a tool to help the student’s teacher and members of the child study team identify specific concerns
             regarding a student’s progress in school or a pre-school child’s developmental progress. This information and other
             information will assist the child study team in determining whether a referral for an individual special education
@@ -41,85 +41,85 @@
 
     <form id="SE2Form" asp-controller="Se2" asp-action="SaveScreeningInformationForm" method="POST" novalidate>
         <section class="mb-3">
-            <div class="mb-3 text-center p-2 section-header"><strong>Section 1: Child/Student Being Referred</strong></div>
+            <div class="mb-3 text-center p-2 section-header"><strong class="translate-text">Section 1: Child/Student Being Referred</strong></div>
 
             <div class="row mb-2 align-items-center">
-                <b class="col-auto width-15">Full Name:</b>
+                <b class="col-auto width-15 translate-text">Full Name:</b>
                 <div class="col">
-                    <label asp-for="Student.LastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                    <label asp-for="Student.LastName" class="form-label translate-text">Last Name <span class="text-danger">*</span></label>
                     <input asp-for="Student.LastName" type="text" id="lastName" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.FirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <label asp-for="Student.FirstName" class="form-label translate-text">First Name <span class="text-danger">*</span></label>
                     <input asp-for="Student.FirstName" type="text" id="firstName" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.MiddleInitial" class="form-label">Middle Initial</label>
+                    <label asp-for="Student.MiddleInitial" class="form-label translate-text">Middle Initial</label>
                     <input asp-for="Student.MiddleInitial" type="text" id="middleInitial" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2 align-items-center">
-                <b class="col-auto width-15">Address:</b>
+                <b class="col-auto width-15 translate-text">Address:</b>
                 <div class="col">
-                    <label asp-for="Student.Village" class="form-label">Village <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Village" class="form-label translate-text">Village <span class="text-danger">*</span></label>
                     <input asp-for="Student.Village" type="text" id="village" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.Atoll" class="form-label">Atoll <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Atoll" class="form-label translate-text">Atoll <span class="text-danger">*</span></label>
                     <input asp-for="Student.Atoll" type="text" id="atoll" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.PoBoxNo" class="form-label">P.O. Box No. <span class="text-danger">*</span></label>
+                    <label asp-for="Student.PoBoxNo" class="form-label translate-text">P.O. Box No. <span class="text-danger">*</span></label>
                     <input asp-for="Student.PoBoxNo" type="text" id="poBox" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.FatherName" class="form-label">Father's Name <span class="text-danger">*</span></label>
+                    <label asp-for="Student.FatherName" class="form-label translate-text">Father's Name <span class="text-danger">*</span></label>
                     <input asp-for="Student.FatherName" type="text" id="fathersName" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.MotherName" class="form-label">Mother's Name <span class="text-danger">*</span></label>
+                    <label asp-for="Student.MotherName" class="form-label translate-text">Mother's Name <span class="text-danger">*</span></label>
                     <input asp-for="Student.MotherName" type="text" id="mothersName" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.GuardianName" class="form-label">Guardian's Name (if applicable)</label>
+                    <label asp-for="Student.GuardianName" class="form-label translate-text">Guardian's Name (if applicable)</label>
                     <input asp-for="Student.GuardianName" type="text" id="guardiansName" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.Phone" class="form-label">Phone <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Phone" class="form-label translate-text">Phone <span class="text-danger">*</span></label>
                     <input asp-for="Student.Phone" type="text" id="phone" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.Email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Email" class="form-label translate-text">Email <span class="text-danger">*</span></label>
                     <input asp-for="Student.Email" type="email" id="email" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.Sex" class="form-label">Sex <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Sex" class="form-label translate-text">Sex <span class="text-danger">*</span></label>
                     <select asp-for="Student.Sex" id="sex" class="form-select readonly-field" readonly>
-                        <option value="">Select</option>
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        <option value="O">Others</option>
+                        <option value="" class="translate-text">Select</option>
+                        <option value="M" class="translate-text">Male</option>
+                        <option value="F" class="translate-text">Female</option>
+                        <option value="O" class="translate-text">Others</option>
                     </select>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.Age" class="form-label">Age <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Age" class="form-label translate-text">Age <span class="text-danger">*</span></label>
                     <input asp-for="Student.Age" type="text" id="age" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.DOB" class="form-label">Date of Birth <span class="text-danger">*</span></label>
+                    <label asp-for="Student.DOB" class="form-label translate-text">Date of Birth <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input asp-for="Student.DOB" type="date" id="dateOfBirth" class="form-control readonly-field px-3" readonly>
                     </div>
@@ -128,29 +128,29 @@
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.HospitalNo" class="form-label">Hospital No. <span class="text-danger">*</span></label>
+                    <label asp-for="Student.HospitalNo" class="form-label translate-text">Hospital No. <span class="text-danger">*</span></label>
                     <input asp-for="Student.HospitalNo" type="text" id="hospitalNo" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.SSN" class="form-label">Social Security No. <span class="text-danger">*</span></label>
+                    <label asp-for="Student.SSN" class="form-label translate-text">Social Security No. <span class="text-danger">*</span></label>
                     <input asp-for="Student.SSN" type="text" id="ssn" class="form-control readonly-field" readonly>
                 </div>
                 <div class="col">
-                    <label asp-for="Student.Grade" class="form-label">Grade <span class="text-danger">*</span></label>
+                    <label asp-for="Student.Grade" class="form-label translate-text">Grade <span class="text-danger">*</span></label>
                     <input asp-for="Student.Grade" type="text" id="grade" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.PrimaryLanguage" class="form-label">Primary Language of Child/Student <span class="text-danger">*</span></label>
+                    <label asp-for="Student.PrimaryLanguage" class="form-label translate-text">Primary Language of Child/Student <span class="text-danger">*</span></label>
                     <input asp-for="Student.PrimaryLanguage" type="text" id="primaryLanguage" class="form-control readonly-field" readonly>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Student.ParentGuardianPrimaryLanguage" class="form-label">Primary Language of Parent or Guardian <span class="text-danger">*</span></label>
+                    <label asp-for="Student.ParentGuardianPrimaryLanguage" class="form-label translate-text">Primary Language of Parent or Guardian <span class="text-danger">*</span></label>
                     <input asp-for="Student.ParentGuardianPrimaryLanguage" type="text" id="parentLanguage" class="form-control readonly-field" readonly>
                 </div>
             </div>
@@ -160,28 +160,28 @@
         </section>
 
         <section class="mb-3">
-            <div class="mb-3 text-center p-2 section-header"><strong>Section 2: Name of Person Completing this Form</strong></div>
+            <div class="mb-3 text-center p-2 section-header"><strong class="translate-text">Section 2: Name of Person Completing this Form</strong></div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Se2.CompletedByName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                    <label asp-for="Se2.CompletedByName" class="form-label translate-text">Full Name <span class="text-danger">*</span></label>
                     <input asp-for="Se2.CompletedByName" type="text" id="completedByName" class="form-control">
                     <span id="completedByNameError" class="text-danger"></span>
                 </div>
                 <div class="col">
-                    <label asp-for="Se2.CompletedByRelationship" class="form-label">Relationship to child/student or agency/position</label>
+                    <label asp-for="Se2.CompletedByRelationship" class="form-label translate-text">Relationship to child/student or agency/position</label>
                     <input asp-for="Se2.CompletedByRelationship" type="text" id="completedByRelationship" class="form-control">
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Se2.CompletedByPhone" class="form-label">Phone <span class="text-danger">*</span></label>
+                    <label asp-for="Se2.CompletedByPhone" class="form-label translate-text">Phone <span class="text-danger">*</span></label>
                     <input asp-for="Se2.CompletedByPhone" type="text" id="completedByPhone" class="form-control">
                     <span id="completedByPhoneError" class="text-danger"></span>
                 </div>
                 <div class="col">
-                    <label asp-for="Se2.CompletedByEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                    <label asp-for="Se2.CompletedByEmail" class="form-label translate-text">Email <span class="text-danger">*</span></label>
                     <input asp-for="Se2.CompletedByEmail" type="email" id="completedByEmail" class="form-control">
                     <span id="completedByEmailError" class="text-danger"></span>
                 </div>
@@ -189,7 +189,7 @@
 
             <div class="row mb-2">
                 <div class="col">
-                    <label asp-for="Se2.CompletedDate" class="form-label">Date <span class="text-danger">*</span></label>
+                    <label asp-for="Se2.CompletedDate" class="form-label translate-text">Date <span class="text-danger">*</span></label>
                     <div class="input-group">
                         <input asp-for="Se2.CompletedDate" type="date" id="completedDate" class="form-control px-3">
                     </div>
@@ -202,7 +202,7 @@
 
         <section>
             <div class="mb-3 text-center p-2 section-header">
-                <strong>Check the areas of concern. Briefly describe the concerns under section H (comments) below)</strong>
+                <strong class="translate-text">Check the areas of concern. Briefly describe the concerns under section H (comments) below)</strong>
             </div>
 
             <div id="checkBoxError" class="text-danger mb-3"></div>
@@ -212,68 +212,68 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold text-center bg-primary text-white">A. PHYSICAL</td>
+                            <td colspan="2" class="fw-bold text-center bg-primary text-white translate-text">A. PHYSICAL</td>
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1. Child/student has seizures or seizure-like behavior</td>
+                            <td class="translate-text">1. Child/student has seizures or seizure-like behavior</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2. Child/student stares into space for a minute or so and does not respond to questions</td>
+                            <td class="translate-text">2. Child/student stares into space for a minute or so and does not respond to questions</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3. Child/student has a congenital disability</td>
+                            <td class="translate-text">3. Child/student has a congenital disability</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4. Child/student has a physical disability</td>
+                            <td class="translate-text">4. Child/student has a physical disability</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5. Child/student falls or bumps into a lot of things</td>
+                            <td class="translate-text">5. Child/student falls or bumps into a lot of things</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6. Child/student cannot walk</td>
+                            <td class="translate-text">6. Child/student cannot walk</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="7">
                             </td>
-                            <td>7. Child/student has difficulty holding and using a pencil, crayon, or fork/spoon</td>
+                            <td class="translate-text">7. Child/student has difficulty holding and using a pencil, crayon, or fork/spoon</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="8">
                             </td>
-                            <td>8. Child/student seems small for age or underfed</td>
+                            <td class="translate-text">8. Child/student seems small for age or underfed</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="9">
                             </td>
-                            <td>9. Child/student score is below cut-off score for "Gross Motor" or "Fine Motor" sections of the MID [for preschool-age children only]</td>
+                            <td class="translate-text">9. Child/student score is below cut-off score for "Gross Motor" or "Fine Motor" sections of the MID [for preschool-age children only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input physical-checkbox" type="checkbox" value="10">
                             </td>
                             <td>
-                                10. Other (please specify):
+                                <p class="translate-text">  10. Other (please specify): </p>
                                 <input asp-for="Se2.OtherPhysicalConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
                             </td>
                         </tr>
@@ -293,51 +293,51 @@
                             <td class="text-center width-40px">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student gets closer to the blackboard to see what’s on it</td>
+                            <td class="translate-text">1.	Child/student gets closer to the blackboard to see what’s on it</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student often copies incorrectly from the blackboard</td>
+                            <td class="translate-text">2.	Child/student often copies incorrectly from the blackboard</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student holds a book or paper very close to his/her face</td>
+                            <td class="translate-text">3.	Child/student holds a book or paper very close to his/her face</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student holds a book or paper very far from his/her face</td>
+                            <td class="translate-text">4.	Child/student holds a book or paper very far from his/her face</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5.	Child/student’s eyes appear to turn in or out</td>
+                            <td class="translate-text">5.	Child/student’s eyes appear to turn in or out</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6.	Child/student rubs his/her eyes a lot</td>
+                            <td class="translate-text">6.	Child/student rubs his/her eyes a lot</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="7">
                             </td>
-                            <td>7.	Child/student does not appear to see</td>
+                            <td class="translate-text">7.	Child/student does not appear to see</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input vision-checkbox" type="checkbox" value="8">
                             </td>
                             <td>
-                                8. Other (please specify):
-                                <input asp-for="Se2.OtherVisionConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
+                                <p class="translate-text">  8. Other (please specify): </p>
+                                <input asp-for="Se2.OtherVisionConcerns" type="text" class="form-control mt-2 translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="visionValues" class="SE2CheckBoxValues" asp-for="Se2.VisionConcerns">
@@ -356,51 +356,51 @@
                             <td class="text-center width-40px">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student often asks to have instructions repeated</td>
+                            <td class="translate-text">1.	Child/student often asks to have instructions repeated</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student often does not answer when spoken to</td>
+                            <td class="translate-text">2.	Child/student often does not answer when spoken to</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student does not respond to loud noises</td>
+                            <td class="translate-text">3.	Child/student does not respond to loud noises</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student often has a discharge from his/her ear</td>
+                            <td class="translate-text">4.	Child/student often has a discharge from his/her ear</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5.	Child/student holds ear with hand to hear better</td>
+                            <td class="translate-text">5.	Child/student holds ear with hand to hear better</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6.	Child/student often complains of ear aches</td>
+                            <td class="translate-text">6.	Child/student often complains of ear aches</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="7">
                             </td>
-                            <td>7.	Child/student does not appear to hear</td>
+                            <td class="translate-text">7.	Child/student does not appear to hear</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input hearing-checkbox" type="checkbox" value="8">
                             </td>
                             <td>
-                                8. Other (please specify):
-                                <input asp-for="Se2.OtherHearingConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
+                                <p class="translate-text"> 8. Other (please specify): </p>
+                                <input asp-for="Se2.OtherHearingConcerns" type="text" class="form-control mt-2 translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="hearingValues" class="SE2CheckBoxValues" asp-for="Se2.HearingConcerns">
@@ -413,69 +413,69 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold text-center bg-primary text-white">D. LANGUAGE AND SPEECH</td>
+                            <td colspan="2" class="fw-bold text-center bg-primary text-white translate-text">D. LANGUAGE AND SPEECH</td>
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student often does not appear to understand the names of familiar objects</td>
+                            <td class="translate-text">1.	Child/student often does not appear to understand the names of familiar objects</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student often does not follow simple directions given in his/her primary language</td>
+                            <td class="translate-text">2.	Child/student often does not follow simple directions given in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student seems unable to answer simple questions given his/her primary language</td>
+                            <td class="translate-text">3.	Child/student seems unable to answer simple questions given his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student talks much like a younger child</td>
+                            <td class="translate-text">4.	Child/student talks much like a younger child</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5.	Child/student is hard to understand when he/she talks in his/her primary language</td>
+                            <td class="translate-text">5.	Child/student is hard to understand when he/she talks in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6.	Child/student has difficulty saying and imitating or repeating words in his/her primary language</td>
+                            <td class="translate-text">6.	Child/student has difficulty saying and imitating or repeating words in his/her primary language</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="7">
                             </td>
-                            <td>7.	Child/student often uses gestures instead of words to let you know what he/she wants</td>
+                            <td class="translate-text">7.	Child/student often uses gestures instead of words to let you know what he/she wants</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="8">
                             </td>
-                            <td>8.	Child/student does not speak</td>
+                            <td class="translate-text">8.	Child/student does not speak</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="9">
                             </td>
-                            <td>9.	Child/student’s score is below cut off score for “Understanding Language” or “Spoken Language” sections of the MID [pre-school age children only]</td>
+                            <td class="translate-text">9.	Child/student’s score is below cut off score for “Understanding Language” or “Spoken Language” sections of the MID [pre-school age children only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input languageSpeech-checkbox" type="checkbox" value="10">
                             </td>
                             <td>
-                                10. Other (please specify):
-                                <input asp-for="Se2.OtherLanguageSpeechConcerns" type="text" class="form-control mt-2 languageSpeech-checkbox" placeholder="Enter text">
+                                <p class="translate-text"> 10. Other (please specify):</p>
+                                <input asp-for="Se2.OtherLanguageSpeechConcerns" type="text" class="form-control mt-2 languageSpeech-checkbox translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="languageSpeechValues" class="SE2CheckBoxValues" asp-for="Se2.LanguageSpeechConcerns">
@@ -494,57 +494,57 @@
                             <td class="text-center width-40px">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student is much more active than his/her peers</td>
+                            <td class="translate-text">1.	Child/student is much more active than his/her peers</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student is inattentive for his/her age (e.g., short attention span, easily distracted, cannot stay on task)</td>
+                            <td class="translate-text">2.	Child/student is inattentive for his/her age (e.g., short attention span, easily distracted, cannot stay on task)</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student often does not complete task</td>
+                            <td class="translate-text">3.	Child/student often does not complete task</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student does not talk or play with others</td>
+                            <td class="translate-text">4.	Child/student does not talk or play with others</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5.	Child/student usually plays with much younger children</td>
+                            <td class="translate-text">5.	Child/student usually plays with much younger children</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6.	Child/student does not appear to have friends (e.g., teased, rejected, ignored, or abused by peers)</td>
+                            <td class="translate-text">6.	Child/student does not appear to have friends (e.g., teased, rejected, ignored, or abused by peers)</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="7">
                             </td>
-                            <td>7.	Child/student often hits others and/or destroys things</td>
+                            <td class="translate-text">7.	Child/student often hits others and/or destroys things</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="8">
                             </td>
-                            <td>8.	Child/student’s score is below cut off score for “Self-Help and Social” section of MID [pre-school age only]</td>
+                            <td class="translate-text">8.	Child/student’s score is below cut off score for “Self-Help and Social” section of MID [pre-school age only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input behavior-checkbox" type="checkbox" value="9">
                             </td>
                             <td>
-                                9. Other (please specify):
-                                <input asp-for="Se2.OtherBehaviorConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
+                                <p class="translate-text">9. Other (please specify):</p>
+                                <input asp-for="Se2.OtherBehaviorConcerns" type="text" class="form-control mt-2 translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="behaviorValues" class="SE2CheckBoxValues" asp-for="Se2.BehaviorConcerns">
@@ -558,8 +558,8 @@
                     <tbody>
                         <tr>
                             <td colspan="2" class="text-center bg-primary text-white">
-                                <strong>F. ACADEMIC/PRE-ACADEMIC </strong>
-                                <span class="small">
+                                <strong class="translate-text">F. ACADEMIC/PRE-ACADEMIC </strong>
+                                <span class="small translate-text">
                                     (Items 1-5 are for school-age children; item 6 is for pre-school-age children)
                                 </span>
                             </td>
@@ -568,45 +568,45 @@
                             <td class="text-center width-40px">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student has difficulty reading</td>
+                            <td class="translate-text">1.	Child/student has difficulty reading</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student cannot read</td>
+                            <td class="translate-text">2.	Child/student cannot read</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student has difficulty understanding new math concepts</td>
+                            <td class="translate-text">3.	Child/student has difficulty understanding new math concepts</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student appears way behind other students his/her age in understanding math concepts</td>
+                            <td class="translate-text">4.	Child/student appears way behind other students his/her age in understanding math concepts</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="5">
                             </td>
-                            <td>5.	Child/student appears way behind other students his/her age in spelling</td>
+                            <td class="translate-text">5.	Child/student appears way behind other students his/her age in spelling</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="6">
                             </td>
-                            <td>6.	Child/student’s score is below cut off score for “Cognitive and Perception” section of MID [for pre-school age children only]</td>
+                            <td class="translate-text">6.	Child/student’s score is below cut off score for “Cognitive and Perception” section of MID [for pre-school age children only]</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input academic-checkbox" type="checkbox" value="7">
                             </td>
                             <td>
-                                7. Other (please specify):
-                                <input asp-for="Se2.OtherAcademicConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
+                                <p class="translate-text">  7. Other (please specify): </p>
+                                <input asp-for="Se2.OtherAcademicConcerns" type="text" class="form-control mt-2 translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="academicValues" class="SE2CheckBoxValues" asp-for="Se2.AcademicConcerns">
@@ -619,39 +619,39 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold text-center bg-primary text-white">G. OTHER CONCERNS</td>
+                            <td colspan="2" class="fw-bold text-center bg-primary text-white translate-text">G. OTHER CONCERNS</td>
                         </tr>
                         <tr>
                             <td class="text-center width-40px">
                                 <input class="form-check-input other-checkbox" type="checkbox" value="1">
                             </td>
-                            <td>1.	Child/student attendance</td>
+                            <td class="translate-text">1.	Child/student attendance</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input other-checkbox" type="checkbox" value="2">
                             </td>
-                            <td>2.	Child/student appears to have drug-or alcohol related problems</td>
+                            <td class="translate-text">2.	Child/student appears to have drug-or alcohol related problems</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input other-checkbox" type="checkbox" value="3">
                             </td>
-                            <td>3.	Child/student’s family situation is not conducive to or unable to support Child/student’s educational needs</td>
+                            <td class="translate-text">3.	Child/student’s family situation is not conducive to or unable to support Child/student’s educational needs</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input other-checkbox" type="checkbox" value="4">
                             </td>
-                            <td>4.	Child/student comes to school with bruises, cuts, or other injuries that appear to be inflicted by others</td>
+                            <td class="translate-text">4.	Child/student comes to school with bruises, cuts, or other injuries that appear to be inflicted by others</td>
                         </tr>
                         <tr>
                             <td class="text-center">
                                 <input class="form-check-input other-checkbox" type="checkbox" value="5">
                             </td>
                             <td>
-                                5. Other (please specify):
-                                <input asp-for="Se2.OtherOtherConcerns" type="text" class="form-control mt-2" placeholder="Enter text">
+                                <p class="translate-text">  5. Other (please specify): </p>
+                                <input asp-for="Se2.OtherOtherConcerns" type="text" class="form-control mt-2 translate-text" placeholder="Enter text">
                             </td>
                         </tr>
                         <input type="hidden" id="otherValues" class="SE2CheckBoxValues" asp-for="Se2.OtherConcerns">
@@ -664,11 +664,11 @@
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td colspan="2" class="fw-bold text-center bg-primary text-white">H. COMMENTS</td>
+                            <td colspan="2" class="fw-bold text-center bg-primary text-white translate-text">H. COMMENTS</td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <textarea asp-for="Se2.Comments" class="mt-2" placeholder="Enter text"></textarea>
+                                <textarea asp-for="Se2.Comments" class="mt-2 translate-text" placeholder="Enter text"></textarea>
                             </td>
                         </tr>
                     </tbody>
@@ -680,9 +680,10 @@
             <button type="button" class="btn btn-secondary w-50 me-3" onclick="history.back()">
                 <i class="fas fa-arrow-left me-2"></i> Back
             </button>
-            <button type="submit" class="btn btn-primary w-50">Submit</button>
+            <button type="submit" class="btn btn-primary w-50 translate-text">Submit</button>
         </div>
     </form>
 </div>
 
 <script src="~/js/se2Form.js" asp-append-version="true"></script>
+<script src="~/js/translate.js" asp-append-version="true"></script>

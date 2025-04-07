@@ -39,6 +39,7 @@ async function translatePageToMarshallese() {
 }
 const API_KEY = "AIzaSyB8A-M6MZxLUpJ0y7ByAej_ssauYr2uUQU";
 let originalTextMap = new Map(); // Store original text for toggling back to English
+let marshalleseTextMap = new Map();
 let currentLang = "en";
 async function toggleTranslation() {
     currentLang = currentLang === "en" ? "mh" : "en"; // Toggle between Marshallese & English
