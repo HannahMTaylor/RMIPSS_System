@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace RMIPSS_System.Migrations
 {
     /// <inheritdoc />
-    public partial class postgreMigration : Migration
+    public partial class FixDbError : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -303,24 +303,30 @@ namespace RMIPSS_System.Migrations
                     StudentId = table.Column<int>(type: "integer", nullable: false),
                     ReasonsForReferral = table.Column<string>(type: "text", nullable: true),
                     OtherReasonsForReferral = table.Column<string>(type: "text", nullable: true),
+                    MIDScoringSheetId = table.Column<int>(type: "integer", nullable: true),
                     AreasOfConcernAndHelpNeededDescription = table.Column<string>(type: "character varying(560)", maxLength: 560, nullable: true),
                     ReferrerId = table.Column<int>(type: "integer", nullable: false),
-                    ReferralReceived = table.Column<DateOnly>(type: "date", nullable: false),
-                    TeamRecommendation = table.Column<DateOnly>(type: "date", nullable: false),
-                    DispositionNoticeToReferrer = table.Column<DateOnly>(type: "date", nullable: false),
-                    ParentalConsentForEvaluation = table.Column<DateOnly>(type: "date", nullable: false),
-                    EvaluationTeamRecommendation = table.Column<DateOnly>(type: "date", nullable: false),
-                    ParentNoticeForMeeting = table.Column<DateOnly>(type: "date", nullable: false),
-                    ReferredToChildStudyTeam = table.Column<DateOnly>(type: "date", nullable: false),
-                    Disposition = table.Column<string>(type: "text", nullable: true),
-                    DispositionNoticeToParent = table.Column<DateOnly>(type: "date", nullable: false),
-                    ReferralToEvaluationTeam = table.Column<DateOnly>(type: "date", nullable: false),
-                    Recommendation = table.Column<string>(type: "text", nullable: true),
-                    IEPMeeting = table.Column<DateOnly>(type: "date", nullable: false)
+                    ReferralReceived = table.Column<DateOnly>(type: "date", nullable: true),
+                    TeamRecommendation = table.Column<DateOnly>(type: "date", nullable: true),
+                    DispositionNoticeToReferrer = table.Column<DateOnly>(type: "date", nullable: true),
+                    ParentalConsentForEvaluation = table.Column<DateOnly>(type: "date", nullable: true),
+                    EvaluationTeamRecommendation = table.Column<DateOnly>(type: "date", nullable: true),
+                    ParentNoticeForMeeting = table.Column<DateOnly>(type: "date", nullable: true),
+                    ReferredToChildStudyTeam = table.Column<DateOnly>(type: "date", nullable: true),
+                    Disposition = table.Column<DateOnly>(type: "date", nullable: true),
+                    DispositionNoticeToParent = table.Column<DateOnly>(type: "date", nullable: true),
+                    ReferralToEvaluationTeam = table.Column<DateOnly>(type: "date", nullable: true),
+                    Recommendation = table.Column<DateOnly>(type: "date", nullable: true),
+                    IEPMeeting = table.Column<DateOnly>(type: "date", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Referrals", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Referrals_PdfUploads_MIDScoringSheetId",
+                        column: x => x.MIDScoringSheetId,
+                        principalTable: "PdfUploads",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Referrals_ReferrerPeople_ReferrerId",
                         column: x => x.ReferrerId,
@@ -422,6 +428,11 @@ namespace RMIPSS_System.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Referrals_MIDScoringSheetId",
+                table: "Referrals",
+                column: "MIDScoringSheetId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Referrals_ReferrerId",
                 table: "Referrals",
                 column: "ReferrerId");
@@ -467,9 +478,6 @@ namespace RMIPSS_System.Migrations
                 name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "PdfUploads");
-
-            migrationBuilder.DropTable(
                 name: "Referrals");
 
             migrationBuilder.DropTable(
@@ -480,6 +488,9 @@ namespace RMIPSS_System.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "PdfUploads");
 
             migrationBuilder.DropTable(
                 name: "ReferrerPeople");

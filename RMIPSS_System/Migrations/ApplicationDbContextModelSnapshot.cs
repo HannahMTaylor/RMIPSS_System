@@ -512,10 +512,7 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(560)
                         .HasColumnType("character varying(560)");
 
-                    b.Property<string>("Disposition")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("DispositionNoticeToParent")
+                    b.Property<DateOnly?>("Disposition")
                         .HasColumnType("date");
 
                     b.Property<DateOnly?>("DispositionNoticeToParent")
@@ -531,7 +528,7 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("date");
 
                     b.Property<int?>("MIDScoringSheetId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("OtherReasonsForReferral")
                         .HasColumnType("text");
@@ -545,10 +542,7 @@ namespace RMIPSS_System.Migrations
                     b.Property<string>("ReasonsForReferral")
                         .HasColumnType("text");
 
-                    b.Property<string>("Recommendation")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("ReferralReceived")
+                    b.Property<DateOnly?>("Recommendation")
                         .HasColumnType("date");
 
                     b.Property<DateOnly?>("ReferralReceived")
