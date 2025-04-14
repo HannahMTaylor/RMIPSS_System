@@ -63,7 +63,7 @@ public class StudentService(ILogger<StudentService> logger, IStudentRepository s
     {
         try
         {
-            return await studentRepository.GetAsync(student => student != null && student.Id == studentId);
+            return await studentRepository.GetAsync(student => student!.Id == studentId);
         }
         catch (Exception ex) {
             logger.LogError(ex, "Error fetching student.");
@@ -81,7 +81,6 @@ public class StudentService(ILogger<StudentService> logger, IStudentRepository s
                 student.SEProcessSteps = newSeProcessSteps;
                 student.SEProcessCompletedDate = DateOnly.FromDateTime(DateTime.Now);
                 studentRepository.Update(student);
-                await studentRepository.SaveAsync();
             }
         }
         catch (Exception ex)

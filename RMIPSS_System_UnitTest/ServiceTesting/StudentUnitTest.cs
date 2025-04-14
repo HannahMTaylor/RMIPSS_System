@@ -5,7 +5,7 @@ using RMIPSS_System.Services;
 
 namespace RMIPSS_System_UnitTest.ServiceTesting;
 
-public class AStudent
+public class AStudentService
 {
     
     private StudentService _sut; // System Under Test

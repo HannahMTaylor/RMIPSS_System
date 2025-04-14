@@ -13,7 +13,6 @@
     function initializeSection(sectionClass, hiddenFieldId) {
         //testing checkboxes registering
         let checkboxes = document.querySelectorAll("." + sectionClass);
-        alert("Found " + checkboxes.length + " checkboxes with class: " + sectionClass);
 
         // Load saved values from hidden input (from the database)
         let savedValues = document.getElementById(hiddenFieldId).value;
@@ -76,7 +75,7 @@ $(document).ready(function () {
             { id: "disposition", errorId: "dispositionError", message: "Disposition Date Required" },
             { id: "dateDispositionNoticeReferring", errorId: "dispositionNoticeToReferrerError", message: "Disposition Notice Date Required" },
             { id: "dateDispositionNoticeParent", errorId: "dispositionNoticeToParentError", message: "Disposition Notice to Parent Date Required" },
-            { id: "dateParentConsentEvaluation", errorId: "parentConsentForEvalError", message: "Parent Consent Date Required },
+            { id: "dateParentConsentEvaluation", errorId: "parentConsentForEvalError", message: "Parent Consent Date Required" },
             { id: "dateReferralEvaluationTeam", errorId: "referEvalTeamError", message: "Referral to Eval Team Date Required" },
             { id: "dateEvaluationTeamRecommendation", errorId: "evalTeamError", message: "Evaluation Team Date Required" },
             { id: "recommendation", errorId: "recommendationError", message: "Recommendation Date Required" },
@@ -149,7 +148,14 @@ $(document).ready(function () {
         }
 
         if (isValid) {
-            this.submit();
+            if (navigator.onLine) {
+                // Submit directly if online
+                this.submit();
+            } else {
+                // Save form data if offline
+                alert("You're offline. Data will be submitted when back online.");
+                window.location.href = "/";
+            }
         }
     });
 });
