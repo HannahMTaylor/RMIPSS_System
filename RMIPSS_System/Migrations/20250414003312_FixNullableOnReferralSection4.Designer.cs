@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RMIPSS_System.Data;
 
@@ -11,9 +12,11 @@ using RMIPSS_System.Data;
 namespace RMIPSS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250414003312_FixNullableOnReferralSection4")]
+    partial class FixNullableOnReferralSection4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -530,9 +533,6 @@ namespace RMIPSS_System.Migrations
                     b.Property<DateOnly?>("IEPMeeting")
                         .HasColumnType("date");
 
-                    b.Property<int?>("MIDScoringSheetId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OtherReasonsForReferral")
                         .HasColumnType("nvarchar(max)");
 
@@ -567,8 +567,6 @@ namespace RMIPSS_System.Migrations
                         .HasColumnType("date");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("MIDScoringSheetId");
 
                     b.HasIndex("ReferrerId");
 
@@ -749,10 +747,6 @@ namespace RMIPSS_System.Migrations
 
             modelBuilder.Entity("RMIPSS_System.Models.ProcessSteps.Referral", b =>
                 {
-                    b.HasOne("RMIPSS_System.Models.Entities.PdfUpload", "MIDScoringSheet")
-                        .WithMany()
-                        .HasForeignKey("MIDScoringSheetId");
-
                     b.HasOne("RMIPSS_System.Models.Entities.ReferrerPerson", "Referrer")
                         .WithMany()
                         .HasForeignKey("ReferrerId")
@@ -764,8 +758,6 @@ namespace RMIPSS_System.Migrations
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("MIDScoringSheet");
 
                     b.Navigation("Referrer");
 

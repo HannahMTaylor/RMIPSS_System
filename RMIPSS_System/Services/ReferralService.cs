@@ -12,6 +12,7 @@ public class ReferralService
     private readonly ILogger<ReferralService> _logger;
     private readonly IStudentRepository _studentRepo;
     private readonly IApplicationUserRepository _appUserRepo;
+    private readonly IReferralRepository _referralRepo;
 
     //constructor
     public ReferralService(ILogger<ReferralService> logger, IStudentRepository studentRepo, IApplicationUserRepository appUserRepo)
@@ -28,7 +29,7 @@ public class ReferralService
     /// <returns></returns>
     public async Task<ApplicationUser> GetLoggedInUser(string? name)
     {
-        ApplicationUser appUser = await _appUserRepo.GetAsync(user =>
+        ApplicationUser? appUser = await _appUserRepo.GetAsync(user =>
             user.UserName.ToLower() == name
         );
         return appUser;
@@ -43,7 +44,9 @@ public class ReferralService
     /// <exception cref="NotImplementedException"></exception>
     public async Task<Student> GetStudentById(int studentId)
     {
-        throw new NotImplementedException();
+        Student? lookupStudent = await _studentRepo.GetByStudentIdAsync(studentId);
+        return lookupStudent;
+
     }
     
     /// <summary>
@@ -55,6 +58,7 @@ public class ReferralService
     public async Task<Referral> GetReferralDataByStudentId(int studentId)
     {
         //get Referral id/data for view existing referrrals (if null - create new Referral? or redirect to home page so they can create one)
-        throw new NotImplementedException();
+        Referral lookupReferral = await _referralRepo.GetReferralByStudentId(studentId);
+        return lookupReferral;
     }
 }

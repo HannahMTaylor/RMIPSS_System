@@ -1,5 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    /*alert("entered event listener for DOMContentLoaded")*/
+    alert("entered event listener for DOMContentLoaded")
     function updateSelectedValues(sectionClass, hiddenFieldId) {
         let selectedValues = [];
         /*alert("hello") */
