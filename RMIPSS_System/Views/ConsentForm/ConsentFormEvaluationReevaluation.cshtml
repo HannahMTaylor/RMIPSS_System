@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <form method="post" asp-action="Create">
+    <form id="ConsentForm" method="post" asp-action="Create">
         <input type="hidden" asp-for="ConsentId" />
         <input type="hidden" asp-for="StudentId" />
         
@@ -134,4 +134,5 @@
 @section Scripts {
     <script src="~/js/translate.js"></script>
     <script src="~/js/processSteps.js"></script>
+    <script src="~/js/consentForm.js"></script>
 }
