@@ -74,8 +74,8 @@ function formDataToObject(formData) {
 
 const formSyncRoutes = {
     ReferralForm: "/Referral/SaveReferralForm",
-    se2Form: "/SE2/SaveSE2Form",
-    consentForm: "/Consent/SaveConsentForm"
+    SE2Form: "/Se2/SaveScreeningInformationForm",
+    consentForm: "/ConsentForm/Create"
 };
 
 // Submit form automatically when online
