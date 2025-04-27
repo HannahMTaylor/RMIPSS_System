@@ -12,4 +12,6 @@ public interface IConsentFormRepository : IRepository<ConsentForm>
     Task<ConsentForm?> GetConsentFormByStudentId(int id);
     
     Task<ConsentForm?> UpdateConsentFormAsync(ConsentForm? consentForm);
+    
+    Task<int> GetVersionByConsentFormId(int id);
 }

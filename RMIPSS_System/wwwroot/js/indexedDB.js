@@ -124,11 +124,15 @@ async function syncItems(items, db) {
                 const delTx = db.transaction(stores.submitted, "readwrite");
                 delTx.objectStore(stores.submitted).delete(formId);
                 console.log(`Synced and deleted ${formId}`);
+            } else if (response.status === 409) {
+                alert("Conflict: Someone else has updated this form. Please refresh and try again.");
             } else {
                 console.error(`Failed to sync ${formId}: ${response.status}`);
+                alert("Error: Undefined Error During Saving Data");
             }
         } catch (err) {
             console.error(`Network error syncing ${formId}`, err);
+            alert("Network error occurred during data save. Please try again.");
         }
     }
 }
