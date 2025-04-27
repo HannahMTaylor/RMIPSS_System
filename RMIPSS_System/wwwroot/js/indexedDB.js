@@ -80,25 +80,63 @@ document.addEventListener("input", async function (event) {
 
 // Submit form automatically when online
 window.addEventListener("online", async () => {
-    let formId = document.querySelector("form").id;
-    let offlineData = await getFormData(formId);
+    const visibleForm = Array.from(document.querySelectorAll('form'))
+        .find(form => form.id !== '');
 
+    const formId = visibleForm?.id;
+    let offlineData = await getFormData(formId);
+    let StudentId;
+    
     if (offlineData) {
         const formData = new URLSearchParams();
+        console.log(formData);
         for (const key in offlineData) {
-            formData.append(key, offlineData[key]);
-        }
-
-        fetch("/Referral/SaveReferralForm", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: formData.toString()
-        }).then(response => {
-            if (response.ok) {
-                clearFormData(formId);
+            if (key === "StudentId") {
+                StudentId = offlineData[key];
             }
-        });
+            formData.append(key, offlineData[key]);
+
+        }
+        console.log(formData);
+        if (formId === "ReferralForm") {
+            fetch("/Referral/SaveReferralForm", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData.toString()
+            }).then(response => {
+                if (response.ok) {
+                    clearFormData(formId);
+                }
+            });
+        }
+        if (formId === "ConsentForm") {
+            fetch("/ConsentForm/Create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: formData.toString()
+            }).then(async response => {
+                console.log(response.text);
+                if (response.ok) {
+                    clearFormData(formId);
+                    alert("Form submitted successfully!");
+                    window.location.href = "/Student/StudentViewDetails/" + StudentId;
+                } else if (response.status === 409) {
+                    // Conflict detected (version mismatch)
+                    alert("Conflict: Someone else has updated this form. Please refresh and try again.");
+                }
+                else {
+                    alert("Error: Undefined Error");
+                }
+            })
+                .catch(error => {
+                    console.error("Network or unexpected error:", error);
+                    alert("Network error occurred. Please try again.");
+                });
+        }
     }
+       
 });

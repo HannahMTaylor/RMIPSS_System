@@ -27,10 +27,10 @@
         </div>
     </div>
 
-    <form method="post" asp-action="Create">
+    <form id="ConsentForm" method="post" asp-action="Create">
         <input type="hidden" asp-for="ConsentId" />
         <input type="hidden" asp-for="StudentId" />
-        
+        <input type="hidden" asp-for="Version" />
        
         <div class="form-group">
             <label for="dateInput" class="fw-bold translate-text">Personally Delivered</label>
@@ -134,3 +134,20 @@
 @section Scripts {
     <script src="~/js/translate.js" asp-append-version="true"></script>
 }
+
+<script>
+    $(document).ready(function () {
+        $("#ConsentForm").submit(function (event) {
+            event.preventDefault();
+            if (navigator.onLine) {
+                // Submit directly if online
+                this.submit();
+            } else {
+                // Save form data if offline
+                alert("You're offline. Data will be submitted when back online.");
+              //  window.location.href = "/";
+            }
+        });
+    });
+        
+</script>
