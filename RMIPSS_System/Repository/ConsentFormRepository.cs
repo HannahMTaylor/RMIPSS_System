@@ -1,4 +1,5 @@
-﻿using RMIPSS_System.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RMIPSS_System.Data;
 using RMIPSS_System.Models.ProcessSteps;
 using RMIPSS_System.Repository.IRepository;
 
@@ -31,11 +32,42 @@ public class ConsentFormRepository(ApplicationDbContext db) : Repository<Consent
         return consentForm;
 
     }
-
+    
     public async Task<ConsentForm?> UpdateConsentFormAsync(ConsentForm? consentForm)
     { 
         _db.ConsentForms.Update(consentForm);
-       await _db.SaveChangesAsync();
-        return  consentForm;
+        _db.SaveChanges();
+        return consentForm;
     }
+
+    public async Task<int> GetVersionByConsentFormId(int id)
+    {
+        ConsentForm? consentForm = await GetAsync(c =>
+            c != null && c.Student != null && c.Student.Id == id
+        );
+        return consentForm.Version;
+    }
+
+    // public async Task<ConsentForm?> UpdateConsentFormAsync(ConsentForm? consentForm, int oldVersion)
+    // { 
+    //     Console.WriteLine(oldVersion);
+    //     _db.Attach(consentForm);
+    //     _db.Entry(consentForm).Property("Version").OriginalValue =oldVersion;
+    //     // Increment the version manually
+    //     consentForm.Version++;
+    //     Console.WriteLine(consentForm.Version);
+    //     // Optionally mark other properties as modified
+    //     _db.Entry(consentForm).State = EntityState.Modified;
+    //     
+    //     try
+    //     {
+    //         await _db.SaveChangesAsync();
+    //         return consentForm;
+    //     }
+    //     catch (DbUpdateConcurrencyException ex)
+    //     {
+    //         // THIS will be triggered if version doesn't match
+    //         throw new DbUpdateConcurrencyException("Conflict detected while updating form.", ex);
+    //     }
+    // }
 }

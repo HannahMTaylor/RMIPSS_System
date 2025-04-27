@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.EntityFrameworkCore;
 using RMIPSS_System.Data;
 using RMIPSS_System.Models.Entities;
 using RMIPSS_System.Models.Enums;
@@ -28,16 +30,31 @@ namespace RMIPSS_System.Controllers
         [HttpPost]
         public async Task<IActionResult>  Create(ConsentFormViewModel obj)
         {
-            await consentFormService.CreateConsentForm(obj);
-            if (obj.ConsentId == 0)
+            try
             {
-                TempData["success"] = "Consent Form Created Successfully!";
+                int versionId =  await consentFormRepository.GetVersionByConsentFormId(obj.ConsentId);
+                Console.WriteLine("old"+versionId);
+                Console.WriteLine("new"+obj.Version);
+                
+                if (versionId != obj.Version)
+                {
+                    return Conflict(new { message = "Someone else has updated this form. Please refresh and try again." });
+                }
+                else
+                {
+                    await consentFormService.CreateConsentForm(obj);
+
+                    TempData["success"] = obj.ConsentId == 0
+                        ? "Consent Form Created Successfully!"
+                        : "Consent Form Updated Successfully!";
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                TempData["success"] = "Consent Form Updated Successfully!";
+                TempData["error"] = "An unexpected error occurred.";
             }
-           
+
             return RedirectToAction("StudentViewDetails", "Student", new { id = obj.StudentId});
  
         }
@@ -64,7 +81,8 @@ namespace RMIPSS_System.Controllers
                         Evaluation = consentForm.Evaluation,
                         StudentId = consentForm.StudentId,
                         Status = consentForm.Status,
-                        SubmittedDate = consentForm.SubmittedDate
+                        SubmittedDate = consentForm.SubmittedDate,
+                        Version = consentForm.Version,
                     };
                     return View(consentFormView);
                 }

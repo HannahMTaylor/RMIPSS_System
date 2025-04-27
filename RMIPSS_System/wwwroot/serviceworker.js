@@ -4,7 +4,9 @@ const urlsToCache = [
     "/css/site.css",
     "/js/site.js",
     "/offline.html",
-    "/Referral/CreateReferralForm"
+    "/Referral/CreateReferralForm",
+    "/ConsentForm/Create",
+    "/ConsentForm/ConsentFormEvaluationReevaluation"
 ];
 
 // Install service worker and cache files
