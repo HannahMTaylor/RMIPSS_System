@@ -56,7 +56,7 @@ public class PdfUploadRepository : IPdfUploadRepository
 
         PdfUpload pdfEntity = new()
         {
-            Id = 0,
+            //Id = 0,
             Name = name,
             Data = ms.ToArray(),
             ContentType = uploadedPdf.ContentType
@@ -72,11 +72,11 @@ public class PdfUploadRepository : IPdfUploadRepository
     {
         MemoryStream ms = new();
         await uploadedPdf.OpenReadStream().CopyToAsync(ms);
-        name ??= uploadedPdf.Name;
+        name ??= uploadedPdf.FileName;
 
         PdfUpload pdfEntity = new()
         {
-            Id = 0,
+            //Id = 0,
             Name = name,
             Data = ms.ToArray(),
             ContentType = uploadedPdf.ContentType

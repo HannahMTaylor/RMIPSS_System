@@ -12,8 +12,8 @@ using RMIPSS_System.Data;
 namespace RMIPSS_System.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250323174928_postgreMigration")]
-    partial class postgreMigration
+    [Migration("20250414225605_FixDbError")]
+    partial class FixDbError
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -515,43 +515,46 @@ namespace RMIPSS_System.Migrations
                         .HasMaxLength(560)
                         .HasColumnType("character varying(560)");
 
-                    b.Property<string>("Disposition")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("DispositionNoticeToParent")
+                    b.Property<DateOnly?>("Disposition")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("DispositionNoticeToReferrer")
+                    b.Property<DateOnly?>("DispositionNoticeToParent")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("EvaluationTeamRecommendation")
+                    b.Property<DateOnly?>("DispositionNoticeToReferrer")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("IEPMeeting")
+                    b.Property<DateOnly?>("EvaluationTeamRecommendation")
                         .HasColumnType("date");
+
+                    b.Property<DateOnly?>("IEPMeeting")
+                        .HasColumnType("date");
+
+                    b.Property<int?>("MIDScoringSheetId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("OtherReasonsForReferral")
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("ParentNoticeForMeeting")
+                    b.Property<DateOnly?>("ParentNoticeForMeeting")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("ParentalConsentForEvaluation")
+                    b.Property<DateOnly?>("ParentalConsentForEvaluation")
                         .HasColumnType("date");
 
                     b.Property<string>("ReasonsForReferral")
                         .HasColumnType("text");
 
-                    b.Property<string>("Recommendation")
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("ReferralReceived")
+                    b.Property<DateOnly?>("Recommendation")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("ReferralToEvaluationTeam")
+                    b.Property<DateOnly?>("ReferralReceived")
                         .HasColumnType("date");
 
-                    b.Property<DateOnly>("ReferredToChildStudyTeam")
+                    b.Property<DateOnly?>("ReferralToEvaluationTeam")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly?>("ReferredToChildStudyTeam")
                         .HasColumnType("date");
 
                     b.Property<int>("ReferrerId")
@@ -560,10 +563,12 @@ namespace RMIPSS_System.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("TeamRecommendation")
+                    b.Property<DateOnly?>("TeamRecommendation")
                         .HasColumnType("date");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("MIDScoringSheetId");
 
                     b.HasIndex("ReferrerId");
 
@@ -744,6 +749,10 @@ namespace RMIPSS_System.Migrations
 
             modelBuilder.Entity("RMIPSS_System.Models.ProcessSteps.Referral", b =>
                 {
+                    b.HasOne("RMIPSS_System.Models.Entities.PdfUpload", "MIDScoringSheet")
+                        .WithMany()
+                        .HasForeignKey("MIDScoringSheetId");
+
                     b.HasOne("RMIPSS_System.Models.Entities.ReferrerPerson", "Referrer")
                         .WithMany()
                         .HasForeignKey("ReferrerId")
@@ -755,6 +764,8 @@ namespace RMIPSS_System.Migrations
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("MIDScoringSheet");
 
                     b.Navigation("Referrer");
 

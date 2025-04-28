@@ -8,6 +8,7 @@
         });
 
         document.getElementById(hiddenFieldId).value = selectedValues.join(",");
+        console.log(document.getElementById(hiddenFieldId).value)
     }
 
     function initializeSection(sectionClass, hiddenFieldId) {
@@ -68,22 +69,24 @@ $(document).ready(function () {
             { id: "referralName", errorId: "referrerPersonNameError", message: "Referrer Name Required" },
             { id: "phone", errorId: "referrerPersonPhoneError", message: "Referrer Phone Number Required" },
             { id: "referrerPersonEmail", errorId: "referrerPersonEmailError", message: "Referrer Email Required" },
-            { id: "referralDate", errorId: "referrerPersonDateFilledError", message: "Referral Filled Date Required" },
-            { id: "dateReferralReceived", errorId: "dateReceivedError", message: "Date Received Required" }, //school only here down
-            { id: "dateChildStudyTeam", errorId: "toChildStudyError", message: "Child Study Team Date Required" },
-            { id: "dateTeamRecommendation", errorId: "teamRecommendataionError", message: "Recommendation Date Required" },
-            { id: "disposition", errorId: "dispositionError", message: "Disposition Date Required" },
-            { id: "dateDispositionNoticeReferring", errorId: "dispositionNoticeToReferrerError", message: "Disposition Notice Date Required" },
-            { id: "dateDispositionNoticeParent", errorId: "dispositionNoticeToParentError", message: "Disposition Notice to Parent Date Required" },
-            { id: "dateParentConsentEvaluation", errorId: "parentConsentForEvalError", message: "Parent Consent Date Required" },
-            { id: "dateReferralEvaluationTeam", errorId: "referEvalTeamError", message: "Referral to Eval Team Date Required" },
-            { id: "dateEvaluationTeamRecommendation", errorId: "evalTeamError", message: "Evaluation Team Date Required" },
-            { id: "recommendation", errorId: "recommendationError", message: "Recommendation Date Required" },
-            { id: "dateParentNoticeMeeting", errorId: "parentNoticeError", message: "Parent Notice of Meeting Date Required" },
-            { id: "dateIEPMeeting", errorId: "iepMeetingError", message: "IEP Meeting Date Required" },
+            { id: "referralDate", errorId: "referrerPersonDateFilledError", message: "Referral Filled Date Required" }
+            //{ id: "dateReferralReceived", errorId: "dateReceivedError", message: "Date Received Required" }, //school only here down
+            //{ id: "dateChildStudyTeam", errorId: "toChildStudyError", message: "Child Study Team Date Required" },
+            //{ id: "dateTeamRecommendation", errorId: "teamRecommendataionError", message: "Recommendation Date Required" },
+            //{ id: "disposition", errorId: "dispositionError", message: "Disposition Date Required" },
+            //{ id: "dateDispositionNoticeReferring", errorId: "dispositionNoticeToReferrerError", message: "Disposition Notice Date Required" },
+            //{ id: "dateDispositionNoticeParent", errorId: "dispositionNoticeToParentError", message: "Disposition Notice to Parent Date Required" },
+            //{ id: "dateParentConsentEvaluation", errorId: "parentConsentForEvalError", message: "Parent Consent Date Required" },
+            //{ id: "dateReferralEvaluationTeam", errorId: "referEvalTeamError", message: "Referral to Eval Team Date Required" },
+            //{ id: "dateEvaluationTeamRecommendation", errorId: "evalTeamError", message: "Evaluation Team Date Required" },
+            //{ id: "recommendation", errorId: "recommendationError", message: "Recommendation Date Required" },
+            //{ id: "dateParentNoticeMeeting", errorId: "parentNoticeError", message: "Parent Notice of Meeting Date Required" },
+            //{ id: "dateIEPMeeting", errorId: "iepMeetingError", message: "IEP Meeting Date Required" },
         ];
 
         fields.forEach(field => {
+            console.log($("#" + field.id).val())
+            console.log(field.id)
             let value = $("#" + field.id).val().trim();
             if (value === "") {
                 $("#" + field.errorId).text(field.message);

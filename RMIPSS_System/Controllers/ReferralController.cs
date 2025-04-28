@@ -22,14 +22,16 @@ public class ReferralController : Controller
     private readonly ReferralService _referralService;
     private readonly IStudentRepository _studentRepository;
     private readonly IReferrerPersonRepository _referrerPersonRepo;
+    private readonly IPdfUploadRepository _pdfUploadRepo;
 
-    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService, IStudentRepository studentRepository, IReferrerPersonRepository referrerPersonRepo)
+    public ReferralController(ILogger<ReferralController> logger, IReferralRepository referralRepo, ReferralService referralService, IStudentRepository studentRepository, IReferrerPersonRepository referrerPersonRepo, IPdfUploadRepository pdfUploadRepository)
     {
         _logger = logger;
         _referralRepo = referralRepo;
         _referralService = referralService;
         _studentRepository = studentRepository;
         _referrerPersonRepo = referrerPersonRepo;
+        _pdfUploadRepo = pdfUploadRepository;
     }
 
 
@@ -100,6 +102,13 @@ public class ReferralController : Controller
             //then map Ids to Referral and save Referral
             //Referral refer = await _referralService.ConvertViewModel(referralVM);
 
+            //save PDF upload
+            if (referralVM.UploadedFile != null)
+            {
+                PdfUpload pdfEnt = await _pdfUploadRepo.UploadAsync(referralVM.UploadedFile);
+                referralVM.Referral.MIDScoringSheet = pdfEnt;
+            }
+
             //then update database
             referralVM.Referral.Student = referralVM.Student;
             referralVM.Referral.Referrer = referralVM.Person;
@@ -116,6 +125,7 @@ public class ReferralController : Controller
     }
 
     //load/read existing referralVM -- needs logged in user permissions
+    //this is not being used yet
     [Authorize(Roles = Constants.ROLE_STATE_AND_SCHOOL_USER)]
     public async Task<IActionResult> ViewExistingReferralByStudentId([Bind(Prefix = "id")] int studentId)
     {
@@ -149,12 +159,12 @@ public class ReferralController : Controller
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Error loading Referral for student with id: {studentId}");
+            _logger.LogError(ex, $"Error loading Referral");
             return RedirectToAction("Error", "Home");
         }
     }
 
-    //update existing referralVM -- needs logged in user permissions
+    //update existing referralVM -- needs logged in user permissions (do we even need these functions?
 
     //delete existing referralVM -- needs logged in user permissions
 }
