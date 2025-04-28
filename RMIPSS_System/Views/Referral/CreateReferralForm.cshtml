@@ -215,7 +215,7 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <input type="checkbox" class="form-check-input small-check-box reasons-checkbox">  Pre-school age child’s total score on the Micronesia Inventory of Development (MID)
+                            <input type="checkbox" class="form-check-input small-check-box reasons-checkbox" value="MID">  Pre-school age child’s total score on the Micronesia Inventory of Development (MID)
                             is in referral range (attach copy of child’s capital MID Scoring Sheet)
                         </td>
                     </tr>
@@ -287,7 +287,8 @@
                     <div class="col">
                         <label asp-for="Referral.ReferralReceived" class="form-label">Date Referral Received</label>
                         <div class="input-group">
-                            <input asp-for="Referral.ReferralReceived" type="date" id="dateReferralReceived" class="form-control px-3" >
+                            <input asp-for="Referral.ReferralReceived" type="date" id="dateReferralReceived" class="form-control px-3" value="@(Model.Referral.ReferralReceived.HasValue ? Model.Referral.ReferralReceived.Value.ToString("yyyy-MM-dd") : "")"
+                                   placeholder="mm/dd/yyyy">
                             <span id="dateReceivedError" class="text-danger"></span>
                         </div>
                     </div>
