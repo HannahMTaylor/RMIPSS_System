@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using RMIPSS_System.Models.Enums;
 
 namespace RMIPSS_System.Models.ViewModel;
@@ -15,4 +16,5 @@ public class ConsentFormViewModel
     public DateOnly EnteredDate { get; set; }
     public bool? Evaluation { get; set; }
     public int ConsentOption { get; set; } 
+    public int Version { get; set; }
 }

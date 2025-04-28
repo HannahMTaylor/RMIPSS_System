@@ -29,4 +29,11 @@ public class ConsentForm
     public Boolean Status { get; set; }
 
     public DateOnly SubmittedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    
+    [ConcurrencyCheck]
+    public int Version
+    {
+        get;
+        set;
+    } = 1;
 }
