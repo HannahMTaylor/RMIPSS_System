@@ -132,22 +132,7 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/translate.js" asp-append-version="true"></script>
+    <script src="~/js/translate.js"></script>
+    <script src="~/js/processSteps.js"></script>
+    <script src="~/js/consentForm.js"></script>
 }
-
-<script>
-    $(document).ready(function () {
-        $("#ConsentForm").submit(function (event) {
-            event.preventDefault();
-            if (navigator.onLine) {
-                // Submit directly if online
-                this.submit();
-            } else {
-                // Save form data if offline
-                alert("You're offline. Data will be submitted when back online.");
-              //  window.location.href = "/";
-            }
-        });
-    });
-        
-</script>

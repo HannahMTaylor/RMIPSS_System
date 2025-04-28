@@ -39,7 +39,7 @@
 });
 
 $(document).ready(function () {
-    $("#SE2Form").submit(function (event) {
+    $("#SE2Form").submit(async function (event) {
         event.preventDefault();
         let isValid = true;
         let firstInvalidField = null;
@@ -105,7 +105,16 @@ $(document).ready(function () {
         }
 
         if (isValid) {
-            this.submit();
+            if (await isActuallyOnline()) {
+                // Submit directly if online
+                this.submit();
+            } else {
+                // Save form data if offline
+                const formId = this.id;
+                await moveToSubmitted(formId); // moves from unsubmitted to submitted
+                alert("You're offline. Data will be submitted when back online.");
+                window.location.href = "/";
+            }
         }
     });
 });

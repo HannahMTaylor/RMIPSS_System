@@ -41,7 +41,7 @@
 });
 
 $(document).ready(function () {
-    $("#ReferralForm").submit(function (event) {
+    $("#ReferralForm").submit(async function (event) {
         event.preventDefault();
         let isValid = true;
         let firstInvalidField = null;
@@ -148,11 +148,13 @@ $(document).ready(function () {
         }
 
         if (isValid) {
-            if (navigator.onLine) {
+            if (await isActuallyOnline()) {
                 // Submit directly if online
                 this.submit();
             } else {
                 // Save form data if offline
+                const formId = this.id;
+                await moveToSubmitted(formId); // moves from unsubmitted to submitted
                 alert("You're offline. Data will be submitted when back online.");
                 window.location.href = "/";
             }
