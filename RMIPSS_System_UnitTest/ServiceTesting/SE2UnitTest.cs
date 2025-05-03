@@ -34,7 +34,7 @@ public class Ase2UnitTest
         // Revert the changes
         Repositories._studentRepository.Remove(student);
         Repositories._studentRepository.Save();
-        result = sut.GetStudent(student.Id).Result;
+        result = await sut.GetStudent(student.Id);
         Assert.That(result, Is.Null);
     }
     
@@ -57,7 +57,7 @@ public class Ase2UnitTest
             Repositories._appUserRepo);
         
         // Act
-        ApplicationUser? result = sut.GetLoggedInUser(appUser.UserName).Result;
+        ApplicationUser? result = await sut.GetLoggedInUser(appUser.UserName);
         
         // Assert
         Assert.That(result, Is.EqualTo(appUser));
@@ -65,7 +65,7 @@ public class Ase2UnitTest
         // Revert the changes
         await Repositories._appUserRepo.Remove(appUser);
         await Repositories._appUserRepo.Save();
-        result = sut.GetLoggedInUser(appUser.UserName).Result;
+        result = await sut.GetLoggedInUser(appUser.UserName);
         Assert.That(result, Is.Null);
     }
 
@@ -98,7 +98,7 @@ public class Ase2UnitTest
         
         // Act
         sut.SaveFormData(se2);
-        SE2? result = sut.GetSe2Data(student.Id).Result;
+        SE2? result = await sut.GetSe2Data(student.Id);
         
         // Assert
         Assert.That(result, Is.EqualTo(se2));
@@ -111,7 +111,7 @@ public class Ase2UnitTest
          */
         Repositories._studentRepository.Remove(savedStudent);
         Repositories._studentRepository.Save();
-        Student? deletedStudent = sut.GetStudent(student.Id).Result;
+        Student? deletedStudent =await sut.GetStudent(student.Id);
         Assert.That(deletedStudent, Is.Null);
     }
     
@@ -142,12 +142,12 @@ public class Ase2UnitTest
             Repositories._studentRepository,
             Repositories._appUserRepo);
         
-        sut.SaveFormData(se2);
+       await sut.SaveFormData(se2);
         
         se2.CompletedByName = "James";
         
         // Act
-        sut.UpdateFormData(se2);
+        await sut.UpdateFormData(se2);
         SE2? result = await sut.GetSe2Data(student.Id);
         
         // Assert
@@ -161,7 +161,7 @@ public class Ase2UnitTest
          */
         await Repositories._studentRepository.Remove(savedStudent);
         await  Repositories._studentRepository.Save();
-        Student? deletedStudent = sut.GetStudent(student.Id).Result;
+        Student? deletedStudent =await sut.GetStudent(student.Id);
         Assert.That(deletedStudent, Is.Null);
     }
 }
