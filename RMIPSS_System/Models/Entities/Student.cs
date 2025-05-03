@@ -27,7 +27,8 @@ public class Student
     public string Phone { get; set; } = String.Empty;
     [MaxLength(255)]
     public string Email { get; set; } = String.Empty;
-    public char Sex { get; set; }
+
+    public char Sex { get; set; } = 'M';
     public int Age { get; set; }
     public DateOnly DOB { get; set; }
     [MaxLength(20)]

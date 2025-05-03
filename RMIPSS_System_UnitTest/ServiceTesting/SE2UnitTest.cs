@@ -8,7 +8,7 @@ namespace RMIPSS_System_UnitTest.ServiceTesting;
 public class Ase2UnitTest
 {
     [Test]
-    public void ShouldGetStudent()
+    public async Task ShouldGetStudent()
     {
         // Arrange
         Student? student = new Student()
@@ -18,7 +18,7 @@ public class Ase2UnitTest
             Email = "doe@gmail.com",
         };
 
-        Student savedStudent = Repositories._studentRepository.Save(student);
+        Student savedStudent = await Repositories._studentRepository.Save(student);
 
         Se2Service sut = new Se2Service(Loggers._se2Logger,
                                         Repositories._se2Repository,
@@ -39,7 +39,7 @@ public class Ase2UnitTest
     }
     
     [Test]
-    public void ShouldGetLoggedInUser()
+    public async Task ShouldGetLoggedInUser()
     {
         // Arrange
         ApplicationUser? appUser = new ApplicationUser()
@@ -49,7 +49,7 @@ public class Ase2UnitTest
             UserName = "johndoe123456@gmail.com",
         };
 
-        ApplicationUser savedAppUser = Repositories._appUserRepo.Save(appUser);
+        ApplicationUser savedAppUser = await Repositories._appUserRepo.Save(appUser);
 
         Se2Service sut = new Se2Service(Loggers._se2Logger,
             Repositories._se2Repository,
@@ -63,14 +63,14 @@ public class Ase2UnitTest
         Assert.That(result, Is.EqualTo(appUser));
         
         // Revert the changes
-        Repositories._appUserRepo.Remove(appUser);
-        Repositories._appUserRepo.Save();
+        await Repositories._appUserRepo.Remove(appUser);
+        await Repositories._appUserRepo.Save();
         result = sut.GetLoggedInUser(appUser.UserName).Result;
         Assert.That(result, Is.Null);
     }
 
     [Test]
-    public void ShouldSaveFormDataAndGetSE2Data()
+    public async Task ShouldSaveFormDataAndGetSE2Data()
     {
         // Arrange
         Student student = new Student()
@@ -80,7 +80,7 @@ public class Ase2UnitTest
             Email = "doe@gmail.com",
         };
 
-        Student? savedStudent = Repositories._studentRepository.Save(student);
+        Student? savedStudent = await Repositories._studentRepository.Save(student);
 
         SE2? se2 = new()
         {
@@ -116,7 +116,7 @@ public class Ase2UnitTest
     }
     
     [Test]
-    public void ShouldUpdateFormData()
+    public async Task ShouldUpdateFormData()
     {
         // Arrange
         Student student = new Student()
@@ -126,7 +126,7 @@ public class Ase2UnitTest
             Email = "doe@gmail.com",
         };
 
-        Student? savedStudent = Repositories._studentRepository.Save(student);
+        Student? savedStudent = await Repositories._studentRepository.Save(student);
 
         SE2? se2 = new()
         {
@@ -148,7 +148,7 @@ public class Ase2UnitTest
         
         // Act
         sut.UpdateFormData(se2);
-        SE2? result = sut.GetSe2Data(student.Id).Result;
+        SE2? result = await sut.GetSe2Data(student.Id);
         
         // Assert
         Assert.That(result.CompletedByName, Is.EqualTo("James"));
@@ -159,8 +159,8 @@ public class Ase2UnitTest
          * Automatically deletes the associated SE2 form when a Student is deleted due to
          * configured cascading delete behavior.
          */
-        Repositories._studentRepository.Remove(savedStudent);
-        Repositories._studentRepository.Save();
+        await Repositories._studentRepository.Remove(savedStudent);
+        await  Repositories._studentRepository.Save();
         Student? deletedStudent = sut.GetStudent(student.Id).Result;
         Assert.That(deletedStudent, Is.Null);
     }

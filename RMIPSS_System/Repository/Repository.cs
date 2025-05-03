@@ -37,7 +37,7 @@ public class Repository<T> : IRepository<T> where T : class
         return query.ToList();
     }
 
-    public void Remove(T? entity)
+    public async Task Remove(T? entity)
     {
         if (entity != null) _dbSet.Remove(entity);
     }
@@ -63,15 +63,15 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 
-    public T Save(T entity)
+    public async Task<T?> Save(T entity)
     {
         _db.Add(entity);
         _db.SaveChanges();
         return entity;
     }
 
-    public void Save()
-    {
+    public async Task  Save()
+    { 
         _db.SaveChanges();
     }
     
