@@ -8,7 +8,7 @@ public interface IRepository<T> where T : class
     IEnumerable<T?> GetAll();
     T? Get(Expression<Func<T?, bool>> filter);
     void Add(T? entity);
-    void Remove(T? entity);
+    Task Remove(T? entity);
 
     // Asynchronous Functions
     Task<IEnumerable<T?>> GetAllAsync();
@@ -19,11 +19,11 @@ public interface IRepository<T> where T : class
     
     void RemoveById(int id);
     
-    T Save(T entity);
+    Task<T?> Save(T entity);
     
     Task RemoveByIdAsync(int id);
     
-    void Save();
+    Task Save();
     
    // Task<int> GetProcessStepIdByStudentId<TU>(int id) where TU : class, IStudentEntity;
 

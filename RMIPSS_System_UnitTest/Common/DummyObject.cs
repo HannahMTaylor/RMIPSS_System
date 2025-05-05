@@ -17,11 +17,16 @@ public class DummyObject
             FirstName = "John",
             LastName = "Doe",
             Email = "doe@gmail.com",
-            SEProcessSteps = SEProcessSteps.SE4
-            
+            SEProcessSteps = SEProcessSteps.SE4,
+            // Set required fields with sample values
+            Sex = 'M',
+            Age = 12,
+            DOB = new DateOnly(2012, 1, 1),
+            School = null,
+            SEProcessCompletedDate = DateOnly.FromDateTime(DateTime.Today)
         };
 
-        Student savedStudent =  Repositories._studentRepository.Save(student);
+        Student savedStudent =  await Repositories._studentRepository.Save(student);
        // CreateDummyConsentForm(savedStudent.Id);
         return savedStudent;
 
@@ -44,6 +49,38 @@ public class DummyObject
            return consentForm.Id;
        
        return 0;
+    }
+    
+    private static Student SanitizeStudent(Student student)
+    {
+        var props = typeof(Student).GetProperties()
+            .Where(p =>p.CanRead && p.CanWrite);
+
+        foreach (var prop in props)
+        {
+            var value = prop.GetValue(student);
+
+            // Sanitize string values
+            if (value is string str && str.Contains('\0'))
+            {
+                prop.SetValue(student, str.Replace("\0", ""));
+            }
+
+            // Sanitize char values
+            else if (value is char c && c == '\0')
+            {
+                // Replace with space or other valid default
+                prop.SetValue(student, ' ');
+            }
+
+            // Sanitize nullable char values
+            else if (value == typeof(char?) && value != null && (char)value == '\0')
+            {
+                // Set to null or a valid default like ' '
+                prop.SetValue(student, null);
+            }
+        }
+        return student;
     }
     
     public  static ConsentFormViewModel CreateConsentFormViewModel(int studentId)
@@ -71,7 +108,7 @@ public class DummyObject
             CompletedByEmail = "prince@gmail.com"
         };
         //Act
-        SE2? savedsSe2 = Repositories._se2Repository.Save(se2);
+        SE2? savedsSe2 = await Repositories._se2Repository.Save(se2);
         if (savedsSe2 != null) 
             return savedsSe2.Id;
        
@@ -89,7 +126,7 @@ public class DummyObject
     public async static Task DeleteDummySe2Form(int se2Id)
     {
         await Repositories._se2Repository.RemoveByIdAsync(se2Id);
-        Repositories._se2Repository.Save();
+        await Repositories._se2Repository.Save();
         SE2? savedse2 = await Repositories._se2Repository.GetByIdAsync(se2Id);
         Assert.That(savedse2, Is.EqualTo(null));
     }
@@ -97,7 +134,7 @@ public class DummyObject
     public async static Task DeleteDummyStudent(int studentId)
     {
         await Repositories._studentRepository.RemoveByIdAsync(studentId);
-        Repositories._studentRepository.Save();
+        await Repositories._studentRepository.Save();
         Student? removedStudent = await Repositories._studentRepository.GetByIdAsync(studentId);
         Assert.That(removedStudent, Is.EqualTo(null));
     }

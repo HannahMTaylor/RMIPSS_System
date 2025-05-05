@@ -71,8 +71,8 @@ public class AStudentService
             Assert.That(result.SEProcessCompletedDate, Is.EqualTo(DateOnly.FromDateTime(DateTime.Now)));
 
             // Revert the changes
-            Repositories._studentRepository.Remove(result);
-            Repositories._studentRepository.Save();
+           await Repositories._studentRepository.Remove(result);
+           await Repositories._studentRepository.Save();
         }
 
         result = _sut.GetStudent(student.Id).Result;
@@ -89,7 +89,7 @@ public class AStudentService
             LastName = "qwertyuiopasdfghjkl"
         };
 
-        Student savedStudent = Repositories._studentRepository.Save(student);
+        Student? savedStudent = await Repositories._studentRepository.Save(student);
         
         // Act
         var (students, totalStudents) =
@@ -100,8 +100,8 @@ public class AStudentService
         Assert.That(students, Is.Not.Empty);
         
         // Revert the changes
-        Repositories._studentRepository.Remove(student);
-        Repositories._studentRepository.Save();
+       await Repositories._studentRepository.Remove(student);
+       await Repositories._studentRepository.Save();
         Student? result = _sut.GetStudent(student.Id).Result;
         Assert.That(result, Is.Null);
     }
